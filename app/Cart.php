@@ -179,7 +179,7 @@ class Cart extends Authenticatable
                 'qtype'    => $row->qty_type,
                 'qty'      => $row->qty,
                 'item'     => $u->getLangItem($row->item_id,$_GET['lid'])['name'],
-                'img'      => $row->img ? Asset('upload/item/'.$row->img) : null,
+                'img'      => $row->img ? asset('public/upload/item/'.$row->img) : null,
                 'qtyName'  => $qtyName,
                 'addon'    => $this->cartAddon($row->id,$row->item_id),
                 'SubTotal' => $this->getTotalxItem($cartNo,$row->item_id)

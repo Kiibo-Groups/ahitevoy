@@ -36,7 +36,7 @@
 
 <tr>
 <td width="17%">@if($row->city) {{ $row->city }} @else All City @endif</td>
-<td width="17%"><img src="{{ Asset('upload/banner/'.$row->img) }}" height="70"></td>
+<td width="17%"><img src="{{ asset('public/upload/banner/'.$row->img) }}" height="70"></td>
 <td width="17%">{{ $row->getPosition($row->position) }}</td>
 
 <td width="17%">

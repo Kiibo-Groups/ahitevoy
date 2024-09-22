@@ -46,7 +46,7 @@ class OfferStore extends Authenticatable
 
             'id'   => $row->id,
             'desc' => $row->description,
-            'img'  => $row->img ? Asset('upload/offer/'.$row->img) : null  
+            'img'  => $row->img ? asset('public/upload/offer/'.$row->img) : null  
 
             ];
         }

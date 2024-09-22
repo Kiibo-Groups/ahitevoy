@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             @if($data->logo)
-                                            <img src="{{ Asset('upload/admin/'.$data->logo) }}" width="50" >
+                                            <img src="{{ asset('public/upload/admin/'.$data->logo) }}" width="50" >
                                             @endif
                                         </div>
                                     </div>

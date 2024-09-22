@@ -116,7 +116,7 @@
 
 @if($data->img)
 
-<img src="{{ Asset('upload/user/'.$data->img) }}" width="50px"><br><br>
+<img src="{{ asset('public/upload/user/'.$data->img) }}" width="50px"><br><br>
 
 @endif
 
@@ -206,7 +206,7 @@
 <div class="form-row">
 @foreach($images as $img)
 <div class="form-group col-md-2">
-<img src="{{ Asset('upload/user/gallery/'.$img->img) }}" width="50%"><br>
+<img src="{{ asset('public/upload/user/gallery/'.$img->img) }}" width="50%"><br>
 <a href="{{ Asset(env('admin').'/imageRemove/'.$img->id) }}" onclick="return confirm('Are you sure?')" style="color:Red">Remove</a>
 </div>
 @endforeach

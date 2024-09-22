@@ -37,7 +37,7 @@
 @foreach($data as $row)
 
 <tr>
-<!-- <td width="5%"><img src="{{ Asset('upload/user/'.$row->img) }}" height="30px"></td> -->
+<!-- <td width="5%"><img src="{{ asset('public/upload/user/'.$row->img) }}" height="30px"></td> -->
 <td width="20%">{{ $row->name }}<br>
     <small>
         {{ $row->Cat }}

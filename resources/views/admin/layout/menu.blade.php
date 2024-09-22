@@ -6,7 +6,7 @@
     <!-- begin sidebar branding-->
     <a href="{{ Asset(env('admin') . '/home') }}"
         style="width: 100%;display: flex;justify-content: space-evenly;align-items: center;">
-        <img src="{{ asset('upload/admin/' . Auth::guard('admin')->user()->logo) }}" alt="logo"
+        <img src="{{ asset('public/upload/admin/' . Auth::guard('admin')->user()->logo) }}" alt="logo"
             style="width: 50px;height: 50px;border-radius: 2003px;">
 
         {{ Auth::guard('admin')->user()->name }}

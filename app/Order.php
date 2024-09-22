@@ -106,7 +106,7 @@ class Order extends Authenticatable
                   'store'     => [
                      'name'      => User::find($add->store_id)->name,
                      'address'   => User::find($add->store_id)->address,
-                     'img'       =>  Asset('upload/user/'.User::find($add->store_id)->img),
+                     'img'       =>  asset('public/upload/user/'.User::find($add->store_id)->img),
                      'lat'       => User::find($add->store_id)->lat,
                      'lng'       => User::find($add->store_id)->lng
                   ],

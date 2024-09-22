@@ -3,7 +3,7 @@
 
 <div class="card py-3 m-b-30">
     @if($data->logo)
-        <img src="{{ Asset('upload/user/logo/'.$data->logo) }}" 
+        <img src="{{ asset('public/upload/user/logo/'.$data->logo) }}" 
         style="position:absolute;
         max-height:150px;
         top:-105px;
@@ -13,7 +13,7 @@
     @endif
 
     @if($data->img)
-        <img src="{{ Asset('upload/user/'.$data->img) }}" width="100px" style="position:absolute;top:-30px;right:15px;border-radius:15px;z-index:5;">
+        <img src="{{ asset('public/upload/user/'.$data->img) }}" width="100px" style="position:absolute;top:-30px;right:15px;border-radius:15px;z-index:5;">
     @endif
 
 <div class="card-body" style="padding-top:80px;">

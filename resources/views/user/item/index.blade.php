@@ -70,7 +70,7 @@
 @foreach($data as $row)
 
 <tr>
-<td width="15%">@if($row->img) <img src="{{ Asset('upload/item/'.$row->img) }}" height="50"> @endif</td>
+<td width="15%">@if($row->img) <img src="{{ asset('public/upload/item/'.$row->img) }}" height="50"> @endif</td>
 <td width="12%">{{ $row->cate }}</td>
 <td width="17%">{{ $row->name }}</td>
 <td width="12%">{{ $row->sort_no }}</td>

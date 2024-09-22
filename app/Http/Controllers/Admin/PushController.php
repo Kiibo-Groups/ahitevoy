@@ -44,7 +44,7 @@ class PushController extends Controller {
 		{
 			$filename = time().rand(111,699).'.' .$Request->file('img')->getClientOriginalExtension();
             $Request->file('img')->move("upload/push/",$filename);
-            $img = Asset('upload/push/'.'/'.$filename);
+            $img = asset('public/upload/push/'.'/'.$filename);
 		}
 		
 		// Tipo de notificaciones

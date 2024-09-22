@@ -89,7 +89,7 @@ class Banner extends Authenticatable
             $data[] = [
 
             'id'        => $row->id,
-            'img'       => Asset('upload/banner/'.$row->img),
+            'img'       => asset('public/upload/banner/'.$row->img),
             'type'      => $row->design_type,
             'position'  => $row->position,
             'link'      => count($link) > 0 ? true : false

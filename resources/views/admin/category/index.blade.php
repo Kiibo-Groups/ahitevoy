@@ -37,7 +37,7 @@
 
 <tr>
 <td width="20%">{{ $row->sort_no }}</td>
-<td width="20%"><img src="{{ Asset('upload/categorys/'.$row->img) }}" width="50" alt="Icon Category"></td>
+<td width="20%"><img src="{{ asset('public/upload/categorys/'.$row->img) }}" width="50" alt="Icon Category"></td>
 <td width="20%">{{ $row->name }}</td>
 <td width="27%">
 

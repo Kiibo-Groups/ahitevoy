@@ -79,7 +79,7 @@ class CategoryStore extends Authenticatable
             $data[] = [
             'id'            => $row->id,
             'name'          => $row->name,
-            'img'           => $row->img ? Asset('upload/categorys/'.$row->img) : null,
+            'img'           => $row->img ? asset('public/upload/categorys/'.$row->img) : null,
             'status'        => $row->status,
             'sort_no'       => $row->sort_no,
             ];

@@ -35,7 +35,7 @@
 @foreach($data as $row)
 
 <tr>
-<td width="20%"><img src="{{ Asset('upload/slider/'.$row->img) }}" height="60"></td>
+<td width="20%"><img src="{{ asset('public/upload/slider/'.$row->img) }}" height="60"></td>
 <td width="20%">{{ $row->sort_no }}</td>
 <td width="40%">{{ strip_tags($row->title) }}</td>
 

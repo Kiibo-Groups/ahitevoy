@@ -47,7 +47,7 @@
 
 @if($data->id)
 
-<img src="{{ Asset('upload/banner/'.$data->img) }}" height="100"><br><br>
+<img src="{{ asset('public/upload/banner/'.$data->img) }}" height="100"><br><br>
 
 @endif
 

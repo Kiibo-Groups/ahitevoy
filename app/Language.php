@@ -48,7 +48,7 @@ class Language extends Authenticatable
 
         foreach($all as $a)
         {
-            $img    = Asset('upload/language/'.$a['icon']);
+            $img    = asset('public/upload/language/'.$a['icon']);
             $data[] = ['id' => $a['id'],'name' => $a['name'],'icon' => $a['icon'],'img' => $img,'type' => $a['type']];
         }
 

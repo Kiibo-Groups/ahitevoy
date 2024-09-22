@@ -389,8 +389,8 @@ class User extends Authenticatable
             $data[] = [
                 'id'            => $row->id,
                 'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                'img'           => Asset('upload/user/'.$row->img),
-                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                'img'           => asset('public/upload/user/'.$row->img),
+                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                 'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                 'open'          => $open,
                 'trending'      => $row->trending,
@@ -484,8 +484,8 @@ class User extends Authenticatable
                 $open_store[] = [
                     'id'            => $row->id,
                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                    'img'           => Asset('upload/user/'.$row->img),
-                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                    'img'           => asset('public/upload/user/'.$row->img),
+                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                     'open'          => $open,
                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -503,8 +503,8 @@ class User extends Authenticatable
                 $close_store[] = [
                     'id'            => $row->id,
                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                    'img'           => Asset('upload/user/'.$row->img),
-                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                    'img'           => asset('public/upload/user/'.$row->img),
+                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                     'open'          => $open,
                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -607,8 +607,8 @@ class User extends Authenticatable
                             $data[] = [
                                 'id'            => $row->id,
                                 'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                'img'           => Asset('upload/user/'.$row->img),
-                                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                'img'           => asset('public/upload/user/'.$row->img),
+                                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                 'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                 'open'          => $open,
                                 'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -629,8 +629,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -651,8 +651,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -671,8 +671,8 @@ class User extends Authenticatable
                             $data[] = [
                                 'id'            => $row->id,
                                 'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                'img'           => Asset('upload/user/'.$row->img),
-                                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                'img'           => asset('public/upload/user/'.$row->img),
+                                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                 'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                 'open'          => $open,
                                 'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -693,8 +693,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -715,8 +715,8 @@ class User extends Authenticatable
                                     $data[] = [
                                         'id'            => $row->id,
                                         'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                        'img'           => Asset('upload/user/'.$row->img),
-                                        'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                        'img'           => asset('public/upload/user/'.$row->img),
+                                        'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                         'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                         'open'          => $open,
                                         'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -737,8 +737,8 @@ class User extends Authenticatable
                                     $data[] = [
                                         'id'            => $row->id,
                                         'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                        'img'           => Asset('upload/user/'.$row->img),
-                                        'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                        'img'           => asset('public/upload/user/'.$row->img),
+                                        'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                         'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                         'open'          => $open,
                                         'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -757,8 +757,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -783,8 +783,8 @@ class User extends Authenticatable
                             $data[] = [
                                 'id'            => $row->id,
                                 'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                'img'           => Asset('upload/user/'.$row->img),
-                                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                'img'           => asset('public/upload/user/'.$row->img),
+                                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                 'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                 'open'          => $open,
                                 'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -805,8 +805,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -827,8 +827,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -848,8 +848,8 @@ class User extends Authenticatable
                             $data[] = [
                                 'id'            => $row->id,
                                 'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                'img'           => Asset('upload/user/'.$row->img),
-                                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                'img'           => asset('public/upload/user/'.$row->img),
+                                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                 'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                 'open'          => $open,
                                 'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -870,8 +870,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -892,8 +892,8 @@ class User extends Authenticatable
                                     $data[] = [
                                         'id'            => $row->id,
                                         'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                        'img'           => Asset('upload/user/'.$row->img),
-                                        'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                        'img'           => asset('public/upload/user/'.$row->img),
+                                        'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                         'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                         'open'          => $open,
                                         'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -914,8 +914,8 @@ class User extends Authenticatable
                                     $data[] = [
                                         'id'            => $row->id,
                                         'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                        'img'           => Asset('upload/user/'.$row->img),
-                                        'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                        'img'           => asset('public/upload/user/'.$row->img),
+                                        'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                         'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                         'open'          => $open,
                                         'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -934,8 +934,8 @@ class User extends Authenticatable
                                 $data[] = [
                                     'id'            => $row->id,
                                     'title'         => $this->getLang($row->id,$_GET['lid'])['name'],
-                                    'img'           => Asset('upload/user/'.$row->img),
-                                    'logo'           => Asset('upload/user/logo/'.$row->logo),
+                                    'img'           => asset('public/upload/user/'.$row->img),
+                                    'logo'           => asset('public/upload/user/logo/'.$row->logo),
                                     'address'       => $this->getLang($row->id,$_GET['lid'])['address'],
                                     'open'          => $open,
                                     'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
@@ -1022,8 +1022,8 @@ class User extends Authenticatable
             $data[] = [
                 'id'            => $row->id,
                 'title'         => $row->name,
-                'img'           => Asset('upload/user/'.$row->img),
-                'logo'           => Asset('upload/user/logo/'.$row->logo),
+                'img'           => asset('public/upload/user/'.$row->img),
+                'logo'           => asset('public/upload/user/logo/'.$row->logo),
                 'open'          => $open,
                 'rating'        => $avg > 0 ? number_format($avg, 1) : '0.0',
                 'delivery_time' => $row->delivery_time,
@@ -1177,7 +1177,7 @@ class User extends Authenticatable
         
         foreach($res as $row)
         {
-            $data[] = ['img' => Asset('upload/user/gallery/'.$row->img)];
+            $data[] = ['img' => asset('public/upload/user/gallery/'.$row->img)];
         }
 
         return $data;
@@ -1217,7 +1217,7 @@ class User extends Authenticatable
                 $item[] = [
                     'id'            => $i->id,
                     'name'          => $this->getLangItem($i->id,$_GET['lid'])['name'],
-                    'img'           => $i->img ? Asset('upload/item/'.$i->img) : null,
+                    'img'           => $i->img ? asset('public/upload/item/'.$i->img) : null,
                     'description'   => $this->getLangItem($i->id,$_GET['lid'])['desc'],
                     's_price'       => $IPrice,
                     'price'         => $price,
@@ -1275,7 +1275,7 @@ class User extends Authenticatable
             $data[] = [
                 'id'            => $i->id,
                 'name'          => $this->getLangItem($i->id,$_GET['lid'])['name'],
-                'img'           => $i->img ? Asset('upload/item/'.$i->img) : null,
+                'img'           => $i->img ? asset('public/upload/item/'.$i->img) : null,
                 'description'   => $this->getLangItem($i->id,$_GET['lid'])['desc'],
                 's_price'       => $IPrice,
                 'price'         => $price,

@@ -21,7 +21,7 @@
 
 @if($data->about_img)
 
-<br><img src="{{ Asset('upload/page/'.$data->about_img) }}" height="60"> 
+<br><img src="{{ asset('public/upload/page/'.$data->about_img) }}" height="60"> 
 
 <a href="{{ Asset($form_url.'/add?remove=about_img') }}" onclick="return confirm('Are you sure?')" style="color:red">Remove</a>
 
@@ -50,7 +50,7 @@
 
 @if($data->how_img)
 
-<br><img src="{{ Asset('upload/page/'.$data->how_img) }}" height="60">
+<br><img src="{{ asset('public/upload/page/'.$data->how_img) }}" height="60">
 
 <a href="{{ Asset($form_url.'/add?remove=how_img') }}" onclick="return confirm('Are you sure?')" style="color:red">Remove</a>
 

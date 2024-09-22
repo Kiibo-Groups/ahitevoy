@@ -35,7 +35,7 @@
 @foreach($data as $row)
 
 <tr>
-<td width="25%">@if($row->icon) <img src="{{ Asset('upload/language/'.$row->icon) }}" height="30"> @endif</td>
+<td width="25%">@if($row->icon) <img src="{{ asset('public/upload/language/'.$row->icon) }}" height="30"> @endif</td>
 <td width="25%">{{ $row->name }}</td>
 <td width="25%">@if($row->type == 0) Left to Right @else Right to Left @endif</td>
 

@@ -47,7 +47,7 @@ class Slider extends Authenticatable
 
         foreach($this->getAll() as $row)
         {
-            $data[] = ['title' => $row->title,'img' => Asset('upload/slider/'.$row->img)];
+            $data[] = ['title' => $row->title,'img' => asset('public/upload/slider/'.$row->img)];
         }
 
         return $data;

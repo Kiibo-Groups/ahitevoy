@@ -12,7 +12,7 @@
             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
                 data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
-                <img src="{{ asset('upload/admin/' . Auth::guard('admin')->user()->logo) }}" alt="user-image" style="width: 35px;height: 35px;border-radius: 2003px;">
+                <img src="{{ asset('public/upload/admin/' . Auth::guard('admin')->user()->logo) }}" alt="user-image" style="width: 35px;height: 35px;border-radius: 2003px;">
                 <span class="pro-user-name ms-1">
                     {{Auth::guard('admin')->user()->name }} 
                 </span>

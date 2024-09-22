@@ -58,8 +58,8 @@ class Page extends Authenticatable
         'how'             => $how,
         'faq'             => $faq,
         'contact_us'      => $contact_us,
-        'about_img'       => $res->about_img ? Asset('upload/page/'.$res->about_img) : null,
-        'how_img'         => $res->how_img ? Asset('upload/page/'.$res->how_img) : null,
+        'about_img'       => $res->about_img ? asset('public/upload/page/'.$res->about_img) : null,
+        'how_img'         => $res->how_img ? asset('public/upload/page/'.$res->how_img) : null,
 
         ];
 

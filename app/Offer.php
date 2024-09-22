@@ -100,7 +100,7 @@ class Offer extends Authenticatable
             $data[] = [
                 'id'        => $row->id,
                 'code'      => $row->code,
-                'img'       => $row->img ? Asset('upload/offers/'.$row->img) : null,
+                'img'       => $row->img ? asset('public/upload/offers/'.$row->img) : null,
                 'desc'      => $row->description,
                 'min_cart'  => $row->min_cart_value,
                 'type'      => $row->type,
