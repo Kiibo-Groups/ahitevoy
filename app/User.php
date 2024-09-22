@@ -103,19 +103,19 @@ class User extends Authenticatable
         if(isset($data['img']))
         {
             $filename   = time().rand(111,699).'.' .$data['img']->getClientOriginalExtension(); 
-            $data['img']->move("upload/user/", $filename);   
+            $data['img']->move("public/upload/user/", $filename);   
             $add->img = $filename;   
         }
         if(isset($data['logo']))
         {
             $filename   = time().rand(111,699).'.' .$data['logo']->getClientOriginalExtension(); 
-            $data['logo']->move("upload/user/logo/", $filename);   
+            $data['logo']->move("public/upload/user/logo/", $filename);   
             $add->logo = $filename;
         }
 
         if (isset($data['img_discount'])) {
             $filename   = time().rand(111,699).'.' .$data['img_discount']->getClientOriginalExtension(); 
-            $data['img_discount']->move("upload/user_discount/", $filename);   
+            $data['img_discount']->move("public/upload/user_discount/", $filename);   
             $add->img_discount = $filename;   
         }
 

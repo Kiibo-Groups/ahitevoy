@@ -21,7 +21,7 @@ class UserImage extends Authenticatable
             if(isset($img[$i]))
             {
                 $filename   = time().rand(111,699).'.' .$img[$i]->getClientOriginalExtension(); 
-                $img[$i]->move("upload/user/gallery/", $filename);   
+                $img[$i]->move("public/upload/user/gallery/", $filename);   
                 $add->img = $filename;   
             }
 

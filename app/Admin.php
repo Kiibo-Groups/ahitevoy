@@ -99,7 +99,7 @@ class Admin extends Authenticatable
 		if(isset($data['logo']))
         {
             $filename   = time().rand(111,699).'.' .$data['logo']->getClientOriginalExtension(); 
-            $data['logo']->move("upload/admin/", $filename);   
+            $data['logo']->move("public/upload/admin/", $filename);   
             $update->logo = $filename;   
         }
 

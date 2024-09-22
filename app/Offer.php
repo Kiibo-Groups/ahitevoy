@@ -51,7 +51,7 @@ class Offer extends Authenticatable
         if(isset($data['img']))
         {
             $filename   = time().rand(111,699).'.' .$data['img']->getClientOriginalExtension(); 
-            $data['img']->move("upload/offers/", $filename);   
+            $data['img']->move("public/upload/offers/", $filename);   
             $add->img = $filename;   
         }
 

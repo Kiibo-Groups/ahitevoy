@@ -64,7 +64,7 @@ class Item extends Authenticatable
         if(isset($data['img']))
         {
             $filename   = time().rand(111,699).'.' .$data['img']->getClientOriginalExtension(); 
-            $data['img']->move("upload/item/", $filename);   
+            $data['img']->move("public/upload/item/", $filename);   
             $add->img = $filename;   
         }
 
