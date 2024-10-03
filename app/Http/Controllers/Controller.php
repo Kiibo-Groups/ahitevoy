@@ -33,7 +33,7 @@ class Controller extends BaseController
 		}
 		
 		$fields = array(
-			'app_id' => "0883c43e-0272-4c81-9e54-4649ab40d6fa",
+			'app_id' => "9ed29aa5-c364-430e-8ab3-729c5c6ce496",
 			'included_segments' => array('All'),	
 			'filters' => [$daTags],
 			'data' => array("foo" => "bar"),
@@ -49,7 +49,7 @@ class Controller extends BaseController
 		
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-		'Authorization: Basic NTJjOTA2MTEtYmU1Yi00NDI0LTk2NjQtMjFiZWNiYzA1YmZm'));
+		'Authorization: Basic NTNhM2FiZDItYzAzMy00YzRlLWIzYzUtMjEzY2MyMjdlMjg1'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
