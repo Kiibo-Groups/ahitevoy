@@ -272,7 +272,6 @@ class ApiController extends Controller {
 	public function signup(Request $Request)
 	{
 		$res = new AppUser;
-
 		return response()->json($res->addNew($Request->all()));
 	}
 
@@ -301,7 +300,6 @@ class ApiController extends Controller {
 	public function login(Request $Request)
 	{
 		$res = new AppUser;
-
 		return response()->json($res->login($Request->all()));
 	}
 

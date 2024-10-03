@@ -81,6 +81,9 @@ class Admin extends Authenticatable
 		$update->max_distance_staff = isset($data['max_distance_staff']) ? $data['max_distance_staff'] : 0;
         $update->min_value          = isset($data['min_value']) ? $data['min_value'] : 0;
 		$update->store_type 		= isset($data['store_type']) ? $data['store_type'] : null;
+		$update->openpay_client_id  = isset($data['openpay_client_id']) ? $data['openpay_client_id'] : null;
+		$update->openpay_private_key  = isset($data['openpay_private_key']) ? $data['openpay_private_key'] : null;
+		$update->openpay_public_key  = isset($data['openpay_public_key']) ? $data['openpay_public_key'] : null;
 		$update->paypal_client_id 	= isset($data['paypal_client_id']) ? $data['paypal_client_id'] : null;
 		$update->stripe_client_id 	= isset($data['stripe_client_id']) ? $data['stripe_client_id'] : null;
 		$update->stripe_api_id 		= isset($data['stripe_api_id']) ? $data['stripe_api_id'] : null;
