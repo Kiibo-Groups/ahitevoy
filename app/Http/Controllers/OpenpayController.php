@@ -25,7 +25,7 @@ class OpenpayController extends BaseController
             'phone' => isset($data['phone']) ? $data['phone'] : ''
         );
         
-        return $this->CurlGet($fields,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/addClient");
+        return $this->CurlGet($fields,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/addClient");
 	}
 
     // Obtenemos el Cliente
@@ -36,13 +36,13 @@ class OpenpayController extends BaseController
             'customer' => $data['customer']
         );
 
-        return $this->CurlGet($fields,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/getClient");
+        return $this->CurlGet($fields,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/getClient");
     }
 
     // Agregamos tarjeta al cliente
     function SetCardClient($data)
     {
-        return $this->CurlGet($data,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/SetCardClient");
+        return $this->CurlGet($data,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/SetCardClient");
     }
 
     // Obtenemos listado de tarjetas
@@ -52,7 +52,7 @@ class OpenpayController extends BaseController
             'customer' => $data['customer']
         );
 
-        return $this->CurlGet($fields,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/getCardsClient");
+        return $this->CurlGet($fields,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/getCardsClient");
     }
 
     // Eliminamos una tarjeta
@@ -63,7 +63,7 @@ class OpenpayController extends BaseController
             'cardId'   => $data['cardId']
         );
 
-        return $this->CurlGet($data,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/deleteCardClient");
+        return $this->CurlGet($data,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/deleteCardClient");
     }
 
     // Obtenemos tarjeta unica
@@ -74,7 +74,7 @@ class OpenpayController extends BaseController
             'cardId'   => $data['cardId']
         );
 
-        return $this->CurlGet($data,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/GetCardclient");
+        return $this->CurlGet($data,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/GetCardclient");
     }
 
     // Generate Charge Cliente
@@ -88,7 +88,7 @@ class OpenpayController extends BaseController
             'customer_id' => $data['customer_id']
         );
 
-        return $this->CurlGet($data,"https://us-central1-fudiapp-eaa69.cloudfunctions.net/app/api/chargeClient");
+        return $this->CurlGet($data,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/chargeClient");
     }
 
     function CurlGet($fields,$url)
