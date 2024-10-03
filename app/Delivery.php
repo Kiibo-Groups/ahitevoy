@@ -72,7 +72,7 @@ class Delivery extends Authenticatable
             $add->status_admin = 1; // Bloqueado
         }else {
             $add->status            = isset($data['status']) ? $data['status'] : 0;
-            $add->status_admin            = isset($data['status_admin']) ? $data['status_admin'] : 0;
+            $add->status_admin      = isset($data['status_admin']) ? $data['status_admin'] : 0;
         }
 
         if(isset($data['password']))
@@ -98,13 +98,13 @@ class Delivery extends Authenticatable
             );
             
             if ($type == 'add') {
-                $addServer->newStaffDelivery($return);
+                $req_ext = $addServer->newStaffDelivery($return);
             }else {
-                $addServer->updateStaffDelivery($return);
+                $req_ext = $addServer->updateStaffDelivery($return);
             }
 
             if ($from == 'app') {
-                return ['msg' => 'done','user_id' => $add->id, 'external_id' => $add->external_id]; 
+                return ['msg' => 'done','user_id' => $add->id, 'external_id' => $add->external_id, 'req' => $req_ext]; 
             }
        }catch (\Throwable $th) {
         if ($from == 'app') {
