@@ -126,7 +126,7 @@ class Controller extends BaseController
 		}
 		
 		$fields = array(
-		'app_id' => "e5b2cb6c-1b6b-44fa-9365-b603277b7f4e",
+		'app_id' => "00275f8b-54f7-454c-8ea1-509cb10ad1b1",
 		'included_segments' => array('All'),	
 		'filters' => [$daTags],
 		'data' => array("foo" => "bar"),
@@ -141,7 +141,7 @@ class Controller extends BaseController
 		
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-		'Authorization: Basic YjBkMzlkNGQtNjY4Ny00YWVmLWFlNGYtYWUzZGM0MjM0MTJm'));
+		'Authorization: Basic YzFkODNjNjYtOTEwMi00NDc1LWI5MGQtYjA5NzM0OTc3NjU5'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -172,7 +172,7 @@ class Controller extends BaseController
 		}
 		
 		$fields = array(
-			'app_id' => "b66021b6-480b-492e-99c0-fdd30ca9c9e2",
+			'app_id' => "c41d3e93-68e5-4b01-9dfd-eb898b272e5b",
 			'included_segments' => array('All'),	
 			'filters' => [$daTags],
 			'data' => array("foo" => "bar"),
@@ -187,7 +187,7 @@ class Controller extends BaseController
 		
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-		'Authorization: Basic NzMyYjZhOWMtYzAyNC00NmQ2LWFhYTEtMGQ3Y2I1NmRkNmM2'));
+		'Authorization: Basic M2MyOTI0OGUtNTE3Ni00Y2ZhLWE4MjMtZmNhZjMwMWJjNjM4'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -218,7 +218,7 @@ class Controller extends BaseController
 		}
 
 		$fields = array(
-			'app_id' => "b66021b6-480b-492e-99c0-fdd30ca9c9e2",
+			'app_id' => "b66021b6-480b-492e-99c0-fdd30ca9c9ase2",
 			'included_segments' => array('All'),
 			'data' => array("foo" => "bar"),
 			'filters' => [$daTags],
@@ -233,7 +233,7 @@ class Controller extends BaseController
 
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-		'Authorization: Basic NzMyYjZhOWMtYzAyNC00NmQ2LWFhYTEtMGQ3Y2I1NmRkNmM2'));
+		'Authorization: Basic NzMyYjZhOWMtYzAyNC00NmQ2LWFhYTEtMGQ3Y2I1NmRaskNmM2'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);

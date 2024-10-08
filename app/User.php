@@ -1296,25 +1296,17 @@ class User extends Authenticatable
         $lid  = $lid > 0 ? $lid : 0;
         $data = Category::find($id);
 
-        if($lid == 0)
-        {
-            if($data){
-                return [
+        if($data){
+            return [
                 'id'            => $data->id,
                 'sort_no'       => $data->sort_no,
                 'name'          => $data->name,
                 'required'      => $data->required,
                 'single_opcion' => $data->single_option,
                 'max_options'   => $data->max_options
-            ]   ;
-            }
+            ];
         }
-        else
-        {
-            $data = unserialize($data->s_data);
 
-            return ['name' => $data[$lid]];
-        }
     }
 
     public function getLangItem($id,$lid)

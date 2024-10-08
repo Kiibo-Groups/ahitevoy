@@ -193,8 +193,7 @@ class StoreController extends Controller {
 
 	public function getItem()
 	{
-		$res = new User;
-
+		$res = new User; 
 		return response()->json(['data' => $res->menuItem($_GET['id'],$_GET['type'],$_GET['value'])]);
 	}
 
