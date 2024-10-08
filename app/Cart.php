@@ -268,8 +268,6 @@ class Cart extends Authenticatable
         $val = 0;
         $admin = Admin::find(1);
 
-       
-
         if(isset($cart->id))
         {
             $usr = User::where('id',$cart->store_id)
@@ -307,7 +305,16 @@ class Cart extends Authenticatable
                        
                         if ($c_type == 0) {
                             // Es un valor x KM
-                            $val = $UserTab->Costs_shipKM($c_value,$min_distance,$min_value,$user->distance);
+                            $val = $UserTab->Costs_shipKM(
+                                $c_value,
+                                $min_distance,
+                                $min_value,
+                                $latD,
+                                $lngD,
+                                $lat,
+                                $lng
+                            );
+
                         }else {
                             // es un valor fijo
                             $val = $this->checaValor($c_value);
@@ -322,7 +329,14 @@ class Cart extends Authenticatable
                     
                     if ($c_type == 0) {
                         // Es un valor x KM
-                        $val = $UserTab->Costs_shipKM($c_value,$min_distance,$min_value,$user->distance);
+                        $val = $UserTab->Costs_shipKM(
+                            $c_value,
+                            $min_distance,
+                            $min_value,
+                            $latD,
+                            $lngD,
+                            $lat,
+                            $lng);
                     }else {
                         // es un valor fijo
                         $val = $this->checaValor($c_value);

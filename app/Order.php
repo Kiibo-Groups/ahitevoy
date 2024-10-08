@@ -363,9 +363,9 @@ class Order extends Authenticatable
      foreach ($req as $key) {
          
          $data[] = [
-             'dboy' => ($key->d_boy != 0) ? Delivery::find($key->d_boy) : [],
-             'store' => ($key->store_id != 0) ? User::find($key->store_id): [],
-             'order' => $key
+            'dboy' => ($key->d_boy != 0) ? Delivery::find($key->d_boy) : [],
+            'store' => ($key->store_id != 0) ? User::find($key->store_id): [],
+            'order' => $key
          ];
      }
 

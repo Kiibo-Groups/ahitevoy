@@ -406,7 +406,14 @@ class User extends Authenticatable
                 'items'         => $this->menuItem($row->id,$row->c_type,$row->c_value),
                 'items_trend'   => $this->menuTrend($row->id),
                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
-                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                'delivery_charges_value' => $this->SetCommShip(
+                    $row->id,
+                    $row->p_staff,
+                    $row->distance,
+                    $lat,
+                    $lon,
+                    $row->lat,
+                    $row->lng),
                 'distance'      => bcdiv($row->distance,'1',2),
                 "distance_max"  => $row->distance_max,
                 'km'            => round($row->distance,2),
@@ -493,7 +500,14 @@ class User extends Authenticatable
                     'delivery_time' => $row->delivery_time,
                     'type'          => CategoryStore::find($row->type)->name,
                     'subtype'       => $row->subtype,
-                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                    'delivery_charges_value' => $this->SetCommShip(
+                    $row->id,
+                    $row->p_staff,
+                    $row->distance,
+                    $lat,
+                    $lon,
+                    $row->lat,
+                    $row->lng),
                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                     "distance_max"  => $row->distance_max,
                     'km'            => round($row->distance,2),
@@ -512,7 +526,14 @@ class User extends Authenticatable
                     'delivery_time' => $row->delivery_time,
                     'type'          => CategoryStore::find($row->type)->name,
                     'subtype'       => $row->subtype,
-                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                   'delivery_charges_value' => $this->SetCommShip(
+                    $row->id,
+                    $row->p_staff,
+                    $row->distance,
+                    $lat,
+                    $lon,
+                    $row->lat,
+                    $row->lng),
                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                     "distance_max"  => $row->distance_max,
                     'km'            => round($row->distance,2),
@@ -616,7 +637,14 @@ class User extends Authenticatable
                                 'type'          => CategoryStore::find($row->type)->name,
                                 'subtype'       => $row->subtype,
                                 'delivery_type' => $row->service_del,
-                                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                 "distance_max"  => $row->distance_max,
                                 'km'            => round($row->distance,2),
@@ -638,7 +666,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -660,7 +695,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -680,7 +722,14 @@ class User extends Authenticatable
                                 'type'          => CategoryStore::find($row->type)->name,
                                 'subtype'       => $row->subtype,
                                 'delivery_type' => $row->service_del,
-                                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                 "distance_max"  => $row->distance_max,
                                 'km'            => round($row->distance,2),
@@ -702,7 +751,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -724,7 +780,14 @@ class User extends Authenticatable
                                         'type'          => CategoryStore::find($row->type)->name,
                                         'subtype'       => $row->subtype,
                                         'delivery_type' => $row->service_del,
-                                        'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                        'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                         'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                         "distance_max"  => $row->distance_max,
                                         'km'            => round($row->distance,2),
@@ -746,7 +809,14 @@ class User extends Authenticatable
                                         'type'          => CategoryStore::find($row->type)->name,
                                         'subtype'       => $row->subtype,
                                         'delivery_type' => $row->service_del,
-                                        'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                        'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                         'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                         "distance_max"  => $row->distance_max,
                                         'km'            => round($row->distance,2),
@@ -766,7 +836,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -792,7 +869,14 @@ class User extends Authenticatable
                                 'type'          => CategoryStore::find($row->type)->name,
                                 'subtype'       => $row->subtype,
                                 'delivery_type' => $row->service_del,
-                                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                 "distance_max"  => $row->distance_max,
                                 'km'            => round($row->distance,2),
@@ -814,7 +898,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -836,7 +927,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -857,7 +955,14 @@ class User extends Authenticatable
                                 'type'          => CategoryStore::find($row->type)->name,
                                 'subtype'       => $row->subtype,
                                 'delivery_type' => $row->service_del,
-                                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                 "distance_max"  => $row->distance_max,
                                 'km'            => round($row->distance,2),
@@ -879,7 +984,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -901,7 +1013,14 @@ class User extends Authenticatable
                                         'type'          => CategoryStore::find($row->type)->name,
                                         'subtype'       => $row->subtype,
                                         'delivery_type' => $row->service_del,
-                                        'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                        'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                         'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                         "distance_max"  => $row->distance_max,
                                         'km'            => round($row->distance,2),
@@ -923,7 +1042,14 @@ class User extends Authenticatable
                                         'type'          => CategoryStore::find($row->type)->name,
                                         'subtype'       => $row->subtype,
                                         'delivery_type' => $row->service_del,
-                                        'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                        'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                         'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                         "distance_max"  => $row->distance_max,
                                         'km'            => round($row->distance,2),
@@ -943,7 +1069,14 @@ class User extends Authenticatable
                                     'type'          => CategoryStore::find($row->type)->name,
                                     'subtype'       => $row->subtype,
                                     'delivery_type' => $row->service_del,
-                                    'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                                    'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                                     'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                                     "distance_max"  => $row->distance_max,
                                     'km'            => round($row->distance,2),
@@ -1029,7 +1162,14 @@ class User extends Authenticatable
                 'delivery_time' => $row->delivery_time,
                 'type'          => CategoryStore::find($row->type)->name,
                 'subtype'       => $row->subtype,
-                'delivery_charges_value' => $this->SetCommShip($row->id,$row->p_staff,$row->distance_max,$row->distance),
+                'delivery_charges_value' => $this->SetCommShip(
+                                    $row->id,
+                                    $row->p_staff,
+                                    $row->distance,
+                                    $lat,
+                                    $lon,
+                                    $row->lat,
+                                    $row->lng),
                 'max_distance'  => $this->GetMax_distance($row->id,$row->distance_max,$lat,$lon),
                 'favorite'      => $favorite
             ];
@@ -1050,7 +1190,7 @@ class User extends Authenticatable
         return $res->count();
     }
 
-    public function SetCommShip($id,$type,$max_distance,$distance)
+    public function SetCommShip($id,$type,$distance, $lat_orig, $lng_orig, $lat_dest, $lng_dest)
     {
         $req = null;
         $admin   = Admin::find(1);
@@ -1063,7 +1203,11 @@ class User extends Authenticatable
                     $admin->c_value,
                     $admin->min_distance,
                     $admin->min_value,
-                    $distance);
+                    $lat_orig,
+                    $lng_orig,
+                    $lat_dest,
+                    $lng_dest
+                );
             }else {
                 // El cobro es en Fijo
                 $req = [
@@ -1725,31 +1869,60 @@ class User extends Authenticatable
         return $max;
     }
 
-    function Costs_shipKM($value,$min_distance,$min_value,$distance)
+    function Costs_shipKM($value,$min_distance,$min_value,$lat_orig, $lng_orig,$lat_dest,$lng_dest)
     {
-        $km_inm       = $distance;
+        $admin = Admin::find(1);
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".
+        $lat_orig.",".
+        $lng_orig.
+        "&destinations=".$lat_dest.",".
+        $lng_dest.
+        "&key=".$admin->ApiKey_google;
+        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec ($ch);
+        $info = curl_getinfo($ch);
+        $http_result = $info ['http_code'];
+        curl_close ($ch);
 
-        if ($km_inm > 0) {
-            if ($km_inm < $min_distance) {
-                // la distancia es menor a la requerida
-                $costs_ship  = intval($min_value);
+
+        $request = json_decode($output, true);
+
+        if($request['status'] == 'OK') {
+            $km_inm = $request['rows'][0]['elements'][0]['distance']['value'];
+            if ($km_inm > 0) {
+
+                $distance = ($km_inm / 1000); // 1542 / 1000 = 1.558
+                
+                if (round($distance,2) < $min_distance) {
+                    // la distancia es menor a la requerida
+                    $costs_ship  = intval($min_value);
+                }else {
+                    // $costs_ship = intval($value * $km_inm,2);
+                    // $km_extra   = (round($km_inm) - $min_distance);
+                    // $value_ext  = ($km_extra * $value);
+                    // $costs_ship = ($min_value + $value_ext);
+
+                    $km_extra   = ($distance - $min_distance); // 1.558 - 1 =  0.558
+                    $value_ext  = ($km_extra * intval($value)); // -1.442 * 10
+                    $costs_ship = ($min_value + $value_ext); // 20 + 
+                }
             }else {
-                $costs_ship = intval($value * $km_inm,2);
-                $km_extra   = (round($km_inm) - $min_distance);
-                $value_ext  = ($km_extra * $value);
-                $costs_ship = ($min_value + $value_ext);
+                $costs_ship = 0;
             }
-        }else {
-            $costs_ship = 0;
         }
         
         return [
             'costs_ship'    => $costs_ship,
             'duration'      => 0,
-            'value'   => $value,
-            'min_distance' => $min_distance,
-            'min_value' => $min_value,
-            'distance' => $distance
+            'value'         => intval($value),
+            'min_distance'  => $min_distance,
+            'min_value'     => $min_value,
+            'distance'      => $distance,
+            'request'       => $request
         ];
     }
 
