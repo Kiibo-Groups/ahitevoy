@@ -353,7 +353,6 @@ class Order extends Authenticatable
    public function getListOrder($id)
    {
       $req = Order::where(function($query) use($id){
-
          $query->where('orders.user_id',$id);
          $query->whereIn('orders.status',[0,1,1.5,3,4,5]);
      })->orderBy('id','DESC')
@@ -755,7 +754,7 @@ class Order extends Authenticatable
          $title = "Pedido en ruta";
       }
       elseif ($order->status == 5) {
-         $msg = "🎉 Entregamos tu pedido🎉😃, ayudanos recomendandonos, no te olvides de calificar el comercio y 🏡 #QuedateEnCasa 🏡";
+         $msg = "🎉 Entregamos tu pedido🎉😃, ayudanos recomendandonos, no te olvides de calificar el comercio y el envio de tu servicio.";
          $title = "Pedido entregado";
 
          if($order->payment_method == 1) {
@@ -772,8 +771,8 @@ class Order extends Authenticatable
          $mensaje   .=   "<br />Recibo #".$order->id."<br /> <hr /><br />";
          $mensaje   .=   "Total de compra: ".$admin->currency.$order->total."<br />";
          $mensaje   .=   "Metodo de pago:".$pay_type;
-         $mensaje   .=   "<br /><br /><hr> ayudanos recomendandonos, no te olvides de calificar el comercio y #QuedateEnCasa.";
-         $cabeceras = 'From: Babel Market' . "\r\n";
+         $mensaje   .=   "<br /><br /><hr> ayudanos recomendandonos, no te olvides de calificar el comercio.";
+         $cabeceras = 'From: AhiTeVoy' . "\r\n";
 
          $cabeceras .= 'MIME-Version: 1.0' . "\r\n";
 
