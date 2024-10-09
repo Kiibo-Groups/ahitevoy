@@ -117,12 +117,15 @@ class Admin extends Authenticatable
 
 	public function addNew($data,$type)
     {
+		$admin = Admin::find(1);
+
         $add                    = $type === 'add' ? new Admin : Admin::find($type);
        	$add->username 			= isset($data['username']) ? $data['username'] : null;
        	$add->name 				= isset($data['name']) ? $data['name'] : null;
        	$add->perm 				= isset($data['perm']) ? implode(",", $data['perm']) : null;
 		$add->city_id           = isset($data['city_id']) ? $data['city_id'] : 0;
-
+		$add->logo				= $admin->logo;
+		
         if(isset($data['password']))
         {
             $add->password      = bcrypt($data['password']);

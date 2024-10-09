@@ -93,10 +93,10 @@ class AdminUserController extends Controller {
 
 			return View($this->folder.'edit',[
 
-            'data' 		=> $admin,
-            'citys'     => $city->getAll(0),
-			'form_url'  => env('admin').'/adminUser/'.$id,
-			'array'		=> explode(",", $admin->perm)
+				'data' 		=> $admin,
+				'citys'     => $city->getAll(0),
+				'form_url'  => env('admin').'/adminUser/'.$id,
+				'array'		=> explode(",", $admin->perm)
 
 			]);
 		}else {

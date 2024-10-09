@@ -37,13 +37,10 @@
                 <div class="dropdown-divider"></div>
 
                 <!-- item-->
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item notify-item">
+                <a href="{{ Asset(env('admin') . '/logout') }}" class="dropdown-item notify-item">
                     <i class="fe-log-out"></i>
                     <span>Cerrar sesión</span>
                 </a>
-                <form id="logout-form" action="{{ Asset(env('admin').'/logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
             </div>
         </li>
     </ul>
