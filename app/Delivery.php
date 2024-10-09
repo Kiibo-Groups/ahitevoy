@@ -96,13 +96,12 @@ class Delivery extends Authenticatable
                 'status'        => $add->status,
                 'status_admin'  => $add->status_admin,
             );
-          
-            $req_ext = $addServer->newStaffDelivery($return);
-            // if ($type == 'add') {
-            //     $req_ext = $addServer->newStaffDelivery($return);
-            // }else {
-            //     $req_ext = $addServer->updateStaffDelivery($return);
-            // }
+            
+            if ($type == 'add') {
+                $req_ext = $addServer->newStaffDelivery($return);
+            }else {
+                $req_ext = $addServer->updateStaffDelivery($return);
+            }
 
             if ($from == 'app') {
                 return ['msg' => 'done','user_id' => $add->id, 'external_id' => $add->external_id, 'req' => $req_ext]; 
