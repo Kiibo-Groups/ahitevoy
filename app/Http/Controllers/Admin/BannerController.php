@@ -153,7 +153,7 @@ class BannerController extends Controller {
 
 		BannerStore::where('banner_id',$id)->delete();
 
-		unlink("upload/banner/".$res->img);
+		@unlink("public/upload/banner/".$res->img);
 
 		$res->delete();
 
