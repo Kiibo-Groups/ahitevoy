@@ -476,34 +476,49 @@ class ApiController extends Controller {
 
 	public function getChat($id)
 	{
-		
-		// $user = new User;
-		// return response()->json(['data' => $user->amounts_mat(124)]);	
+
+		$uid     = $id;
+		$content = ["en" => "Prueba de notificaciones"];
+		$head = ["en" => "Prueba de audio para notificaciones."];
+
+		$daTags = [];
+
+		if ($uid > 0) {
+			$daTags = ["field" => "tag", "key" => "dboy_id", "relation" => "=", "value" => $uid];
+		} else {
+			$daTags = ["field" => "tag", "key" => "dboy_id", "relation" => "!=", "value" => 'NAN'];
+		}
+
 		$fields = array(
-			"title" => "Nuevo pedido",
-            "description" => "pedido #22"
-        );
+			'app_id' => "00275f8b-54f7-454c-8ea1-509cb10ad1b1",
+			'included_segments' => array('All'),
+			'filters' => [$daTags],
+			'data' => array("foo" => "bar"),
+			'contents' => $content,
+			'headings' => $head,
+			'android_channel_id' => 'd75a97ca-82bb-4c94-acc2-6aace684f0eb'
+		);
 
 		$fields = json_encode($fields);
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://us-central1-teambros-f5cab.cloudfunctions.net/app/api/sendNotify");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+			'Authorization: Basic YzFkODNjNjYtOTEwMi00NDc1LWI5MGQtYjA5NzM0OTc3NjU5'
+		));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+		curl_setopt($ch, CURLOPT_POST, TRUE);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $req = json_decode($response,true);
+		$response = curl_exec($ch);
+		curl_close($ch);
 
         return [
-			'data' => $req,
-			'status' => 'null'
+			'data' => $response
 		];
 	}
 
