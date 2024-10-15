@@ -490,14 +490,15 @@ class ApiController extends Controller {
 		}
 
 		$fields = array(
-			'app_id' => "00275f8b-54f7-454c-8ea1-509cb10ad1b1",
+			'app_id' => "c41d3e93-68e5-4b01-9dfd-eb898b272e5b",
 			'included_segments' => array('All'),
 			'filters' => [$daTags],
 			'data' => array("foo" => "bar"),
 			'contents' => $content,
 			'headings' => $head,
-			'android_channel_id' => 'd75a97ca-82bb-4c94-acc2-6aace684f0eb'
+			'android_channel_id' => '4897030b-cc2e-41eb-9d94-ee2a1629580a'
 		);
+
 
 		$fields = json_encode($fields);
 
@@ -506,7 +507,7 @@ class ApiController extends Controller {
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 			'Content-Type: application/json',
-			'Authorization: Basic YzFkODNjNjYtOTEwMi00NDc1LWI5MGQtYjA5NzM0OTc3NjU5'
+			'Authorization: Basic M2MyOTI0OGUtNTE3Ni00Y2ZhLWE4MjMtZmNhZjMwMWJjNjM4'
 		));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
