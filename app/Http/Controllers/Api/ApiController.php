@@ -482,11 +482,10 @@ class ApiController extends Controller {
 		$head = ["en" => "Prueba de audio para notificaciones."];
 
 		$daTags = [];
-
 		if ($uid > 0) {
-			$daTags = ["field" => "tag", "key" => "dboy_id", "relation" => "=", "value" => $uid];
+			$daTags = ["field" => "tag", "key" => "store_id", "relation" => "=", "value" => $uid];
 		} else {
-			$daTags = ["field" => "tag", "key" => "dboy_id", "relation" => "!=", "value" => 'NAN'];
+			$daTags = ["field" => "tag", "key" => "store_id", "relation" => "!=", "value" => 'NAN'];
 		}
 
 		$fields = array(
