@@ -1343,6 +1343,7 @@ class User extends Authenticatable
 
             foreach($items as $i)
             {
+                $last_price = 0;
                 $IPrice = $this->checaValor(intval(str_replace('$','',$i->small_price)));
                 $lastPrice = $this->checaValor(intval(str_replace("$","",$i->last_price)));
 

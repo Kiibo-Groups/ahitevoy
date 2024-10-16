@@ -152,9 +152,7 @@ class ApiController extends Controller {
 	public function getStore($id)
 	{
 		
-		$store   = new User;
-		
-		
+		$store   = new User; 
 		return response()->json(['data' => $store->getStore($id)]);
 	}
 
