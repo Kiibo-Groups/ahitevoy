@@ -92,7 +92,7 @@ class NodejsServer extends BaseController
                    base64_encode(file_get_contents($data['OriginPic']))
                 ],
                 'probe'     => [
-                    $data['BiometricPic']
+                    base64_encode($data['BiometricPic'])
                 ],
                 "search_mode" => "FAST"
             );
