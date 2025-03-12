@@ -89,7 +89,7 @@ class NodejsServer extends BaseController
 
             $fields = array(
                 'gallery'   =>  [
-                   base64_encode(file_get_contents($data['OriginPic'],false, stream_context_create($arrContextOptions)))
+                   base64_encode(file_get_contents($data['OriginPic']))
                 ],
                 'probe'     => [
                     $data['BiometricPic']
