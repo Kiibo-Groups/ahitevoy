@@ -15,4 +15,13 @@ Route::get('dboy/getPolylines','DboyController@getPolylines');
 Route::post('dboy/rejected','DboyController@rejected');
 Route::get('dboy/chkNotify','DboyController@chkNotify');
 Route::get('dboy/cancelOrder','DboyController@cancelOrder');
+
+
+/**
+* Get Biometrics
+*/
+Route::post('dboy/getBiometrics','DboyController@getBiometrics');
+Route::post('dboy/updateRFC', 'DboyController@updateRFC');
+Route::post('dboy/uploadDocuments', 'DboyController@uploadDocuments');
+Route::post('dboy/verifyDocuments', 'DboyController@verifyDocuments');
 ?>

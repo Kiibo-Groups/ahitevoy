@@ -276,7 +276,12 @@ class DboyController extends Controller {
 	{
 		try {
 			$count = Order::where('d_boy',$id)->where('status',6)->count();
-			return response()->json(['data' => Delivery::find($id),'order' => $count]);
+			$staff = new Delivery;
+			return response()->json([
+				'status' => true,
+				'data' => $staff->getStaff($id),
+				'order' => $count
+			]);
  		} catch (\Exception $th) {
 			return response()->json(['data' => 'error', 'error' => $th->getMessage()]);
 		}
@@ -370,6 +375,92 @@ class DboyController extends Controller {
 		$req = json_decode($response, TRUE);
        
 	    return response()->json(['data' => $req]);
+	}
+
+	
+	/**
+	 * Get Biometrics
+	 */
+	public function getBiometrics(Request $request)
+	{
+		  
+		$nodeJS = new NodejsServer;
+		return response()->json($nodeJS->getBiometrics($request->all()));
+	}
+
+	
+	public function updateRFC(Request $request)
+	{
+		try {
+			$validator = Validator::make($request->all(), [
+				'id' => 'required',
+				'rfc' => ['required'],
+			]);
+
+			if ($validator->fails()) {
+				$errors = $validator->errors();
+				return response()->json(['data' => [], 'msg' => $errors], 400);
+			}
+
+			$res = new Delivery;
+
+			$data = $res->updateRFC($request);
+
+			if (empty($data['data'])) {
+				return response()->json($data, 400);
+			}
+
+			return response()->json($data, 200);
+		} catch (\Throwable $th) {
+			return response()->json(['data' => [], 'msg' => $th->getMessage()], 500);
+		}
+	}
+
+	public function verifyDocuments(Request $request)
+	{
+		try {
+			$validator = Validator::make($request->all(), [
+				'id' => 'required',
+			]);
+
+			if ($validator->fails()) {
+				$errors = $validator->errors();
+				return response()->json(['data' => [], 'msg' => $errors], 400);
+			}
+
+			$res = new Delivery;
+			return response()->json($res->verifyDocuments($request), 200);
+		} catch (\Throwable $th) {
+			return response()->json(['data' => [], 'msg' => $th->getMessage()], 500);
+		}
+	}
+
+	public function uploadDocuments(Request $request)
+	{
+		try {
+			$validator = Validator::make($request->all(), [
+				'id' => 'required',
+				'type' => 'required',
+				'camera_file' => 'string'
+			]);
+
+			if ($validator->fails()) {
+				$errors = $validator->errors();
+				return response()->json(['data' => [], 'msg' => $errors], 400);
+			}
+
+			$res = new Delivery;
+
+			$data = $res->uploadDocuments($request);
+
+			if (empty($data['data'])) {
+				return response()->json($data, 400);
+			}
+
+			return response()->json($data, 200);
+		} catch (\Throwable $th) {
+			return response()->json(['data' => [], 'msg' => $th->getMessage()], 500);
+		}
 	}
 
 }

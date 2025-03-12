@@ -11,8 +11,8 @@
 <link rel="icon" href="{{ Asset('assets/img/logo.png') }}" type="image/png" sizes="16x16">
 
 <!-- NewsStyles -->
-<!-- Bundle -->
-<link href="{{ Asset('assets/css/bundle.min.css') }}" rel="stylesheet">
+    <!-- Bundle -->
+    <link href="{{ Asset('assets/css/bundle.min.css') }}" rel="stylesheet">
     <!-- Plugin Css -->
 
     <link href="{{ Asset('assets/css/line-awesome.min.css') }}" rel="stylesheet">

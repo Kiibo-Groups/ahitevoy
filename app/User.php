@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Validator;
 use Auth;
 use DB;
+use App\bcdiv;
 class User extends Authenticatable
 {
     /*
@@ -414,7 +415,7 @@ class User extends Authenticatable
                     $lon,
                     $row->lat,
                     $row->lng),
-                'distance'      => bcdiv($row->distance,'1',2),
+                'distance'      => number_format($row->distance,'1',2),
                 "distance_max"  => $row->distance_max,
                 'km'            => round($row->distance,2),
                 'favorite'      => $favorite
@@ -1891,25 +1892,30 @@ class User extends Authenticatable
 
 
         $request = json_decode($output, true);
+        $distance = 0;
 
         if($request['status'] == 'OK') {
-            $km_inm = $request['rows'][0]['elements'][0]['distance']['value'];
-            if ($km_inm > 0) {
+            if ($request['rows'][0]['elements'][0]['status'] != 'ZERO_RESULTS') {
+                $km_inm = $request['rows'][0]['elements'][0]['distance']['value'];
+                if ($km_inm > 0) {
 
-                $distance = ($km_inm / 1000); // 1542 / 1000 = 1.558
-                
-                if (round($distance,2) < $min_distance) {
-                    // la distancia es menor a la requerida
-                    $costs_ship  = intval($min_value);
+                    $distance = ($km_inm / 1000); // 1542 / 1000 = 1.558
+                    
+                    if (round($distance,2) < $min_distance) {
+                        // la distancia es menor a la requerida
+                        $costs_ship  = intval($min_value);
+                    }else {
+                        // $costs_ship = intval($value * $km_inm,2);
+                        // $km_extra   = (round($km_inm) - $min_distance);
+                        // $value_ext  = ($km_extra * $value);
+                        // $costs_ship = ($min_value + $value_ext);
+
+                        $km_extra   = ($distance - $min_distance); // 1.558 - 1 =  0.558
+                        $value_ext  = ($km_extra * intval($value)); // -1.442 * 10
+                        $costs_ship = ($min_value + $value_ext); // 20 + 
+                    }
                 }else {
-                    // $costs_ship = intval($value * $km_inm,2);
-                    // $km_extra   = (round($km_inm) - $min_distance);
-                    // $value_ext  = ($km_extra * $value);
-                    // $costs_ship = ($min_value + $value_ext);
-
-                    $km_extra   = ($distance - $min_distance); // 1.558 - 1 =  0.558
-                    $value_ext  = ($km_extra * intval($value)); // -1.442 * 10
-                    $costs_ship = ($min_value + $value_ext); // 20 + 
+                    $costs_ship = 0;
                 }
             }else {
                 $costs_ship = 0;

@@ -74,6 +74,79 @@ class NodejsServer extends BaseController
         
         return $this->CurlGet($fields,"https://us-central1-ahitevoy-app.cloudfunctions.net/app/api/InitCronOrder/");
     }
+
+      // Get Biometrics
+      function getBiometrics($data)
+      { 
+         try {
+            $arrContextOptions=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );  
+            
+
+            $fields = array(
+                'gallery'   =>  [
+                   base64_encode(file_get_contents($data['OriginPic'],false, stream_context_create($arrContextOptions)))
+                ],
+                'probe'     => [
+                    $data['BiometricPic']
+                ],
+                "search_mode" => "FAST"
+            );
+    
+            $fields = json_encode($fields);
+    
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://us.opencv.fr/compare');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+            $headers = array();
+            $headers[] = 'Accept: application/json';
+            $headers[] = 'X-Api-Key: elDorzxMDRlNzk1YTUtODFlZi00MTY4LWE4MDctZGE5YzYyYmQ2ODdh';
+            $headers[] = 'Content-Type: application/json';
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $result = curl_exec($ch);
+            if (curl_errno($ch)) {
+                echo 'Error:' . curl_error($ch);
+            }
+            curl_close($ch);
+     
+            $biometrics = json_decode($result, true);
+            $msg = 'Sin coincidencias';
+            $status = false;
+            
+            if (isset($biometrics['score'])) {
+                if ($biometrics['score'] == 1.0) {
+                    $msg = "Reconocimiento biometrico exitoso";
+                    $status = true;
+                }else {
+        
+                    if ($biometrics['score'] >= 0.7) { // 
+                        $msg = "Reconocimiento biometrico exitoso";
+                        $status = true;
+                    }
+                }
+            }else {
+                $msg = $biometrics;
+                $status = false;
+            }
+    
+            return [
+                'status' => $status,
+                'msg' => $msg
+            ];
+         } catch (\Exception $th) {
+            return [
+                'status' => false,
+                'msg' => $th->getMessage(),
+                "data" => $data
+            ];
+         }
+      }
     
     
     /**

@@ -13,7 +13,11 @@ use DB;
 class Delivery extends Authenticatable
 {
     protected $table = "delivery_boys";
-
+    protected $fillable = [
+        'licence',
+        'credential',
+        'biometric',
+    ];
     /*
     |----------------------------------------------------------------
     |   Validation Rules and Validate data for add & Update Records
@@ -65,7 +69,7 @@ class Delivery extends Authenticatable
         $add->c_value_staff     = isset($data['c_value_staff']) ? $data['c_value_staff'] : '';
         $add->type_driver       = isset($data['type_driver']) ? $data['type_driver'] : 0;
         $add->max_range_km      = isset($data['max_range_km']) ? $data['max_range_km'] : 1;
-        $add->rfc               = isset($data['rfc']) ? $data['rfc'] : '';
+        $add->rfc               = isset($data['rfc']) ? strtoupper($data['rfc']) : '';
 
         if ($from == 'app') {
             $add->status = 1; // Bloqueado
@@ -120,12 +124,15 @@ class Delivery extends Authenticatable
     */
     public function ValidateAppSign($data)
     {
-        $view = Delivery::where('phone',$data['phone'])->first();
+        $validator = Validator::make($data, [
+            'email' =>'required|unique:delivery_boys',
+            'phone' => 'required|unique:delivery_boys'
+        ]);
 
-        if ($view) {
-            return ['msg' => 'phoneinuse']; 
+        if ($validator->fails()) {
+            return ['msg' => $validator->errors()->first()]; 
         }
-
+        
         return ['msg' => 'done'];
     }
 
@@ -148,6 +155,48 @@ class Delivery extends Authenticatable
           ->select('city.name as city','delivery_boys.*')
           ->orderBy('delivery_boys.id','DESC')->get();
     }
+
+    public function getStaff($id)
+    {
+        $res = Delivery::find($id); 
+        /****** Ratings ********/
+        $totalRate    = Rate::where('staff_id', $id)->count(); // 15
+        $totalRateSum = Rate::where('staff_id', $id)->sum('star'); // 
+
+        if ($totalRate > 0) {
+            $avg          = $totalRateSum / $totalRate;
+        } else {
+            $avg           = 0;
+        }
+        /****** Ratings ********/
+
+        $data = [
+            'id'            =>  $res->id,
+            'external_id'   =>  $res->external_id,
+            'status'        => $res->status,  
+            'name'          =>  ucwords($res->name),
+            'phone'         =>  $res->phone,
+            
+            'email'         =>  ucfirst($res->email),
+            'amount_acum'   =>  $res->amount_acum,  
+            
+            'rfc'           => !$res->rfc ? 'rfc_not_exist' : $res->rfc,
+            'credential'    => !$res->credential? null : Asset('upload/credential/' . $res->credential),
+            'licence'       => !$res->licence ? null : Asset('upload/licence/' . $res->licence),
+            'biometric'     =>  !$res->biometric ? null : Asset('upload/biometric/' . $res->biometric),
+
+            'city_id'       =>  $res->city_id,
+            'lat'           =>  $res->lat,
+            'lng'           =>  $res->lng,
+            'max_range_km'  =>  $res->max_range_km, 
+            'rating'        =>  $avg > 0 ? number_format($avg, 1) : '0.0',
+            'type_driver'   =>  $res->type_driver, 
+        ];
+
+
+        return $data;
+    }
+
 
     /*
     |--------------------------------------
@@ -616,5 +665,99 @@ class Delivery extends Authenticatable
         return [
             'status' => 'done'
         ];
+    }
+
+    public function updateRFC($request) {
+        $dboy = Delivery::find($request->id);
+
+        if (!$dboy) {
+            return ['data' => [], 'msg' => 'Conductor no encontrado'];
+        }
+
+        $dboy['rfc'] = strtoupper($request->rfc);
+        $dboy->save();
+        return ['data' => $dboy, 'msg' => 'RFC actualizado con éxito'];
+       
+    }
+
+    public function verifyDocuments($request)
+    {
+        $dboy = Delivery::find($request->id);
+
+        if (!$dboy) {
+            return ['data' => [], 'msg' => 'Error! Conductor no encontrado'];
+        }
+
+        return [
+            'data' => [
+                'rfc' => !$dboy->rfc ? 'rfc_not_exist' : 'rfc_exist',
+                'credential' => !$dboy->credential? 'credential_not_exist' : 'credential_exist',
+                'licence' => !$dboy->licence ? 'licence_not_exist' : 'licence_exist',
+                'biometric' =>  !$dboy->biometric ? 'biometric_not_exist' : 'biometric_exist',
+            ],
+            'msg' => 'OK'
+        ];
+    }
+
+
+    public function uploadDocuments($request)
+    {
+        $dboy = Delivery::find($request->id);
+
+        if (!$dboy) {
+            return ['data' => [], 'msg' => 'Conductor no encontrado'];
+        }
+
+        $type = $request->type;
+
+        $url = null;
+
+        try {
+            switch ($type) {
+                case 'licence':
+                    $fileToDelete = public_path($dboy->licence);
+                    if (file_exists($fileToDelete)) {
+                        @unlink($fileToDelete);
+                    }
+                    break;
+                case 'credential':
+                    $fileToDelete = public_path($dboy->credential);
+                    if (file_exists($fileToDelete)) {
+                        @unlink($fileToDelete);
+                    }
+                    break;
+                case 'biometric':
+                    $fileToDelete = public_path($dboy->biometric);
+                    if (file_exists($fileToDelete)) {
+                        @unlink($fileToDelete);
+                    }
+                    break;
+            }
+        } catch (\Exception $th) {
+            return ['data' => [], 'msg' => 'Error al eliminar el archivo anterior: '. $th->getMessage()];
+        }
+
+
+        $path = '/' . 'upload/' . $type . '/';
+
+        if ($request->has('camera_file')) {
+            $imagenBase64 = $request->input('camera_file');
+            $image = substr($imagenBase64, strpos($imagenBase64, ",")+1);
+            $imagenDecodificada = base64_decode($image);
+            $imageName =  time() . '.png';
+            file_put_contents(public_path($path . $imageName), $imagenDecodificada);
+            $url = $imageName;
+        }
+
+        if (!is_Null($url)) {
+            // $dboy->fill([
+            //     $type => $url
+            // ])->save();
+            $dboy[$type] = $url;
+            $dboy->save();
+            return ['data' => [$url], 'msg' => 'OK'];
+        }
+
+        return ['data' => [], 'msg' => 'No se puedo subir la imagen'];
     }
 }

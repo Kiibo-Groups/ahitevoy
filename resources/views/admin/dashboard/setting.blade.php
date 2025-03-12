@@ -180,11 +180,11 @@
                                     </div>
                                 </div>
 
-                                <h4>OpenPay Settings  
-                                    {{-- <small style="font-size: 14px">
+                                {{--<h4>OpenPay Settings  
+                                     <small style="font-size: 14px">
                                         <input type="checkbox" name="openpay_settings">
                                         <label for="openpay_settings">Marcar como predeterminado</label>
-                                    </small> --}}
+                                    </small> 
                                 </h4>
                                 <div class="card py-3 m-b-30">
                                     <div class="card-body">
@@ -203,7 +203,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
                                 
                                 {{-- <h4>PayPal Settings  &nbsp;-&nbsp;
                                     <small style="font-size: 14px">
@@ -221,7 +221,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <h4>Stripe Settings <br /><small style="font-size: 12px">(Deja vacío si quieres deshabilitar
                                         Stripe)</small></h4>
@@ -241,7 +241,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 <h4>Social Links</h4>
                                 <div class="card py-3 m-b-30">
