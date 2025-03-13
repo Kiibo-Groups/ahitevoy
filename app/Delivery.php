@@ -711,23 +711,23 @@ class Delivery extends Authenticatable
         $type = $request->type;
 
         $url = null;
-
+        $path = '/' . 'upload/' . $type . '/';
         try {
             switch ($type) {
                 case 'licence':
-                    $fileToDelete = public_path($dboy->licence);
+                    $fileToDelete = public_path($path . $dboy->licence);
                     if (file_exists($fileToDelete)) {
                         @unlink($fileToDelete);
                     }
                     break;
                 case 'credential':
-                    $fileToDelete = public_path($dboy->credential);
+                    $fileToDelete = public_path($path . $dboy->credential);
                     if (file_exists($fileToDelete)) {
                         @unlink($fileToDelete);
                     }
                     break;
                 case 'biometric':
-                    $fileToDelete = public_path($dboy->biometric);
+                    $fileToDelete = public_path($path . $dboy->biometric);
                     if (file_exists($fileToDelete)) {
                         @unlink($fileToDelete);
                     }
@@ -736,9 +736,6 @@ class Delivery extends Authenticatable
         } catch (\Exception $th) {
             return ['data' => [], 'msg' => 'Error al eliminar el archivo anterior: '. $th->getMessage()];
         }
-
-
-        $path = '/' . 'upload/' . $type . '/';
 
         if ($request->has('camera_file')) {
             $imagenBase64 = $request->input('camera_file');

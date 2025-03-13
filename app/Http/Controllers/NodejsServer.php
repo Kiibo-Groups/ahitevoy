@@ -79,20 +79,23 @@ class NodejsServer extends BaseController
       function getBiometrics($data)
       { 
          try {
-            $arrContextOptions=array(
-                "ssl"=>array(
-                    "verify_peer"=>false,
-                    "verify_peer_name"=>false,
-                ),
-            );  
-            
+          
+            // Agregamos la imagen temporal
+            $path = '/upload/biometric/';
+            $imagenBase64 = $data['BiometricPic'];
+
+            $image = substr($imagenBase64, strpos($imagenBase64, ",")+1);
+            $imagenDecodificada = base64_decode($image);
+            $imageName =  time() . '.png';
+            file_put_contents(public_path($path . $imageName), $imagenDecodificada);
+            $urlBiometricPicTmp = asset($path.$imageName);
 
             $fields = array(
                 'gallery'   =>  [
-                   base64_encode(file_get_contents($data['OriginPic']))
+                    base64_encode(file_get_contents($data['OriginPic']))
                 ],
                 'probe'     => [
-                    $data['BiometricPic']
+                    base64_encode(file_get_contents($urlBiometricPicTmp))
                 ],
                 "search_mode" => "FAST"
             );
@@ -134,6 +137,9 @@ class NodejsServer extends BaseController
                 $msg = $biometrics;
                 $status = false;
             }
+
+            $fileToDelete = public_path($path . $imageName);
+            @unlink($fileToDelete);
     
             return [
                 'status' => $status,
