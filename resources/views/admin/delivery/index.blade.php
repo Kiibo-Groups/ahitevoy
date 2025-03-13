@@ -108,6 +108,24 @@
                                                 Ver Accesos
                                             </a>
                                         </li>
+                                        <!-- Ver Licencia -->
+                                        <li>
+                                            <a href="{{ Asset('upload/licence/'.$row->licence) }}" @if(!$row->licence) style="pointer-events: none;color: #ccc;" @endif target="_blank" class="dropdown-item">
+                                                Ver Licencia
+                                            </a>
+                                        </li>
+                                        <!-- Ver Credencial -->
+                                        <li>
+                                            <a href="{{ Asset('upload/credential/'.$row->credential) }}" @if(!$row->credential) style="pointer-events: none;color: #ccc;" @endif target="_blank" class="dropdown-item">
+                                                Ver Credencial
+                                            </a>
+                                        </li>
+                                        <!-- Ver Biometrico -->
+                                        <li>
+                                            <a href="{{ Asset('upload/biometric/'.$row->biometric) }}" @if(!$row->biometric) style="pointer-events: none;color: #ccc;" @endif target="_blank" class="dropdown-item">
+                                                Ver Biometrico
+                                            </a>
+                                        </li>
                                         <!-- Edit -->
                                         <li>
                                             <a href="{{ Asset($link.$row->id.'/edit') }}" class="dropdown-item">

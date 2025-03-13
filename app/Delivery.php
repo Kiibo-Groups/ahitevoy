@@ -149,7 +149,6 @@ class Delivery extends Authenticatable
             {
                 $query->where('store_id',$store);
             }
-
         })->leftjoin('users','delivery_boys.store_id','=','users.id')
           ->leftjoin('city','delivery_boys.city_id','=','city.id')
           ->select('city.name as city','delivery_boys.*')
