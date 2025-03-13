@@ -384,39 +384,37 @@ class DboyController extends Controller {
 	public function getBiometrics(Request $request)
 	{
 		  
-		// $nodeJS = new NodejsServer;
-		// return response()->json($nodeJS->getBiometrics($request->all()));
+		$nodeJS = new NodejsServer;
+		return response()->json($nodeJS->getBiometrics($request->all()));
 
-		$data = $request->all();
+		// $data = $request->all();
+		// // Agregamos la imagen temporal
+		// $path = '/upload/biometric/';
+		// $imagenBase64 = $request->input('BiometricPic');
 
+		// $image = substr($imagenBase64, strpos($imagenBase64, ",")+1);
+		// $imagenDecodificada = base64_decode($image);
+		// $imageName =  time() . '.png';
+		// file_put_contents(public_path($path . $imageName), $imagenDecodificada);
+		// $urlBiometricPicTmp = asset($path.$imageName);
 
-		// Agregamos la imagen temporal
-		$path = '/upload/biometric/';
-		$imagenBase64 = $request->input('BiometricPic');
+		// $fields = array(
+		// 	'gallery'   =>  [
+		// 		$data['OriginPic'] //base64_encode(file_get_contents($data['OriginPic']))
+		// 	],
+		// 	'probe'     => [
+		// 		$urlBiometricPicTmp //base64_encode(file_get_contents($urlBiometricPicTmp))
+		// 	],
+		// 	"search_mode" => "FAST"
+		// );
 
-		$image = substr($imagenBase64, strpos($imagenBase64, ",")+1);
-		$imagenDecodificada = base64_decode($image);
-		$imageName =  time() . '.png';
-		file_put_contents(public_path($path . $imageName), $imagenDecodificada);
-		$urlBiometricPicTmp = asset($path.$imageName);
+		// // Eliminamos la imagen temporal
+		// $fileToDelete = public_path($path . $imageName);
+		// @unlink($fileToDelete);
 
-		$fields = array(
-			'gallery'   =>  [
-				$data['OriginPic'] //base64_encode(file_get_contents($data['OriginPic']))
-			],
-			'probe'     => [
-				$urlBiometricPicTmp //base64_encode(file_get_contents($urlBiometricPicTmp))
-			],
-			"search_mode" => "FAST"
-		);
-
-		// Eliminamos la imagen temporal
-		$fileToDelete = public_path($path . $imageName);
-		@unlink($fileToDelete);
-
-		return [
-			'data' => $fields
-		];
+		// return [
+		// 	'data' => $fields
+		// ];
 	}
 
 	
