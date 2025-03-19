@@ -43,7 +43,7 @@ class PushController extends Controller {
 		if($Request->has('img'))
 		{
 			$filename = time().rand(111,699).'.' .$Request->file('img')->getClientOriginalExtension();
-            $Request->file('img')->move("public/upload/push/",$filename);
+            $Request->file('img')->move("upload/push/",$filename);
             $img = asset('public/upload/push/'.'/'.$filename);
 		}
 		

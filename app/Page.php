@@ -27,14 +27,14 @@ class Page extends Authenticatable
         if(isset($data['about_img']))
         {
             $filename   = time().rand(111,699).'.' .$data['about_img']->getClientOriginalExtension(); 
-            $data['about_img']->move("public/upload/page/", $filename);   
+            $data['about_img']->move("upload/page/", $filename);   
             $add->about_img = $filename;   
         }
 
         if(isset($data['how_img']))
         {
             $filename   = time().rand(111,699).'.' .$data['how_img']->getClientOriginalExtension(); 
-            $data['how_img']->move("public/upload/page/", $filename);   
+            $data['how_img']->move("upload/page/", $filename);   
             $add->how_img = $filename;   
         }
 

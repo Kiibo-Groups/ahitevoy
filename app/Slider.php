@@ -24,7 +24,7 @@ class Slider extends Authenticatable
         if(isset($data['img']))
         {
             $filename   = time().rand(111,699).'.' .$data['img']->getClientOriginalExtension(); 
-            $data['img']->move("public/upload/slider/", $filename);   
+            $data['img']->move("upload/slider/", $filename);   
             $add->img = $filename;   
         }
 

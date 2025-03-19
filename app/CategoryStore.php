@@ -50,7 +50,7 @@ class CategoryStore extends Authenticatable
         if(isset($data['img']))
         {
             $filename   = time().rand(111,699).'.' .$data['img']->getClientOriginalExtension(); 
-            $data['img']->move("public/upload/categorys/", $filename);   
+            $data['img']->move("upload/categorys/", $filename);   
             $add->img = $filename;   
         }
 
