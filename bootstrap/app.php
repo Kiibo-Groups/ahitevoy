@@ -41,6 +41,8 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
@@ -51,10 +53,4 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
-header('Access-Control-Allow-Origin: *');
-//add any additional headers you need to support here
-header('Access-Control-Allow-Headers: Origin, Content-Type');
-header('Access-Control-Allow-Headers: X-Requested-With, Content-Type,Process-Data,x-xsrf-token');
-
 return $app;
