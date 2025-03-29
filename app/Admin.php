@@ -9,7 +9,7 @@ use Validator;
 class Admin extends Authenticatable
 {
     protected $table = "admin";
-
+	
     public function rules($type)
     {
         if($type === 'add')

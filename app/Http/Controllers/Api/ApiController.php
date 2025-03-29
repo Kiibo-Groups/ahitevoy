@@ -140,10 +140,36 @@ class ApiController extends Controller {
 	public function getStoreOpen($city_id)
 	{
 		$store   = new User;
-	
+		$except  = [
+			'id',
+			'password',
+			'shw_password',
+			'remember_token',
+			'sms_api',
+			'costs_ship',
+			'c_type',
+			'c_value',
+			'min_distance',
+			'max_distance_staff',
+			'min_value',
+			'store_type',
+			'openpay_client_id',
+			'openpay_private_key',
+			'openpay_public_key',
+			'paypal_client_id',
+			'stripe_client_id',
+			'stripe_api_id',
+			'ApiKey_google',
+			'comm_stripe',
+			'send_terminal',
+			'max_cash',
+			'created_at',
+			'updated_at'
+		];
+
 		$data = [
 			'store'		=> $store->getStoreOpen($city_id),
-			'admin'		=> Admin::find(1),
+			'admin'		=> collect(Admin::find(1))->except($except),
 		];
 
 		return response()->json(['data' => $data]);		
