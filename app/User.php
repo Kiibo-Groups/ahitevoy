@@ -268,30 +268,31 @@ class User extends Authenticatable
         return $this->SaveData($res,$lat,$lon);
     }
 
-    public function getStoreOpen($city_id,$trending = false)
+    public function getStoreOpen($city_id = 0)
     {
         $currency   = Admin::find(1)->currency;
         $lat        = isset($_GET['lat']) ? $_GET['lat'] : 0;
         $lon        = isset($_GET['lng']) ? $_GET['lng'] : 0;
+        $trending   = isset($_GET['trending']) ? $_GET['trending'] : false;
 
         $res  = User::where(function($query) use($city_id,$trending){
 
-            $query->where('status',0)->where('city_id',$city_id);
+            $query->where('status',0); // Que esten activos
 
-            if($trending)
-            {
-                $query->where('users.trending',1);
+            if ($city_id != 0) { // Que sean de la ciudad seleccionada
+                $query->where('city_id',$city_id);   
             }
 
-            if(isset($_GET['banner']))
-            {
+            if($trending) { // Que esten en tendencia
+                $query->where('users.trending',1);
+            }
+            
+            if(isset($_GET['banner'])) { // Que provengan de un banner publicitario
                 $sid   = BannerStore::where('banner_id',$_GET['banner'])->pluck('store_id')->toArray();
-
                 $query->whereIn('users.id',$sid);
             }
 
-            if(isset($_GET['q']))
-            {
+            if(isset($_GET['q'])) { // Que provengan de aguna busqueda en espcifico
                 $q   = $_GET['q'];
                 $ids = Item::whereRaw('lower(name) like "%' . strtolower($q) . '%"')->pluck('store_id')->toArray();
 
