@@ -5,32 +5,29 @@ help:
 
 ##@ [Docker]
 start: ## Spin up the container
-	docker compose up -d
+	docker-compose up -d
 
 stop: ## Shut down the containers
-	docker compose down
+	docker-compose down
 
 build: ## Build all docker images
-	docker compose build
+	docker-compose build
 
 ##@ [Application]
 composer: ## Run composer commands. Specify the command e.g. via "make composer ARGS="install|update|require <dependency>"
-	docker compose run --rm app composer $(ARGS)
-
-install:
-	docker compose run --rm app composer install
+	docker-compose run --rm app composer $(ARGS)
 
 lint: ## Run the Linter
-	docker compose run --rm app composer lint
+	docker-compose run --rm app ./vendor/bin/pint -v
 
 test-lint: ## Run the Linter Test
-	docker compose run --rm app composer test:lint
+	docker-compose run --rm app ./vendor/bin/pint --test -v
 
 test-types: ## Run the PHPStan analysis
-	docker compose run --rm app composer test:types
+	docker-compose run --rm app ./vendor/bin/phpstan analyse --ansi
 
 test-unit: ## Run the Pest Test Suite
-	docker compose run --rm app composer test:unit
+	docker-compose run --rm app ./vendor/bin/pest --colors=always
 
 test: ## Run the tests. Apply arguments via make test ARGS="--init"
-	docker compose run --rm app composer test
+	make test-lint && make test-types && make test-unit
