@@ -7,6 +7,8 @@ use Auth;
 use App\City;
 use App\Admin;
 use App\AppUser;
+use App\User;
+use App\Delivery;
 use DB;
 use Validator;
 use Redirect;
