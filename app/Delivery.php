@@ -735,7 +735,6 @@ class Delivery extends Authenticatable
 
         if ($request->has('camera_file')) {
             $imagenBase64 = $request->input('camera_file');
-            Log::info("Imagen Base64 del Frontend : " . $imagenBase64);
             // Validar que el string tenga el formato correcto
             if (preg_match('/^data:image\/(\w+);base64,/', $imagenBase64, $typeMatch)) {
                 $imageType = strtolower($typeMatch[1]); // png, jpg, etc.
