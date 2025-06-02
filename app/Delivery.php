@@ -708,9 +708,8 @@ class Delivery extends Authenticatable
         }
 
         $type = $request->type;
-
         $url = null;
-        $path = '/' . 'upload/' . $type . '/';
+        $path = '/upload/' . $type . '/';
         try {
             switch ($type) {
                 case 'licence':
@@ -738,11 +737,36 @@ class Delivery extends Authenticatable
 
         if ($request->has('camera_file')) {
             $imagenBase64 = $request->input('camera_file');
-            $image = substr($imagenBase64, strpos($imagenBase64, ",")+1);
-            $imagenDecodificada = base64_decode($image);
-            $imageName =  time() . '.png';
-            file_put_contents(public_path($path . $imageName), $imagenDecodificada);
-            $url = $imageName;
+            // Validar que el string tenga el formato correcto
+            if (preg_match('/^data:image\/(\w+);base64,/', $imagenBase64, $typeMatch)) {
+                $imageType = strtolower($typeMatch[1]); // png, jpg, etc.
+                $image = substr($imagenBase64, strpos($imagenBase64, ',') + 1);
+                $image = str_replace(' ', '+', $image); // Corregir espacios
+                $imagenDecodificada = base64_decode($image);
+
+                if ($imagenDecodificada === false) {
+                    return ['data' => [], 'msg' => 'Error al decodificar la imagen'];
+                }
+
+                // Asegurar que el directorio exista
+                $fullPath = public_path($path);
+                if (!file_exists($fullPath)) {
+                    if (!mkdir($fullPath, 0755, true)) {
+                        return ['data' => [], 'msg' => 'No se pudo crear el directorio de destino'];
+                    }
+                }
+
+                $imageName = time() . '_' . uniqid() . '.' . $imageType;
+                $filePath = $fullPath . $imageName;
+
+                if (file_put_contents($filePath, $imagenDecodificada) === false) {
+                    return ['data' => [], 'msg' => 'No se pudo guardar la imagen'];
+                }
+
+                $url = $imageName;
+            } else {
+                return ['data' => [], 'msg' => 'Formato de imagen no válido'];
+            }
         }
 
         if (!is_Null($url)) {
