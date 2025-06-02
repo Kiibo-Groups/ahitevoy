@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Validator;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Log;
 class Delivery extends Authenticatable
 {
     protected $table = "delivery_boys";
@@ -698,15 +699,12 @@ class Delivery extends Authenticatable
         ];
     }
 
-
     public function uploadDocuments($request)
     {
         $dboy = Delivery::find($request->id);
-
         if (!$dboy) {
             return ['data' => [], 'msg' => 'Conductor no encontrado'];
         }
-
         $type = $request->type;
         $url = null;
         $path = '/upload/' . $type . '/';
@@ -737,6 +735,7 @@ class Delivery extends Authenticatable
 
         if ($request->has('camera_file')) {
             $imagenBase64 = $request->input('camera_file');
+            Log::info("Imagen Base64 del Frontend : " , $imagenBase64);
             // Validar que el string tenga el formato correcto
             if (preg_match('/^data:image\/(\w+);base64,/', $imagenBase64, $typeMatch)) {
                 $imageType = strtolower($typeMatch[1]); // png, jpg, etc.
