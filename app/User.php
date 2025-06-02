@@ -209,7 +209,7 @@ class User extends Authenticatable
             * cos(radians(users.lng) - radians(" . $lon . ")) 
             + sin(radians(" .$lat. ")) 
             * sin(radians(users.lat))) AS distance"))
-        ->orderBy('id','DESC')->skip(0)->take(5)->get();
+        ->orderBy('id','DESC')->skip(0)->take(10)->get();
         
         return $this->SaveData($res,$lat,$lon);
     }
@@ -323,7 +323,7 @@ class User extends Authenticatable
             * cos(radians(users.lng) - radians(" . $lon . "))
             + sin(radians(" .$lat. "))
             * sin(radians(users.lat))) AS distance"))
-        ->orderBy('id','DESC')->skip($init)->take(5)->get();
+        ->orderBy('id','DESC')->skip($init)->take(10)->get();
         
         return $this->SaveData($res,$lat,$lon);
     }
