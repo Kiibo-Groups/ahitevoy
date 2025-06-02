@@ -187,9 +187,9 @@ class User extends Authenticatable
                 $query->where('users.city_id',$city_id);
             }
         })->join('city','users.city_id','=','city.id')
-                   ->leftjoin('categorystore','users.type','=','categorystore.id')
-                   ->select('categorystore.name as Cat','users.*','city.name as city')
-                   ->orderBy('users.id','DESC')->get();
+            ->leftjoin('categorystore','users.type','=','categorystore.id')
+            ->select('categorystore.name as Cat','users.*','city.name as city')
+            ->orderBy('users.id','DESC')->get();
     }
 
     public function getAppData($city_id,$trending = false)
@@ -197,27 +197,21 @@ class User extends Authenticatable
         $lat        = isset($_GET['lat']) ? $_GET['lat'] : 0;
         $lon        = isset($_GET['lng']) ? $_GET['lng'] : 0;
         
-        $res  = User::where(function($query) use($city_id,$trending){
-
-            $query->where('status',0)->where('city_id',$city_id);
-
+        $res = User::where(function($query) use($city_id,$trending){
+            $query->where('status',0); //->where('city_id',$city_id);
             if(isset($_GET['banner']))
             {
                 $sid   = BannerStore::where('banner_id',$_GET['banner'])->pluck('store_id')->toArray();
-
                 $query->whereIn('users.id',$sid);
             }
-
         })->select('users.*',DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
-                * cos(radians(users.lat)) 
-                * cos(radians(users.lng) - radians(" . $lon . ")) 
-                + sin(radians(" .$lat. ")) 
-                * sin(radians(users.lat))) AS distance"))
-        ->orderBy('id','DESC')->skip(0)->take(100)->get();
-        
+            * cos(radians(users.lat)) 
+            * cos(radians(users.lng) - radians(" . $lon . ")) 
+            + sin(radians(" .$lat. ")) 
+            * sin(radians(users.lat))) AS distance"))
+        ->orderBy('id','DESC')->skip(0)->take(5)->get();
         
         return $this->SaveData($res,$lat,$lon);
-       
     }
 
     public function InTrending($city_id)
@@ -226,7 +220,7 @@ class User extends Authenticatable
         $lon        = isset($_GET['lng']) ? $_GET['lng'] : 0;
         $res        = User::where(function($query) use($city_id){
 
-            $query->where('status',0)->where('city_id',$city_id);
+            $query->where('status',0); //->where('city_id',$city_id);
 
             $query->where('users.trending',1);
 
@@ -323,16 +317,13 @@ class User extends Authenticatable
         $init       = isset($_GET['init']) ? $_GET['init'] : 0;
         
         $res  = User::where(function($query) use($city_id){
-
-            $query->where('status',0)->where('city_id',$city_id);
-
+            $query->where('status',0); //->where('city_id',$city_id);
         })->select('users.*',DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
-                * cos(radians(users.lat)) 
-                * cos(radians(users.lng) - radians(" . $lon . ")) 
-                + sin(radians(" .$lat. ")) 
-                * sin(radians(users.lat))) AS distance"))
+            * cos(radians(users.lat))
+            * cos(radians(users.lng) - radians(" . $lon . "))
+            + sin(radians(" .$lat. "))
+            * sin(radians(users.lat))) AS distance"))
         ->orderBy('id','DESC')->skip($init)->take(5)->get();
-        
         
         return $this->SaveData($res,$lat,$lon);
     }
@@ -1186,7 +1177,7 @@ class User extends Authenticatable
         $lon        = isset($_GET['lng']) ? $_GET['lng'] : 0;
 
         $res  = User::where(function($query) use($city_id){
-            $query->where('status',0)->where('city_id',$city_id);
+            $query->where('status',0); //->where('city_id',$city_id);
         })->orderBy('id','DESC')->get();
 
         return $res->count();

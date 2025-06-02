@@ -184,13 +184,15 @@ class ApiController extends Controller {
 
 	public function GetInfiniteScroll($city_id) {
 		
-		$store   = new User;
-		
-		$data = [
-			'store'		=> $store->GetAllStores($city_id)
-		];
-
-		return response()->json(['data' => $data]);
+		try{
+			$store   = new User;
+			$data = [
+				'store'		=> $store->GetAllStores($city_id)
+			];
+			return response()->json(['data' => $data]);
+		} catch (\Exception $th) {
+			return response()->json(['data' => 'error','error' => $th->getMessage()]);
+		}
 	}
 
 	public function getTypeDelivery($id)
