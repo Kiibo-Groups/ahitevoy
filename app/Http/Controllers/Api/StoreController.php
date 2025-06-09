@@ -151,9 +151,11 @@ class StoreController extends Controller {
 	public function storeOpen($type)
 	{
 		try {
-			if($_GET['user_id'] != 0 || $_GET['user_id'] != null)
+			$res 		= User::find($_GET['user_id']);
+
+			if(isset($res->id))
 			{
-				$res 		= User::find($_GET['user_id']);
+				
 				$res->open 	= $type;
 				$res->save();	
 			}
