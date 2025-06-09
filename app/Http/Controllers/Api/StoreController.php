@@ -151,13 +151,13 @@ class StoreController extends Controller {
 	public function storeOpen($type)
 	{
 		try {
-			if($_GET['user_id'] != 0)
+			if($_GET['user_id'] != 0 || $_GET['user_id'] != null)
 			{
 				$res 		= User::find($_GET['user_id']);
 				$res->open 	= $type;
 				$res->save();	
 			}
-			
+
 			return response()->json(['data' => true]);
 		} catch (\Exception $th) {
 			return response()->json(['data' => "error",'error' => $th->getMessage()]);
