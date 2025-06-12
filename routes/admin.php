@@ -121,6 +121,7 @@ Route::post('offer/assign','OfferController@assign');
 |Delivery Staff
 |------------------------------
 */
+
 Route::resource('delivery','DeliveryController');
 Route::get('delivery/pay/{id}','DeliveryController@pay');
 Route::get('delivery/payAll/{id}','DeliveryController@payAll');
@@ -128,7 +129,10 @@ Route::get('delivery/{id}/rate','DeliveryController@rate');
 Route::get('delivery/delete/{id}','DeliveryController@delete');
 Route::get('delivery/status/{id}','DeliveryController@status');
 Route::get('delivery/status_admin/{id}','DeliveryController@status_admin');
+Route::get('delivery/view_documents/{id}','DeliveryController@view_documents');
+Route::get('delivery/removeDocument/{type}/{id}','DeliveryController@removeDocument');
 Route::patch('delivery_pay/{id}','DeliveryController@delivery_pay');
+
 /*
 |-------------------------------
 |Manage Orders

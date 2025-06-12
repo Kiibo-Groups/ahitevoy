@@ -311,12 +311,69 @@ class DeliveryController extends Controller
 	}
 
 	/*
-	   |---------------------------------------
-	   |@View Report
-	   |---------------------------------------
-	   */
+	|---------------------------------------
+	|@View Report
+	|---------------------------------------
+	*/
 	public function exportDboy($id)
 	{
 		return Excel::download(new DeliveryExport($id), 'report.xlsx');
+	}
+
+	/*
+	|---------------------------------------
+	|@View Documents
+	|---------------------------------------
+	*/
+	public function view_documents($id)
+	{
+
+		$admin = new Admin;
+
+		if ($admin->hasperm('Repartidores')) {
+			return View(
+				$this->folder . 'view_documents',
+				[
+					'data' => Delivery::find($id),
+					'form_url' => env('admin') . '/delivery_pay/' . $id,
+					'link' => env('admin') . '/delivery/'
+				]
+			);
+		} else {
+			return Redirect::to(env('admin') . '/home')->with('error', 'No tienes permiso de ver la sección Repartidores');
+		}
+	}
+
+	public function removeDocument($type, $id)
+	{
+		$dboy = Delivery::find($id);
+		$path = '/upload/' . $type . '/';
+		switch ($type) {
+			case 'licence':
+				$fileToDelete = public_path($path . $dboy->licence);
+				if (file_exists($fileToDelete)) {
+					@unlink($fileToDelete);
+				}
+				$dboy->licence = null;
+				break;
+			case 'credential':
+				$fileToDelete = public_path($path . $dboy->credential);
+				if (file_exists($fileToDelete)) {
+					@unlink($fileToDelete);
+				}
+				$dboy->credential = null;
+				break;
+			case 'biometric':
+				$fileToDelete = public_path($path . $dboy->biometric);
+				if (file_exists($fileToDelete)) {
+					@unlink($fileToDelete);
+				}
+				$dboy->biometric = null;
+				break;
+		}
+
+		$dboy->save();
+
+		return Redirect::to(env('admin') . '/delivery/view_documents/'.$id)->with('success', 'Documento eliminado con éxito.');
 	}
 }
