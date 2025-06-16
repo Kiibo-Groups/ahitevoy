@@ -321,7 +321,7 @@ class User extends Authenticatable
             * cos(radians(users.lng) - radians(" . $lon . "))
             + sin(radians(" .$lat. "))
             * sin(radians(users.lat))) AS distance"))
-        ->orderBy('id','DESC')->skip($init)->take(10)->get();
+        ->orderBy('id','DESC')->skip($init)->take(5)->get();
         
         return $this->SaveData($res,$lat,$lon);
     }
