@@ -1,7 +1,6 @@
 @include('user.order.dispatch')
 
 @if($row->status == 0)
-
     <div class="btn-group" role="group">
         <button id="btnGroupDrop{{ $row->id }}" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
@@ -9,7 +8,6 @@
             <a href="{{ Asset('orderStatus?id='.$row->id.'&status=2') }}" onclick="return confirm('Are you sure?')">Cancelar Orden</a><hr>
         </div>
     </div>
-
 @elseif($row->status == 1)
 
     @if(!$row->dboy)

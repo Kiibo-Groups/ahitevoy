@@ -79,6 +79,9 @@ class User extends Authenticatable
         $add->subtype               = isset($data['store_subtype']) ? $data['store_subtype'] : 0;
         $add->min_cart_value        = isset($data['min_cart_value']) ? $data['min_cart_value'] : null;
         
+        // AutoAceptacion del pedido
+        $add->accept_orders         = isset($data['accept_orders']) ? $data['accept_orders'] : 0;
+
         $add->c_type                = isset($data['c_type']) ? $data['c_type'] : 0;
         $add->c_value               = isset($data['c_value']) ? $data['c_value'] : 0;
         $add->t_type                = isset($data['t_type']) ? $data['t_type'] : 0;

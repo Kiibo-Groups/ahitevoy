@@ -99,6 +99,17 @@ class Order extends Authenticatable
             app('App\Http\Controllers\Controller')->sendPushS($title,$msg,$store->id);
          /** Enviamos Notificacion al negocio */
 
+
+         /** Verificamos si tiene activo el Auto Aceptado de pedidos */
+         $auto_accept_orders = 0;
+         if($store->accept_orders){ // Aceptar Automaticamente...
+            $add->save        = 1;
+            $add->status_by 	= 1;
+            $add->status_time = date('d-M-Y').' | '.date('h:i:A');
+            $auto_accept_orders = 1;
+            $add->save();
+         }
+         
          /** Agregamos el servicio a Firebase */
             try {
                $return = array(
@@ -117,7 +128,7 @@ class Order extends Authenticatable
                   'lng'       => $add->lng,
                   'type'      => $add->type,
                   'code_order' => $add->code_order,
-                  'status'    => 0
+                  'status'    => $auto_accept_orders
                );
    
                $server_fb = new NodejsServer;
