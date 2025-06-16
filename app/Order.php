@@ -103,8 +103,8 @@ class Order extends Authenticatable
          /** Verificamos si tiene activo el Auto Aceptado de pedidos */
          $auto_accept_orders = 0;
          if($store->accept_orders){ // Aceptar Automaticamente...
-            $add->save        = 1;
-            $add->status_by 	= 1;
+            $add->status        = 1;
+            $add->status_by 	  = 1;
             $add->status_time = date('d-M-Y').' | '.date('h:i:A');
             $auto_accept_orders = 1;
             $add->save();
