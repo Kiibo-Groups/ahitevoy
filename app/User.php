@@ -1544,9 +1544,7 @@ class User extends Authenticatable
                     'day' => $admin->getDayName(0)
                 ]
             ],
-            'week_data' => [
-                'total' => $this->chartxWeek($_GET['id'])['total']
-            ],
+            'week_data' =>  $this->chartxWeek($_GET['id']),
             'month' => [
                 'month_1' => $admin->getMonthName(2),
                 'month_2' => $admin->getMonthName(1),
@@ -1705,7 +1703,8 @@ class User extends Authenticatable
     public function chartxWeek($id)
     {
         $date = strtotime(date("Y-m-d"));
-
+        $i = new OrderItem;
+        $ventas = 0;
         $init_week = strtotime('last Sunday');
         $end_week = strtotime('next Saturday');
 
@@ -1723,10 +1722,18 @@ class User extends Authenticatable
 
         })->where('status', 6)
             ->where('created_at', '>=', date('Y-m-d', $init_week))
-            ->where('created_at', '<=', date('Y-m-d', $end_week))->sum('d_charges');
+            ->where('created_at', '<=', date('Y-m-d', $end_week))->get();
+
+        if ($sum->count() > 0) {
+            foreach ($sum as $cm) {
+                $total_store = $i->GetTaxes($cm->id)['gananciasxt'];
+                $ventas = $ventas + $total_store;
+            }
+        }
 
         return [
             'total' => $total,
+            'amount' => $ventas,
             'lastday' => date('Y-m-d', $init_week),
             'nextday' => date('Y-m-d', $end_week)
         ];
