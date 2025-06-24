@@ -1742,7 +1742,8 @@ class User extends Authenticatable
     public function chartxMonth($id)
     {
         $date = strtotime(date("Y-m-d"));
-
+        $i = new OrderItem;
+        $ventas = 0;
         $init_month = strtotime(date('Y-m-01')); // Primer día del mes actual
         $end_month = strtotime(date('Y-m-t'));
 
@@ -1760,11 +1761,18 @@ class User extends Authenticatable
 
         })->where('status', 6)
             ->where('created_at', '>=', date('Y-m-d', $init_month))
-            ->where('created_at', '<=', date('Y-m-d', $end_month))->sum('d_charges');
+            ->where('created_at', '<=', date('Y-m-d', $end_month))->get();
+
+        if ($sum->count() > 0) {
+            foreach ($sum as $cm) {
+                $total_store = $i->GetTaxes($cm->id)['gananciasxt'];
+                $ventas = $ventas + $total_store;
+            }
+        }
 
         return [
             'total' => $total,
-            'sum' => $sum,
+            'amount' => $ventas,
             'init_month' => date('Y-m-d', $init_month),
             'end_month' => date('Y-m-d', $end_month)
         ];
