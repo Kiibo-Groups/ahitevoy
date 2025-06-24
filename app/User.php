@@ -1757,6 +1757,7 @@ class User extends Authenticatable
 
         return [
             'total' => $total,
+            'sum' => $sum,
             'init_month' => date('Y-m-d', $init_month),
             'end_month' => date('Y-m-d', $end_month)
         ];
