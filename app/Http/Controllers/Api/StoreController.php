@@ -130,14 +130,14 @@ class StoreController extends Controller {
 
 	public function verify(Request $Request)
 	{
-		$res = new AppUser;
+		$res = new User;
 		
 		return response()->json($res->verify($Request->all()));
 	}
 
 	public function updatePassword(Request $Request)
 	{
-		$res = new AppUser;
+		$res = new User;
 		
 		return response()->json($res->updatePassword($Request->all()));
 	}
