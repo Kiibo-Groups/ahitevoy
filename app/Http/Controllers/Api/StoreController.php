@@ -124,8 +124,7 @@ class StoreController extends Controller {
 
 	public function forgot(Request $Request)
 	{
-		$res = new AppUser;
-		
+		$res = new User;
 		return response()->json($res->forgot($Request->all()));
 	}
 

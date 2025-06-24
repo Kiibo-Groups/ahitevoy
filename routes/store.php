@@ -1,6 +1,7 @@
 <?php
 
 Route::post('store/login','StoreController@login');
+Route::post('store/forgot','StoreController@forgot');
 Route::get('store/storeOpen/{id}','StoreController@storeOpen');
 Route::get('store/homepage','StoreController@homepage');
 Route::get('store/startRide','StoreController@startRide');
