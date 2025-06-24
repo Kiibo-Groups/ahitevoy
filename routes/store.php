@@ -2,6 +2,8 @@
 
 Route::post('store/login','StoreController@login');
 Route::post('store/forgot','StoreController@forgot');
+Route::post('store/verify','StoreController@verify');
+Route::post('store/updatePassword','StoreController@updatePassword');
 Route::get('store/storeOpen/{id}','StoreController@storeOpen');
 Route::get('store/homepage','StoreController@homepage');
 Route::get('store/startRide','StoreController@startRide');
