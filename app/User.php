@@ -1552,6 +1552,7 @@ class User extends Authenticatable
                 'month_2' => $admin->getMonthName(1),
                 'month_3' => $admin->getMonthName(0),
             ],
+            'month_data' => $this->chartxMonth($_GET['id']),
             'complet' => [
                 'complet_1' => $this->chart($_GET['id'], 2, 1)['order'],
                 'complet_2' => $this->chart($_GET['id'], 1, 1)['order'],
@@ -1728,6 +1729,36 @@ class User extends Authenticatable
             'total' => $total,
             'lastday' => date('Y-m-d', $init_week),
             'nextday' => date('Y-m-d', $end_week)
+        ];
+    }
+
+    public function chartxMonth($id)
+    {
+        $date = strtotime(date("Y-m-d"));
+
+        $init_month = strtotime(date('Y-m-01')); // Primer día del mes actual
+        $end_month = strtotime(date('Y-m-t'));
+
+        $total = Order::where(function ($query) use ($id) {
+
+            $query->where('store_id', $id);
+
+        })->where('status', 6)
+            ->where('created_at', '>=', date('Y-m-d', $init_month))
+            ->where('created_at', '<=', date('Y-m-d', $end_month))->count();
+
+        $sum = Order::where(function ($query) use ($id) {
+
+            $query->where('store_id', $id);
+
+        })->where('status', 6)
+            ->where('created_at', '>=', date('Y-m-d', $init_month))
+            ->where('created_at', '<=', date('Y-m-d', $end_month))->sum('d_charges');
+
+        return [
+            'total' => $total,
+            'init_month' => date('Y-m-d', $init_month),
+            'end_month' => date('Y-m-d', $end_month)
         ];
     }
 
