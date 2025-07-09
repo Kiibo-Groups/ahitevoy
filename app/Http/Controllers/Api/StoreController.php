@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\api;
+<?php
+
+namespace App\Http\Controllers\api;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,7 +22,9 @@ use Validator;
 use Redirect;
 use Excel;
 use Stripe;
-class StoreController extends Controller {
+
+class StoreController extends Controller
+{
 
 	public function homepage()
 	{
@@ -36,7 +40,7 @@ class StoreController extends Controller {
 			'app_type'	=> isset($l->id) ? $l->type : 0,
 			'store'		=> User::find($_GET['id']),
 			'overview'	=> $res->overView(),
-			'dboy'		=> Delivery::where('status',0)->get()
+			'dboy'		=> Delivery::where('status', 0)->get()
 		]);
 	}
 
@@ -48,7 +52,7 @@ class StoreController extends Controller {
 			$res->status 		= $_GET['status'];
 			$res->save();
 
-			
+
 			// Cambiamos el status en FB 
 			$fb_server = new NodejsServer;
 			$dat_s = array(
@@ -56,7 +60,7 @@ class StoreController extends Controller {
 				'status' 		=> $res->status,
 				'change_from'   => 'store_app'
 			);
-			$fb_server->orderStatus($dat_s); 
+			$fb_server->orderStatus($dat_s);
 
 			if (isset($_GET['dboy_Ext'])) {
 				$res->d_boy = 0;
@@ -70,22 +74,21 @@ class StoreController extends Controller {
 					'type_staff'    => $type_staff,
 				);
 
-				$data_deli = $fb_server->setStaffDelivery($dat_s); 
-				
+				$data_deli = $fb_server->setStaffDelivery($dat_s);
 			}
 
 			//$res->sendSms($_GET['id']);
-			return response()->json(['data' => $_GET['id'] , 'data_deli' => $data_deli]);
+			return response()->json(['data' => $_GET['id'], 'data_deli' => $data_deli]);
 		} catch (\Throwable $th) {
-			return response()->json(['data' => 'fail' , 'data_deli' => []]);
+			return response()->json(['data' => 'fail', 'data_deli' => []]);
 		}
 	}
 
 	public function city()
 	{
 		$city = new City;
-        $text = new Text;
-        
+		$text = new Text;
+
 		return response()->json(['data' => $city->getAll(0)]);
 	}
 
@@ -102,7 +105,7 @@ class StoreController extends Controller {
 	public function getStaffNearby($id)
 	{
 		$staff = new Delivery;
-		return response()->json(['dboy' => $staff->getNearby($id,1)]);
+		return response()->json(['dboy' => $staff->getNearby($id, 1)]);
 	}
 
 	public function overview()
@@ -117,17 +120,50 @@ class StoreController extends Controller {
 	public function login(Request $Request)
 	{
 		$res = new User;
-		
+
 		return response()->json($res->login($Request->all()));
 	}
 
 	public function signup(Request $request)
 	{
-		try{
-			$res = new User;
-			return response()->json(['data' => $res->addNew($request->all(),'new'), 'msg' => 'done']);
+		try {
+			$data = $request->all();
+
+			$input['name'] = $data['name'];
+			$input['email'] = $data['email'];
+			$input['phone']	=  isset($data['phone']) ? $data['phone'] : null;
+			$input['password'] = bcrypt("password");
+			$input['shw_password'] = "password";
+			$input['status'] = 1;
+
+			$input['logo'] = time() . rand(111, 699) . ".png";
+			$input['img_discount'] = time() . rand(111, 699) . ".png";
+			$input['saldo'] = 0;
+			$input['delivery_min_charges_value'] = 0;
+			$input['delivery_min_distance'] = 0;
+			$input['type_charges_value'] = 0;
+			$input['distance_max'] = 0;
+			$input['trending'] = 0;
+			$input['city_id'] = 1;
+			$input['c_type'] = 0;
+			$input['c_value'] = 0;
+			$input['t_type'] = 0;
+			$input['t_value'] = 0;
+			$input['stripe_pay'] = 0;
+			$input['p_staff'] = 0;
+			$input['service_del'] = 0;
+			$input['pickup'] = 0;
+			$input['open'] = 0;
+			$input['subtype'] = 0;
+			$input['Cuenta_clave'] = 0;
+			$input['banco_name'] = 0;
+
+
+			$create = User::create($input);
+
+			return response()->json(['data' => $create, 'msg' => 'done']);
 		} catch (\Exception $th) {
-			return response()->json(['data' => "error",'error' => $th->getMessage()]);
+			return response()->json(['data' => "error", 'error' => $th->getMessage()]);
 		}
 	}
 
@@ -140,14 +176,14 @@ class StoreController extends Controller {
 	public function verify(Request $Request)
 	{
 		$res = new User;
-		
+
 		return response()->json($res->verify($Request->all()));
 	}
 
 	public function updatePassword(Request $Request)
 	{
 		$res = new User;
-		
+
 		return response()->json($res->updatePassword($Request->all()));
 	}
 
@@ -161,27 +197,25 @@ class StoreController extends Controller {
 		try {
 			$res 		= User::find($_GET['user_id']);
 
-			if(isset($res->id))
-			{
-				
+			if (isset($res->id)) {
+
 				$res->open 	= $type;
-				$res->save();	
+				$res->save();
 			}
 
 			return response()->json(['data' => true]);
 		} catch (\Exception $th) {
-			return response()->json(['data' => "error",'error' => $th->getMessage()]);
+			return response()->json(['data' => "error", 'error' => $th->getMessage()]);
 		}
 	}
 
 	public function updateInfo(Request $Request)
 	{
 		$res 				= User::find($Request->get('id'));
-		
-		if($Request->get('password'))
-		{
+
+		if ($Request->get('password')) {
 			$res->password      = bcrypt($Request->get('password'));
-        	$res->shw_password  = $Request->get('password');
+			$res->shw_password  = $Request->get('password');
 		}
 
 		$res->min_cart_value 		 = $Request->get('min_cart_value');
@@ -193,8 +227,7 @@ class StoreController extends Controller {
 
 	public function updateLocation(Request $Request)
 	{
-		if($Request->get('user_id') > 0)
-		{
+		if ($Request->get('user_id') > 0) {
 			$add 			= Delivery::find($Request->get('user_id'));
 			$add->lat 		= $Request->get('lat');
 			$add->lng 		= $Request->get('lng');
@@ -206,8 +239,8 @@ class StoreController extends Controller {
 
 	public function getItem()
 	{
-		$res = new User; 
-		return response()->json(['data' => $res->menuItem($_GET['id'],$_GET['type'],$_GET['value'])]);
+		$res = new User;
+		return response()->json(['data' => $res->menuItem($_GET['id'], $_GET['type'], $_GET['value'])]);
 	}
 
 	public function changeStatus()
