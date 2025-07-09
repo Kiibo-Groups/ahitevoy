@@ -17,7 +17,35 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'password',
+        'shw_password',
+        'status',
+        'logo',
+        'img_discount',
+        'saldo',
+        'delivery_min_charges_value',
+        'delivery_min_distance',
+        'type_charges_value',
+        'distance_max',
+        'trending',
+        'city_id',
+        'c_type',
+        'c_value',
+        't_type',
+        't_value',
+        'stripe_pay',
+        'p_staff',
+        'service_del',
+        'pickup',
+        'open',
+        'subtype',
+        'Cuenta_clave',
+        'banco_name'
+    ];
 
     /*
     |----------------------------------------------------------------
