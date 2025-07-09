@@ -129,7 +129,7 @@ class StoreController extends Controller
 		try {
 			$data = $request->all();
 
-			$input['name'] = $data['name'];
+			$input['name'] = $data['username'];
 			$input['email'] = $data['email'];
 			$input['phone']	=  isset($data['phone']) ? $data['phone'] : null;
 			$input['password'] = bcrypt("password");
