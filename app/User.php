@@ -154,6 +154,8 @@ class User extends Authenticatable
 
         $gallery = new UserImage;
         $gallery->addNew($data, $add->id);
+
+        return $add;
     }
 
     public function updateMap($data, $id)

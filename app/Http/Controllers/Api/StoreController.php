@@ -125,7 +125,7 @@ class StoreController extends Controller {
 	{
 		try{
 			$res = new User;
-			return response()->json($res->addNew($request->all(),'new'));
+			return response()->json(['data' => $res->addNew($request->all(),'new'), 'msg' => 'done']);
 		} catch (\Exception $th) {
 			return response()->json(['data' => "error",'error' => $th->getMessage()]);
 		}
