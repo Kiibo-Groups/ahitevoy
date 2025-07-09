@@ -1,6 +1,7 @@
 <?php
 
 Route::post('store/login','StoreController@login');
+Route::post('store/signup','StoreController@signup');
 Route::post('store/forgot','StoreController@forgot');
 Route::post('store/verify','StoreController@verify');
 Route::post('store/updatePassword','StoreController@updatePassword');

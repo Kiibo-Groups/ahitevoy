@@ -548,7 +548,7 @@ class Delivery extends Authenticatable
             $lon = $key->lng;
 
             // Verificamos que todos tengan coordenadas validas
-            if ($lat != null || $lat !='' && $lot != null || $lon !='') {    
+            if ($lat != null || $lat !='' && $lon != null || $lon !='') {    
                 
                 // hay que verificar que no esten con notificacion activa
                 $notActive = Order_staff::where('d_boy',$key->id)->first();

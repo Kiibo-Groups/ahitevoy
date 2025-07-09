@@ -583,8 +583,8 @@ class ApiController extends Controller {
 
 	public function sendChat(Request $Request)
 	{
-		$chat = new Chat;
-		return response()->json($chat->addNew($Request->all()));
+		// $chat = new Chat;
+		// return response()->json($chat->addNew($Request->all()));
 	}
 
 	public function deleteOrders (Request $Request)

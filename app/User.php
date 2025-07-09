@@ -2009,6 +2009,4 @@ class User extends Authenticatable
             'request' => $request
         ];
     }
-
-
 }

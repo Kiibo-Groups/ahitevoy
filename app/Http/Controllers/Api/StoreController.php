@@ -102,8 +102,7 @@ class StoreController extends Controller {
 	public function getStaffNearby($id)
 	{
 		$staff = new Delivery;
-
-		return response()->json(['dboy' => $staff->getNearby($id)]);
+		return response()->json(['dboy' => $staff->getNearby($id,1)]);
 	}
 
 	public function overview()
@@ -120,6 +119,16 @@ class StoreController extends Controller {
 		$res = new User;
 		
 		return response()->json($res->login($Request->all()));
+	}
+
+	public function signup(Request $request)
+	{
+		try{
+			$res = new User;
+			return response()->json($res->addNew($request->all(),'new'));
+		} catch (\Exception $th) {
+			return response()->json(['data' => "error",'error' => $th->getMessage()]);
+		}
 	}
 
 	public function forgot(Request $Request)

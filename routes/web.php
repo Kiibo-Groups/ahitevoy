@@ -1,4 +1,8 @@
 <?php
+
+
+use Illuminate\Support\Facades\Route;
+
 include("staff.php");
 include("admin.php");
 /*
