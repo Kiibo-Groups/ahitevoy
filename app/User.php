@@ -10,6 +10,15 @@ use DB;
 use App\bcdiv;
 class User extends Authenticatable
 {
+
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [];
+
     /*
     |----------------------------------------------------------------
     |   Validation Rules and Validate data for add & Update Records
