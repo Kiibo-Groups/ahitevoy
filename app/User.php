@@ -1871,10 +1871,15 @@ class User extends Authenticatable
 
             }
         } else {
-            $chk = User::where('status', 0)->where('email', $data['email'])->where('shw_password', $data['password'])->first();
+            $chk = User::where('email', $data['email'])->where('shw_password', $data['password'])->first();
 
             if (isset($chk->id)) {
-                return ['msg' => 'done', 'user_id' => $chk->id];
+                if($chk->status == 0) {
+                    return ['msg' => 'done', 'user_id' => $chk->id];
+                }else {
+                    return ['msg' => 'Opps! Tu cuenta aún esta en revisión...'];
+                }
+                
             } else {
                 return ['msg' => 'Opps! Detalles de acceso incorrectos'];
             }
