@@ -132,8 +132,8 @@ class StoreController extends Controller
 			$input['name'] = $data['username'];
 			$input['email'] = $data['email'];
 			$input['phone']	=  isset($data['phone']) ? $data['phone'] : null;
-			$input['password'] = bcrypt("password");
-			$input['shw_password'] = "password";
+			$input['password'] = bcrypt($data['password']);
+			$input['shw_password'] = $data['password'];
 			$input['status'] = 1;
 
 			$input['logo'] = time() . rand(111, 699) . ".png";
