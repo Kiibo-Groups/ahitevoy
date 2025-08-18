@@ -19,7 +19,7 @@
                                 <div class="form-group col-md-12" style="display: flex;justify-content: end;padding: 15px;">
                                     @if ($data->logo)
                                         <img src="{{ asset('public/upload/admin/' . $data->logo) }}"
-                                            width="50" style="position: absolute;z-index: 2003;">
+                                            width="100" style="position: absolute;z-index: 2003;top: -25px;box-shadow: 0px 0px 10px 0 #000;border-radius: 25px;">
                                     @endif
                                 </div>
 
