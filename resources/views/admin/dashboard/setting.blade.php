@@ -16,6 +16,13 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
 
+                                <div class="form-group col-md-12" style="display: flex;justify-content: end;padding: 15px;">
+                                    @if ($data->logo)
+                                        <img src="{{ asset('public/upload/admin/' . $data->logo) }}"
+                                            width="50" style="position: absolute;z-index: 2003;">
+                                    @endif
+                                </div>
+
                                 <div class="card py-3 m-b-30">
                                     <div class="card-body">
 
@@ -47,16 +54,15 @@
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="asd">Currency <small>(e.g $, &pound;
+                                                <label for="currency">Currency <small>(e.g $, &pound;
                                                         &#8377;)</small></label>
-                                                <input type="text" class="form-control" id="asd" name="currency"
+                                                <input type="text" class="form-control" id="currency" name="currency"
                                                     value="{{ $data->currency }}" required="required">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @if ($data->logo)
-                                                    <img src="{{ asset('public/upload/admin/' . $data->logo) }}"
-                                                        width="50">
-                                                @endif
+                                                <label for="version_app">Versión actual del aplicativo</label>
+                                                <input type="text" class="form-control" id="version_app" name="version_app"
+                                                    value="{{ $data->version_app }}" required="required">
                                             </div>
                                         </div>
                                     </div>

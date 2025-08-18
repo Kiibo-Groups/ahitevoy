@@ -91,6 +91,7 @@ class Admin extends Authenticatable
 		$update->comm_stripe   	    = isset($data['comm_stripe']) ? $data['comm_stripe'] : null;
 		$update->send_terminal      = isset($data['send_terminal']) ? $data['send_terminal'] : 0;
 		$update->max_cash 			= isset($data['max_cash']) ? $data['max_cash'] : 0;
+		$update->version_app        = isset($data['version_app']) ? $data['version_app'] : '0.0.0';
 		$update->s_data 			= serialize($a);
 
 		if(isset($data['new_password']))
