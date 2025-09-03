@@ -49,7 +49,7 @@ class StoreController extends Controller
 		try {
 			$res 		 = Order::find($_GET['id']);
 			$data_deli   = '';
-			$res->status 		= $_GET['status'];
+			$res->status = $_GET['status'];
 			$res->save();
 
 
@@ -77,7 +77,7 @@ class StoreController extends Controller
 				$data_deli = $fb_server->setStaffDelivery($dat_s);
 			}
 
-			//$res->sendSms($_GET['id']);
+			$res->sendSms($_GET['id']);
 			return response()->json(['data' => $_GET['id'], 'data_deli' => $data_deli]);
 		} catch (\Throwable $th) {
 			return response()->json(['data' => 'fail', 'data_deli' => []]);
