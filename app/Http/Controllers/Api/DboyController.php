@@ -134,6 +134,7 @@ class DboyController extends Controller {
 		try {
 			$res 		 = Order::find($_GET['id']);
 			$res->status = $_GET['status'];
+			
 			$res->save();
 			
 			// Cambiamos el status en FB 

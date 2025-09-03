@@ -651,9 +651,21 @@ class Delivery extends Authenticatable
     function delStaffOrder($order_id)
     {
         // Seteamos la tabla
-        Order_staff::where('order_id',$order_id)->delete();
-
         $order = Order::find($order_id);
+        
+        if ($order->d_boy != 0) {
+
+            $chkOrdStaff = Order_staff::where('order_id',$order_id)->first();
+
+            if($chkOrdStaff->status == 3)
+            {
+                return [
+                    'status' => 'in_rute'
+                ];
+            }
+        }
+
+        Order_staff::where('order_id',$order_id)->delete();
 
         $order->status = 1;
         $order->save();
