@@ -669,7 +669,6 @@ class Order extends Authenticatable
       } elseif ($order->status == 2) {
          $msg = "Hola! " . $order->name . ", 😁 Tu orden #" . $order->id . " ha sido cancelada :( Lamentamos lo sucedido, porfavor contactanos si en algo podemos ayudarte.";
          $title = "Orden Cancelada";
-
       } elseif ($order->status == 3) {
          $msg = "Hola " . $order->name . ", 😁 se ha asignado un repartidor para tu pedido #" . $order->id;
          $title = "Repartidor asignado.";

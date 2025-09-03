@@ -617,6 +617,7 @@ class Delivery extends Authenticatable
             // Guardamos el Nuevo elemento
             $order_Staff = new Order_staff;
 
+            $order_Staff->external_id = $order->external_id;
             $order_Staff->order_id = $order_id;
             $order_Staff->d_boy    = $dboy_id;
             $order_Staff->status   = 0;
