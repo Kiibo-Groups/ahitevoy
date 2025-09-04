@@ -401,7 +401,7 @@ class Delivery extends Authenticatable
                     $query->where('d_boy',$id);
                 }
 
-        })->where('status',6)->whereDate('created_at','LIKE','%'.$day.'%')->count();
+        })->whereIn('status',[5,6])->whereDate('created_at','LIKE','%'.$day.'%')->count();
 
 
         $cancel  = Order::where(function($query) use($sid,$id){
@@ -448,7 +448,7 @@ class Delivery extends Authenticatable
 
                 $query->where('d_boy',$id);
 
-            })->where('status',6)
+            })->whereIn('status',[5,6])
                 ->where('created_at','>=',date('Y-m-d', $init_week))
                 ->where('created_at','<=',date('Y-m-d', $end_week))->count();
 
@@ -456,7 +456,7 @@ class Delivery extends Authenticatable
 
                 $query->where('d_boy',$id);
 
-            })->where('status',6)
+            })->whereIn('status',[5,6])
                 ->where('created_at','>=',date('Y-m-d', $init_week))
                 ->where('created_at','<=',date('Y-m-d', $end_week))->sum('d_charges');
 
