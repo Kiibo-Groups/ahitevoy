@@ -209,9 +209,10 @@ class AppUser extends Authenticatable
                 'otp' => $otp
             ], function($message) use ($res) {
                 $message->from("soporte@ahitevoy.com", "AhiTeVoy")
-                    ->to($res->email, $$res->name)
+                    ->to($res->email, $res->name)
                     ->subject('Código de acceso - AhiTeVoy');
             });
+            
             $return = ['msg' => 'done','user_id' => $res->id];
             // $res->otp = $otp;
             // $res->save();
