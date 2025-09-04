@@ -204,16 +204,20 @@ class AppUser extends Authenticatable
         if(isset($res->id))
         {
             $otp = rand(1111,9999);
-            Mail::send('emails.forgot', [
-                'user' => $res,
-                'otp' => $otp
-            ], function($message) use ($res) {
-                $message->from("soporte@ahitevoy.com", "AhiTeVoy")
-                    ->to($res->email, $res->name)
-                    ->subject('Código de acceso - AhiTeVoy');
-            });
-            
-            $return = ['msg' => 'done','user_id' => $res->id];
+            $send = Mail::send(
+                'emails.forgot', 
+                array(
+                    'user' => $res,
+                    'otp' => $otp
+                ), 
+                function($message) use ($res) {
+                    $message->from("soporte@ahitevoy.com", "AhiTeVoy")
+                        ->to($res->email, $res->name)
+                        ->subject('Código de acceso - AhiTeVoy');
+                }
+            );
+
+            $return = ['msg' => 'done','user_id' => $res->id , 'send' => $send];
             // $res->otp = $otp;
             // $res->save();
 
