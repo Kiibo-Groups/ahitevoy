@@ -29,12 +29,10 @@ class DboyController extends Controller {
 			$l 		 = Language::find($_GET['lid']);
 
 			return response()->json([
-
 				'data' 		=> $res->history(0),
 				'text'		=> $text->getAppData($_GET['lid']),
 				'app_type'	=> isset($l->id) ? $l->type : 0,
 				'admin'		=> Admin::find(1)
-			
 			]);
 		} catch (\Exception $th) {
 			return response()->json(['data' => "error",'error' => $th->getMessage()]);

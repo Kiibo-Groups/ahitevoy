@@ -215,7 +215,7 @@ class Order extends Authenticatable
             if ($_GET['status'] == 3) {
                $query->whereIn('orders.status', [1.5, 3, 4]);
             } else {
-               $query->where('orders.status', 6);
+               $query->whereIn('orders.status', [5,6]);
             }
          }
 
