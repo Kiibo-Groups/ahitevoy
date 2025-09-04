@@ -7,8 +7,8 @@ use App\Http\Controllers\OpenpayController;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Validator;
-use Mail;
+use Validator; 
+use Illuminate\Support\Facades\Mail;
 class AppUser extends Authenticatable
 {
    protected $table = 'app_user';
@@ -204,27 +204,34 @@ class AppUser extends Authenticatable
         if(isset($res->id))
         {
             $otp = rand(1111,9999);
-
-            $res->otp = $otp;
-            $res->save();
-
-            $para       =   $data['email'];
-            $asunto     =   'Codigo de acceso - AhiTeVoy';
-            $mensaje    =   "Hola ".$res->name." Un gusto saludarte, se ha pedido un codigo de recuperacion para acceder a tu cuenta en AhiTeVoy";
-            $mensaje    .=  ' '.'<br>';
-            $mensaje    .=  "Tu codigo es: <br />";
-            $mensaje    .=  '# '.$otp;
-            $mensaje    .=  "<br /><hr />Recuerda, si no lo has solicitado tu has caso omiso a este mensaje y te recomendamos hacer un cambio en tu contrasena.";
-            $mensaje    .=  "<br/ ><br /><br /> Te saluda el equipo de AhiTeVoy";
-        
-            $cabeceras = 'From: ahitevoyaltamira@gmail.com' . "\r\n";
-            
-            $cabeceras .= 'MIME-Version: 1.0' . "\r\n";
-            
-            $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            mail($para, $asunto, utf8_encode($mensaje), $cabeceras);
-        
+            Mail::send('emails.forgot', [
+                'user' => $res,
+                'otp' => $otp
+            ], function($message) use ($res) {
+                $message->to($res->email)
+                        ->subject('Código de acceso - AhiTeVoy');
+            });
             $return = ['msg' => 'done','user_id' => $res->id];
+            // $res->otp = $otp;
+            // $res->save();
+
+            // $para       =   $data['email'];
+            // $asunto     =   'Codigo de acceso - AhiTeVoy';
+            // $mensaje    =   "Hola ".$res->name." Un gusto saludarte, se ha pedido un codigo de recuperacion para acceder a tu cuenta en AhiTeVoy";
+            // $mensaje    .=  ' '.'<br>';
+            // $mensaje    .=  "Tu codigo es: <br />";
+            // $mensaje    .=  '# '.$otp;
+            // $mensaje    .=  "<br /><hr />Recuerda, si no lo has solicitado tu has caso omiso a este mensaje y te recomendamos hacer un cambio en tu contrasena.";
+            // $mensaje    .=  "<br/ ><br /><br /> Te saluda el equipo de AhiTeVoy";
+        
+            // $cabeceras = 'From: ahitevoyaltamira@gmail.com' . "\r\n";
+            
+            // $cabeceras .= 'MIME-Version: 1.0' . "\r\n";
+            
+            // $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            // mail($para, $asunto, utf8_encode($mensaje), $cabeceras);
+        
+           
         }
         else
         {
