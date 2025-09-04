@@ -422,7 +422,7 @@ class Delivery extends Authenticatable
 
                 $query->where('d_boy',$id);
 
-            })->where('status',6)
+            })->whereIn('status',[5,6])
                 ->whereDate('created_at','LIKE','%'.$day.'%')->sum('d_charges');
 
             
