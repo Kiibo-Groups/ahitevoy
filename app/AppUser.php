@@ -195,18 +195,18 @@ class AppUser extends Authenticatable
             $res->otp = $otp;
             $res->save();
 
-            $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("soporte@ahitevoy.com", "AhiTeVoy");
-            $email->setSubject("Código de acceso - AhiTeVoy");
-            $email->addTo($res->email, $res->name);
-            $email->addContent(
-                "text/html",
-                "Tu código de verificación es: " . $otp
+            Mail::send(
+                'emails.forgot', 
+                array(
+                    'user' => $res,
+                    'otp' => $otp
+                ), 
+                function($message) use ($res) {
+                    $message->from("ahitevoyaltamira@gmail.com", "AhiTeVoy")
+                        ->to($res->email, $res->name)
+                        ->subject('Código de acceso - AhiTeVoy');
+                }
             );
-
-            $sendgrid = new \SendGrid(env('SENDGRID_API_KEY'));
-            $sendgrid->send($email);
-
 
             return ['msg' => 'done', 'user_id' => $res->id];
 
