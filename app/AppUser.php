@@ -202,7 +202,7 @@ class AppUser extends Authenticatable
                     'otp' => $otp
                 ), 
                 function($message) use ($res) {
-                    $message->from("soporte@ahitevoy.com", "AhiTeVoy")
+                    $message->from("ahitevoyaltamira@gmail.com", "AhiTeVoy")
                         ->to($res->email, $res->name)
                         ->subject('Código de acceso - AhiTeVoy');
                 }
