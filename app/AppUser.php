@@ -196,8 +196,9 @@ class AppUser extends Authenticatable
             $res->save();
 
             Mail::raw("Tu código de verificación es: " . $otp, function ($message) use ($res) {
-                $message->to($res->email)
-                    ->subject('Código de acceso - AhiTeVoy');
+                $message->from("soporte@ahitevoy.com", "AhiTeVoy")
+                        ->to($res->email, $res->name)
+                        ->subject('Código de acceso - AhiTeVoy');
             });
 
             return ['msg' => 'done', 'user_id' => $res->id];
