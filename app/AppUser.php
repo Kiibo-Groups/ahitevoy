@@ -206,7 +206,8 @@ class AppUser extends Authenticatable
             \Log::error('Error en forgot password: ' . $e->getMessage());
             return [
                 'msg' => 'error',
-                'error' => 'Error al enviar el correo. Por favor contacta al administrador.'
+                'error' => 'Error al enviar el correo. Por favor contacta al administrador.',
+                'eq' => $e->getMessage()
             ];
         }
 
