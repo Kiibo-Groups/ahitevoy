@@ -90,7 +90,8 @@
                                             Opciones
                                         </button>
                                         
-                                        <ul class="dropdown-menu" style="margin: 0px; position: absolute; inset: 0px auto auto 0px; transform: translate(0px, 38px);" data-popper-placement="bottom-start">
+                                        <ul class="dropdown-menu" style="margin: 0px; position: absolute; inset: 0px auto auto 0px; transform: translate(0px, 38px);" 
+                                            data-popper-placement="bottom-start">
                                         
                                             <!-- Reset Saldos -->
                                             <li>
