@@ -74,11 +74,15 @@ class Commaned extends Authenticatable
 
         /** Agregamos el servicio a Firebase */
                 
-            $us = User::find($add->user_id);
+            $us = AppUser::find($add->user_id);
 
             $return = array(
                 'id'        => $add->id,
-                'user'      => isset($us) ? $us->name : 'Anonimo',
+                'user'      => isset($us) ? [
+                    'name' => $us->name,
+                    'email' => $us->email,
+                    'phone' => $us->phone
+                ] : 'Anonimo',
                 'user_id'   => isset($us) ? $add->user_id : 0,
                 'origen'    => [
                     'address' => $add->address_origin,
