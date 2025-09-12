@@ -4,7 +4,7 @@
     <div class="btn-group" role="group">
         <button id="btnGroupDrop{{ $row->id }}" type="button" 
                 class="btn btn-secondary dropdown-toggle" 
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
@@ -24,7 +24,7 @@
     <div class="btn-group" role="group">
         <button id="btnGroupDrop{{ $row->id }}" type="button" 
                 class="btn btn-secondary dropdown-toggle" 
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
@@ -39,7 +39,7 @@
     <div class="btn-group" role="group">
         <button id="btnGroupDrop{{ $row->id }}" type="button" 
                 class="btn btn-secondary dropdown-toggle" 
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Opciones 
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
