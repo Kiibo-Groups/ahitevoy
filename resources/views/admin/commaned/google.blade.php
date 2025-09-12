@@ -19,6 +19,8 @@
   var marker_origin;
   var marker_destin;
   let init_service = ("{{$data->id}}") ? true : false;
+  let MarkerPointA = "{{ asset('assets/img/icons/point_a.png') }}";
+  let MarkerPointB = "{{ asset('assets/img/icons/point_b.png') }}";
 
   function initMap() {  
     
@@ -45,7 +47,7 @@
               draggable:true,
               icon: {
                 min: 2, 
-                max: 100, url: "https://dash.soypideme.com/assets/img/icons/point_b.png", 
+                max: 100, url: MarkerPointB, 
                 anchor: {x: 16, y: 16}
               }
             });  
@@ -56,7 +58,7 @@
               draggable:true,
               icon: {
                 min: 2, 
-                max: 100, url: "https://dash.soypideme.com/assets/img/icons/point_a.png", 
+                max: 100, url: MarkerPointA, 
                 anchor: {x: 16, y: 16}
               },
             });
@@ -147,7 +149,7 @@
         async: true,
         type:'POST',
         data: allData,
-        url:'https://dash.soypideme.com/api/ViewCostShipCommanded',
+        url:'https://dash.ahitevoy.com/api/ViewCostShipCommanded',
         success: function(resp) { 
           console.log(resp);        
           if (resp.data.service) {
