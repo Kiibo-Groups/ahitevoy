@@ -54,6 +54,7 @@ class Commaned extends Authenticatable
         $add->d_boy             = isset($data['d_boy']) ? $data['d_boy'] : 0;
         $add->price_comm        = isset($data['price_comm']) ? $data['price_comm'] : 0;
         $add->d_charges         = isset($data['d_charges']) ? $data['d_charges'] : 0;
+        $add->propine           = isset($data['propina']) ? $data['propina'] : 0;
         $add->add_cash          = isset($data['add_cash']) ? $data['add_cash'] : 0;
         $add->total             = isset($data['total']) ? $data['total'] : 0;
         $add->declared_value    = isset($data['declared_value']) ? $data['declared_value'] : 0;
@@ -269,7 +270,7 @@ class Commaned extends Authenticatable
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=kilometers&origins=".$data['lat_orig'].",".$data['lng_orig']."&destinations=".$data['lat_dest'].",".$data['lng_dest']."&key=".$admin->ApiKey_google;
 
         // Ciudad de servicio
-        $charge_delivy = (isset($data['city_id'])) ? City::find($data['city_id']) : Admin::find(1); 
+        $charge_delivy = Admin::find(1); //(isset($data['city_id'])) ? City::find($data['city_id']) : Admin::find(1); 
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -294,24 +295,9 @@ class Commaned extends Authenticatable
         $times_delivery = '0 mins'; // Tiempos de entrega
         $times_delivery_text = "0 mins";
         $service_fee = 0;
-        // Validamos si es un servicio normal o desde un negocio
-        $order_store    = isset($data['order_store']) ? $data['order_store'] : false;
-        $store_id       = isset($data['store_id']) ? $data['store_id'] : 0;
-
-        if ($order_store) { // TRUE => el pedido es a un negocio en especifico
-            /** Obtenemos las comisiones del negocio */
-            $store      = User::find($store_id);
-            if ($store) {
-                $t_value    = $store->t_value;
-                $t_type     = $store->t_type;
-            }else {
-                $t_value    = $admin->t_value_comm;
-                $t_type     = $admin->t_type_comm;    
-            }
-        }else { // FALSE => el pedido es de un punto A to B
-            $t_value    = $admin->t_value_comm;
-            $t_type     = $admin->t_type_comm;
-        }
+        
+        $t_value    = $admin->t_value_comm;
+        $t_type     = $admin->t_type_comm;
 
         if ($request['status'] == 'OK') {
             if($request['rows'][0]['elements'][0]['status'] == 'OK') {
@@ -343,7 +329,8 @@ class Commaned extends Authenticatable
         }
         
         return [ 
-            'service'      => $service,
+            'service'       => $service,
+            'url'           => $url,
             'costs_ship'    => round($costs_ship,2),
             'duration'      => $times_delivery_text,
             'distance'      => round($distance,2),
