@@ -324,6 +324,108 @@
         @endif
         <!-- Gestion de pedidos -->
 
+        <!-- Mandaditos -->
+        <?php
+        $newCommand = DB::table('commaned')->where('status', 0)->count(); // Servicio nuevo
+        $notAsignCommand = DB::table('commaned')->where('status', 3)->count(); // Servicio no asignado
+        ?>
+        @if ($admin->hasPerm('Gestion de servicios'))
+            <li class="menu-item @if ($page === 'commaned') active @endif">
+                <a href="#" class="open-dropdown menu-link">
+                    <span class="menu-label">
+                        <span class="menu-name">
+                            Gestionar Servicios
+                            @if ($newCommand > 0)
+                                <span class="icon-badge badge-success badge badge-pill">{{ $newCommand }}</span>
+                            @endif
+                            <span class="menu-arrow"></span>
+                        </span>
+                    </span>
+                    <span class="menu-icon">
+                        <i class="icon-placeholder mdi mdi-cart"></i>
+                    </span>
+                </a>
+                <!--submenu-->
+                <ul class="sub-menu">
+
+                    <li class="menu-item">
+                        <a href="{{ Asset(env('admin') . '/commaned?status=0') }}" class=" menu-link">
+                            <span class="menu-label">
+                                <span class="menu-name">
+                                    Servicios Nuevos
+                                    @if ($newCommand > 0)
+                                        <span
+                                            class="icon-badge badge-success badge badge-pill">{{ $newCommand }}</span>
+                                    @endif
+                                </span>
+                            </span>
+                            <span class="menu-icon">
+                                <i class="icon-placeholder  mdi mdi-cart"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ Asset(env('admin') . '/commaned?status=3') }}" class=" menu-link">
+                            <span class="menu-label">
+                                <span class="menu-name">
+                                    Servicios no asignados
+                                    @if ($notAsignCommand > 0)
+                                        <span
+                                            class="icon-badge badge-success badge badge-pill">{{ $notAsignCommand }}</span>
+                                    @endif
+                                </span>
+                            </span>
+                            <span class="menu-icon">
+                                <i class="icon-placeholder  mdi mdi-camera-control"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ Asset(env('admin') . '/commaned?status=1') }}" class=" menu-link">
+                            <span class="menu-label">
+                                <span class="menu-name">
+                                    Servicios en curso
+                                </span>
+                            </span>
+                            <span class="menu-icon">
+                                <i class="icon-placeholder  mdi mdi-camera-control"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ Asset(env('admin') . '/commaned?status=6') }}" class=" menu-link">
+                            <span class="menu-label">
+                                <span class="menu-name">
+                                    Servicios Finalizados
+                                </span>
+                            </span>
+                            <span class="menu-icon">
+                                <i class="icon-placeholder  mdi mdi-camera-control"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ Asset(env('admin') . '/commaned?status=2') }}" class=" menu-link">
+                            <span class="menu-label">
+                                <span class="menu-name">
+                                    Servicios Cancelados
+                                </span>
+                            </span>
+                            <span class="menu-icon">
+                                <i class="icon-placeholder  mdi mdi-camera-control"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <!--submenu-->
+            </li>
+        @endif
+        <!-- Mandaditos -->
+
         <!-- Notificaciones push -->
         @if ($admin->hasPerm('Notificaciones push'))
             <li class="menu-item @if ($page === 'push') active @endif">
