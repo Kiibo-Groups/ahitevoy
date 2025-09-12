@@ -18,8 +18,8 @@
 
                                 <div class="form-group col-md-12" style="display: flex;justify-content: end;padding: 15px;">
                                     @if ($data->logo)
-                                        <img src="{{ asset('public/upload/admin/' . $data->logo) }}"
-                                            width="100" style="position: absolute;z-index: 2003;top: -25px;box-shadow: 0px 0px 10px 0 #000;border-radius: 25px;">
+                                        <img src="{{ asset('public/upload/admin/' . $data->logo) }}" width="100"
+                                            style="position: absolute;z-index: 2003;top: -25px;box-shadow: 0px 0px 10px 0 #000;border-radius: 25px;">
                                     @endif
                                 </div>
 
@@ -61,8 +61,8 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="version_app">Versión actual del aplicativo</label>
-                                                <input type="text" class="form-control" id="version_app" name="version_app"
-                                                    value="{{ $data->version_app }}" required="required">
+                                                <input type="text" class="form-control" id="version_app"
+                                                    name="version_app" value="{{ $data->version_app }}" required="required">
                                             </div>
                                         </div>
                                     </div>
@@ -110,6 +110,45 @@
 
                                         </div>
 
+                                    </div>
+                                </div>
+
+                                <h1 style="font-size: 20px">Establecer cargos de comisión por servicio de mandaditos<br />
+                                    <small style="font-size:12px;">(dejar en 0 si no requiere cobrar comisión)</small>
+                                </h1>
+                                <div class="card py-3 m-b-30">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="t_type_comm">Tipo de Comision</label>
+                                                <select name="t_type_comm" id="t_type_comm" class="form-control">
+                                                    <option value="0"
+                                                        @if ($data->t_type_comm == 0) selected @endif>Valor fijo
+                                                    </option>
+                                                    <option value="1"
+                                                        @if ($data->t_type_comm == 1) selected @endif>Order %</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="t_value_comm">Valor de la comisión</label>
+                                                <input type="text" name="t_value_comm" id="t_value_comm"
+                                                    value="{{ $data->t_value_comm }}" class="form-control">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="shipping_insurance">% sobre el valor declarado <small>(Seguro
+                                                        de envio)</small></label>
+                                                <input type="text" name="shipping_insurance" id="shipping_insurance"
+                                                    value="{{ $data->shipping_insurance }}" class="form-control">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="max_insurance">Valor maximo para el valor declarado</label>
+                                                <input type="text" name="max_insurance" id="max_insurance"
+                                                    value="{{ $data->max_insurance }}" class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -186,7 +225,7 @@
                                     </div>
                                 </div>
 
-                                {{--<h4>OpenPay Settings  
+                                {{-- <h4>OpenPay Settings  
                                      <small style="font-size: 14px">
                                         <input type="checkbox" name="openpay_settings">
                                         <label for="openpay_settings">Marcar como predeterminado</label>
@@ -209,8 +248,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>--}}
-                                
+                                </div> --}}
+
                                 {{-- <h4>PayPal Settings  &nbsp;-&nbsp;
                                     <small style="font-size: 14px">
                                         <input type="checkbox" name="paypal_settings">
@@ -229,7 +268,8 @@
                                     </div>
                                 </div> --}}
 
-                                <h4>Stripe Settings <br /><small style="font-size: 12px">(Deja vacío si quieres deshabilitar
+                                <h4>Stripe Settings <br /><small style="font-size: 12px">(Deja vacío si quieres
+                                        deshabilitar
                                         Stripe)</small></h4>
                                 <div class="card py-3 m-b-30">
                                     <div class="card-body">

@@ -77,6 +77,10 @@ class Admin extends Authenticatable
 		$update->costs_ship 	    = isset($data['costs_ship']) ? $data['costs_ship'] : 0;
 		$update->c_type 			= isset($data['c_type']) ? $data['c_type'] : 0;
 		$update->c_value 			= isset($data['c_value']) ? $data['c_value'] : 0;
+		$update->t_type_comm		= isset($data['t_type_comm']) ? $data['t_type_comm'] : 0;
+		$update->t_value_comm    	= isset($data['t_value_comm']) ? $data['t_value_comm'] : 0;
+		$update->shipping_insurance = isset($data['shipping_insurance']) ? $data['shipping_insurance'] : 0;
+		$update->max_insurance      = isset($data['max_insurance']) ? $data['max_insurance'] : 0;
 		$update->min_distance       = isset($data['min_distance']) ? $data['min_distance'] : 0;
 		$update->max_distance_staff = isset($data['max_distance_staff']) ? $data['max_distance_staff'] : 0;
         $update->min_value          = isset($data['min_value']) ? $data['min_value'] : 0;
