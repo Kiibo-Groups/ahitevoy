@@ -8,7 +8,7 @@
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
-            <a href="{{ Asset($link.$row->id.'/edit') }}" class="dropdown-item">
+            <a href="{{ Asset($link.$row->id.'/edit') }}">
                 Ver solicitud    
             </a><hr>
             <a href="{{ Asset(env('admin').'/commanedStatus?id='.$row->id.'&status=0&staff_ext=1') }}" onclick="return confirm('Estas Seguro(a)?')">Solicitar Repartidor</a><hr>
@@ -28,7 +28,7 @@
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
-            <a href="{{ Asset($link.$row->id.'/edit') }}" class="dropdown-item">
+            <a href="{{ Asset($link.$row->id.'/edit') }}">
                 Ver solicitud    
             </a><hr>
             <a href="{{ Asset('/upload/order/delivery/delivery_end_'.$row->id.'.jpg') }}" target="_blank">Ver imagen de entrega</a><hr>
@@ -43,7 +43,7 @@
         </button>
 
         <div class="dropdown-menu" data-popper-placement="bottom-start" aria-labelledby="btnGroupDrop{{ $row->id }}" style="padding: 10px 10px">
-            <a href="{{ Asset($link.$row->id.'/edit') }}" class="dropdown-item">
+            <a href="{{ Asset($link.$row->id.'/edit') }}">
                 Ver solicitud    
             </a><hr>
             <a href="{{ Asset(env('admin').'/commanedStatus?id='.$row->id.'&status=0&staff_ext=1') }}" onclick="return confirm('Estas Seguro(a)?')">Solicitar Repartidor</a><hr>
