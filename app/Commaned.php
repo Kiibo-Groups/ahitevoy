@@ -770,9 +770,7 @@ class Commaned extends Authenticatable
             $add->staff_id    = $data['d_boy'];
             $add->event_id    = $data['oid'];
             $add->star        = $data['star'];
-            $add->comment_staff     = isset($data['comment']) ? $data['comment'] : '';
-            $add->sanit_process = isset($data['covid_prevention']) ? 1 : 0;
-            $add->status_prod = isset($data['covid_prevention_product']) ? 1 : 0;
+            $add->comment_staff     = isset($data['comment']) ? $data['comment'] : ''; 
             
             $add->save();
 
@@ -800,9 +798,7 @@ class Commaned extends Authenticatable
             $add->staff_id    = $data['d_boy'];
             $add->event_id    = $data['oid'];
             $add->star        = $data['star'];
-            $add->comment_staff     = isset($data['comment']) ? $data['comment'] : '';
-            $add->sanit_process = isset($data['covid_prevention']) ? 1 : 0;
-            $add->status_prod   = isset($data['covid_prevention_product']) ? $data['covid_prevention_product'] : 0;
+            $add->comment_staff     = isset($data['comment']) ? $data['comment'] : ''; 
             $add->save();           
             
             
