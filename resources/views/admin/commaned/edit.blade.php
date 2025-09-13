@@ -26,8 +26,6 @@
                                 @include('admin.commaned.google')
                         </div>
                     </div>
-                
-                    <button type="submit" class="btn btn-success btn-cta">Guardar Cambios</button>
                 </form>
                 
             </div>
