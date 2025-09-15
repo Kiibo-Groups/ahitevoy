@@ -266,9 +266,9 @@ class Delivery extends Authenticatable
         $admin = new Admin;
 
         return [
-            'total' => Order::where('d_boy', $_GET['id'])->count(),
-            'complete' => Order::where('d_boy', $_GET['id'])->where('status', 6)->count(),
-            'canceled' => Order::where('d_boy', $_GET['id'])->where('status', 2)->count(),
+            'total' => Order::where('d_boy', $_GET['id'])->count() + Commaned::where('d_boy', $_GET['id'])->count(),
+            'complete' => Order::where('d_boy', $_GET['id'])->whereIn('status', [5,6])->count() + Commaned::where('d_boy', $_GET['id'])->whereIn('status', [5,6])->count(),
+            'canceled' => Order::where('d_boy', $_GET['id'])->where('status', 2)->count() + Commaned::where('d_boy', $_GET['id'])->where('status', 2)->count(),
             'saldos' => $this->saldos($_GET['id']),
             'x_day' => [
                 'tot_orders' => Order::where('d_boy', $_GET['id'])->whereDate('created_at', 'LIKE', '%' . date('m-d') . '%')->count(),

@@ -351,8 +351,7 @@ class Commaned extends Authenticatable
     public function getNearby($event_id)
     {
         // Obtenemos el arreglo de los repartidores
-        $staff = Delivery::where('store_id', 0) // que sea del admin
-            ->where('status', 0) // que este activo
+        $staff = Delivery::where('status', 0) // que este activo
             ->where('status_admin', 0) // que no este bloqueado
             ->get();
 
