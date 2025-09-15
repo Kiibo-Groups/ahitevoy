@@ -293,45 +293,87 @@ class Order extends Authenticatable
       if ($orders->count() > 0) {
 
          foreach ($orders as $pedido) {
+            if ($pedido->type == 1) {
+               // Es un mandadito
+               $order = Commaned::find($pedido->event_id);
 
-            $order = Order::find($pedido->order_id);
+               $items = [];
 
-            $items = [];
-            $i = new OrderItem;
+               if ($order->status == 0) {
+                  $status = "Buscando repartidor";
+               } elseif ($order->status == 1) {
+                  $status = "Confirmado";
+               } elseif ($order->status == 2) {
+                  $status = "Cancelada";
+               } elseif ($order->status == 3) {
+                  $status = "Repartidor no encontrado";
+               } elseif ($order->status == 4) {
+                  $status = "Pedido recolectado";
+               } elseif ($order->status == 4.5) {
+                  $status = "Pedido en camino";
+               } else {
+                  $status = "Entregado en " . $order->status_time;
+               }
 
-            if ($order->status == 0) {
-               $status = "Pendiente";
-            } elseif ($order->status == 1) {
-               $status = "Confirmada";
-            } elseif ($order->status == 2) {
-               $status = "Cancelada";
-            } elseif ($order->status == 3) {
-               $status = "Elegido para entregar por " . $order->dboy;
-            } else {
-               $status = "Entregado en " . $order->status_time;
+               $countRate = Rate::where('event_id', $order->id)->where('staff_id', $id)->first();
+               $tot_com = $order->total - $order->d_charges;
+
+               $data[] = [
+                  'type' => 'comanded',
+                  'id' => $order->id,
+                  'user' => AppUser::find($order->user_id),
+                  'date' => date('d-M-Y', strtotime($order->created_at)) . " | " . date('h:i:A', strtotime($order->created_at)),
+                  'total' => $order->total,
+                  'd_charges' => $order->d_charges,
+                  'tot_com' => $tot_com, //$i->RealTotal($order->id),
+                  'st' => $order->status,
+                  'stime' => $order->status_time,
+                  'sid' => $order->user_id,
+                  'hasRating' => isset($countRate->id) ? $countRate->star : 0,
+                  'currency' => $currency,
+                  'pay' => $order->payment_method,
+                  'comm' => $order
+               ];
+            }else {
+               $order = Order::find($pedido->order_id);
+
+               $items = [];
+               $i = new OrderItem;
+
+               if ($order->status == 0) {
+                  $status = "Pendiente";
+               } elseif ($order->status == 1) {
+                  $status = "Confirmada";
+               } elseif ($order->status == 2) {
+                  $status = "Cancelada";
+               } elseif ($order->status == 3) {
+                  $status = "Elegido para entregar por " . $order->dboy;
+               } else {
+                  $status = "Entregado en " . $order->status_time;
+               }
+
+               $countRate = Rate::where('order_id', $order->id)->where('user_id', $id)->first();
+               $tot_com = $order->total - $order->d_charges;
+
+               $data[] = [
+                  'id' => $order->id,
+                  'store' => User::find($order->store_id),
+                  'code_order' => $order->code_order,
+                  'external_id' => $order->external_id,
+                  'date' => date('d-M-Y', strtotime($order->created_at)) . " | " . date('h:i:A', strtotime($order->created_at)),
+                  'total' => $order->total,
+                  'd_charges' => $order->d_charges,
+                  'tot_com' => $tot_com, //$i->RealTotal($order->id),
+                  'items' => $i->getItem($order->id),
+                  'st' => $order->status,
+                  'stime' => $order->status_time,
+                  'sid' => $order->store_id,
+                  'hasRating' => isset($countRate->id) ? $countRate->star : 0,
+                  'currency' => $currency,
+                  'user' => $order,
+                  'pay' => $order->payment_method
+               ];
             }
-
-            $countRate = Rate::where('order_id', $order->id)->where('user_id', $id)->first();
-            $tot_com = $order->total - $order->d_charges;
-
-            $data[] = [
-               'id' => $order->id,
-               'store' => User::find($order->store_id),
-               'code_order' => $order->code_order,
-               'external_id' => $order->external_id,
-               'date' => date('d-M-Y', strtotime($order->created_at)) . " | " . date('h:i:A', strtotime($order->created_at)),
-               'total' => $order->total,
-               'd_charges' => $order->d_charges,
-               'tot_com' => $tot_com, //$i->RealTotal($order->id),
-               'items' => $i->getItem($order->id),
-               'st' => $order->status,
-               'stime' => $order->status_time,
-               'sid' => $order->store_id,
-               'hasRating' => isset($countRate->id) ? $countRate->star : 0,
-               'currency' => $currency,
-               'user' => $order,
-               'pay' => $order->payment_method
-            ];
          }
       }
       return $data;
