@@ -824,6 +824,13 @@ class ApiController extends Controller
 		}
 	}
 
+	public function delStaffEvent($event_id)
+	{
+		$req = new Commaned;
+		return response()->json(['data' => $req->delStaffEvent($event_id)]);
+	}
+
+
 	public function cancelComm_event($event_id)
 	{
 		$req = new Commaned;
