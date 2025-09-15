@@ -271,7 +271,8 @@ class Delivery extends Authenticatable
             'canceled' => Order::where('d_boy', $_GET['id'])->where('status', 2)->count() + Commaned::where('d_boy', $_GET['id'])->where('status', 2)->count(),
             'saldos' => $this->saldos($_GET['id']),
             'x_day' => [
-                'tot_orders' => Order::where('d_boy', $_GET['id'])->whereDate('created_at', 'LIKE', '%' . date('m-d') . '%')->count(),
+                'tot_orders' => Order::where('d_boy', $_GET['id'])->whereDate('created_at', 'LIKE', '%' . date('m-d') . '%')->count() + 
+                Commaned::where('d_boy', $_GET['id'])->whereDate('created_at', 'LIKE', '%' . date('m-d') . '%')->count(),
                 'amount' => $this->chartxday($_GET['id'], 0, 1)['amount']
             ],
             'day_data' => [
@@ -321,22 +322,43 @@ class Delivery extends Authenticatable
         $i = new OrderItem;
         $staff = Delivery::find($id);
         $saldo = $staff->amount_acum;
+
+        // Ordenes delivery
         $order_day = Order::where(function ($query) use ($id) {
-
             $query->where('d_boy', $id);
+        })->whereIn('status', [5,6])->get();
 
-        })->where('status', 6)->get();
+        // Ordenes Servicios
+        $Commaned_day = Commaned::where(function ($query) use ($id) {
+            $query->where('d_boy', $id);
+        })->whereIn('status', [5,6])->get();
 
+        // Sumatoria de Delivery
         $sum = Order::where(function ($query) use ($id) {
-
             $query->where('d_boy', $id);
+        })->whereIn('status', [5,6])->sum('d_charges');
 
-        })->where('status', 6)->sum('d_charges');
+        // Sumatoria de Delivery
+        $sumComm = Commaned::where(function ($query) use ($id) {
+            $query->where('d_boy', $id);
+        })->whereIn('status', [5,6])->sum('d_charges');
 
+        // Delivery
         if ($order_day->count() > 0) {
             $comm = ($sum * $staff->c_value_staff) / 100;
             $ventas = $ventas + ($sum - $comm);
             $cargos = $cargos + $comm;
+        }
+
+        // Commaned
+        if ($Commaned_day->count() > 0) {
+            $commC = ($sumComm * $staff->c_value_staff) / 100;
+            $ventasC = $ventas + ($sumComm - $commC);
+            $cargosC = $cargos + $commC;
+
+            $comm += $commC;
+            $ventas += $ventasC;
+            $cargos += $cargosC;
         }
 
         return [
@@ -350,22 +372,35 @@ class Delivery extends Authenticatable
     {
         $month = date('Y-m', strtotime(date('Y-m') . ' - ' . $type . ' month'));
 
+        // Delivery
         $order = Order::where(function ($query) use ($sid, $id) {
-
             if ($sid > 0) {
                 $query->where('d_boy', $id);
             }
+        })->whereIn('status', [5,6])->whereDate('created_at', 'LIKE', $month . '%')->count();
 
-        })->where('status', 6)->whereDate('created_at', 'LIKE', $month . '%')->count();
+        // Servicios
+        $orderC = Commaned::where(function ($query) use ($sid, $id) {
+            if ($sid > 0) {
+                $query->where('d_boy', $id);
+            }
+        })->whereIn('status', [5,6])->whereDate('created_at', 'LIKE', $month . '%')->count();
+        $order = $order + $orderC;
 
-
+        // Delivery
         $cancel = Order::where(function ($query) use ($sid, $id) {
-
             if ($sid > 0) {
                 $query->where('d_boy', $id);
             }
-
         })->where('status', 2)->whereDate('created_at', 'LIKE', $month . '%')->count();
+
+        // Delivery
+        $cancelC = Commaned::where(function ($query) use ($sid, $id) {
+            if ($sid > 0) {
+                $query->where('d_boy', $id);
+            }
+        })->where('status', 2)->whereDate('created_at', 'LIKE', $month . '%')->count();
+        $cancel = $cancel + $cancelC;
 
         return ['order' => $order, 'cancel' => $cancel];
     }
@@ -381,35 +416,53 @@ class Delivery extends Authenticatable
         $debt = 0;
         $ventas = 0;
 
+        // Delivery
         $order = Order::where(function ($query) use ($sid, $id) {
-
             if ($sid > 0) {
                 $query->where('d_boy', $id);
             }
-
         })->whereIn('status', [5, 6])->whereDate('created_at', 'LIKE', '%' . $day . '%')->count();
 
-
-        $cancel = Order::where(function ($query) use ($sid, $id) {
-
+        // Servicios
+        $commaned = Commaned::where(function ($query) use ($sid, $id) {
             if ($sid > 0) {
                 $query->where('d_boy', $id);
             }
+        })->whereIn('status', [5, 6])->whereDate('created_at', 'LIKE', '%' . $day . '%')->count();
 
+        $order = $order + $commaned; // Sumamos delivery + Servicios
+
+        // Delivery
+        $cancel = Order::where(function ($query) use ($sid, $id) {
+            if ($sid > 0) {
+                $query->where('d_boy', $id);
+            }
         })->where('status', 2)->whereDate('created_at', 'LIKE', '%' . $day . '%')->count();
 
+        // Servicios
+        $cancelComm = Commaned::where(function ($query) use ($sid, $id) {
+            if ($sid > 0) {
+                $query->where('d_boy', $id);
+            }
+        })->where('status', 2)->whereDate('created_at', 'LIKE', '%' . $day . '%')->count();
 
+        $cancel = $cancel + $cancelComm; // Sumamos delivery + Servicios
+
+        
         if ($type == 0) {
             $i = new OrderItem;
             $staff = Delivery::find($id);
 
             $sum = Order::where(function ($query) use ($id) {
-
                 $query->where('d_boy', $id);
-
+            })->whereIn('status', [5, 6])
+                ->whereDate('created_at', 'LIKE', '%' . $day . '%')->sum('d_charges');
+            $sumC = Commaned::where(function ($query) use ($id) {
+                $query->where('d_boy', $id);
             })->whereIn('status', [5, 6])
                 ->whereDate('created_at', 'LIKE', '%' . $day . '%')->sum('d_charges');
 
+            $sum = $sum +$sumC; // Sumamos Delivery + Servicios
 
             $comm = ($sum * $staff->c_value_staff) / 100;
             $ventas = $ventas + ($sum - $comm);
@@ -429,21 +482,35 @@ class Delivery extends Authenticatable
         $init_week = strtotime('last Sunday');
         $end_week = strtotime('next Saturday');
 
+        // Delivery
         $total = Order::where(function ($query) use ($id) {
-
             $query->where('d_boy', $id);
-
         })->whereIn('status', [5, 6])
             ->where('created_at', '>=', date('Y-m-d', $init_week))
             ->where('created_at', '<=', date('Y-m-d', $end_week))->count();
 
-        $sum = Order::where(function ($query) use ($id) {
-
+        // Servicios
+        $totalC = Commaned::where(function ($query) use ($id) {
             $query->where('d_boy', $id);
+        })->whereIn('status', [5, 6])
+            ->where('created_at', '>=', date('Y-m-d', $init_week))
+            ->where('created_at', '<=', date('Y-m-d', $end_week))->count();
+        $total = $total + $totalC;
 
+        // Delivery
+        $sum = Order::where(function ($query) use ($id) {
+            $query->where('d_boy', $id);
         })->whereIn('status', [5, 6])
             ->where('created_at', '>=', date('Y-m-d', $init_week))
             ->where('created_at', '<=', date('Y-m-d', $end_week))->sum('d_charges');
+
+        // Servicios
+        $sumC = Commaned::where(function ($query) use ($id) {
+            $query->where('d_boy', $id);
+        })->whereIn('status', [5, 6])
+            ->where('created_at', '>=', date('Y-m-d', $init_week))
+            ->where('created_at', '<=', date('Y-m-d', $end_week))->sum('d_charges');
+        $sum = $sum + $sumC;
 
         $dboy = Delivery::find($id);
 
