@@ -269,7 +269,7 @@ class Commaned extends Authenticatable
             ];
         }
 
-        return (object)$data;
+        return collect($data);
     }
 
 
