@@ -33,45 +33,45 @@
                             <tbody>
                                 @foreach($data as $row)
                                 <tr>
-                                    <td width="3%">#{{ $row->id }}</td>
+                                    <td width="3%">#{{ $row['id'] }}</td>
                                     <td width="12%">
-                                        @if($row->type == 0)
-                                        {{ $row->name_user }}
+                                        @if($row['type'] == 0)
+                                        {{ $row['name_user'] }}
                                         @else 
-                                        {{ $row->name_store }}
+                                        {{ $row['name_store'] }}
                                         @endif</td>
                                     <td width="10%">
-                                        <a href="http://maps.google.com/?q={{ $row->address_origin }}" target="_blank">
-                                            {{ substr($row->address_origin,0,25) }} ...
+                                        <a href="http://maps.google.com/?q={{ $row['address_origin'] }}" target="_blank">
+                                            {{ substr($row['address_origin'],0,25) }} ...
                                         </a>
                                     </td>
                                     <td width="10%">
-                                        <a href="http://maps.google.com/?q={{ $row->address_destin }}" target="_blank">
-                                            {{ substr($row->address_destin,0,25) }} ...
+                                        <a href="http://maps.google.com/?q={{ $row['address_destin'] }}" target="_blank">
+                                            {{ substr($row['address_destin'],0,25) }} ...
                                         </a>
                                     </td>
                                     <td width="9%">
-                                        {{ $comm_f->viewDboyComm($row->id) }}
+                                        {{ $comm_f->viewDboyComm($row['id']) }}
                                     </td>
                                     <td width="10%">
-                                        {{ number_format(round($row->d_charges,0),2,".",",") }}
-                                        <small>IVA({{ number_format(round($row->iva_charges,0),2,".",",") }})</small>
+                                        {{ number_format(round($row['d_charges'],0),2,".",",") }}
+                                        <small>IVA({{ number_format(round($row['iva_charges'],0),2,".",",") }})</small>
                                     </td> 
                                     <td width="10%">
-                                        {{ number_format(round($row->total,0),2,".",",") }}
+                                        {{ number_format(round($row['total'],0),2,".",",") }}
                                     </td>
                                     <td width="18%">
-                                        @if($row->payment_method == 1)
+                                        @if($row['payment_method'] == 1)
                                             <span style="color:green;">Pago en Efectivo</span>
                                         @else 
                                             <span style="color:green;">Medios Electronicos</span>
                                         @endif
                                     </td>
-                                    <td>{{ $row->created_at }}</td>
+                                    <td>{{ $row['created_at'] }}</td>
                                     <td width="8%" style="text-align: right">
-                                        @if($row->status == 1)
+                                        @if($row['status'] == 1)
                                          <span style="color:green;">Pedido Aceptado</span>
-                                         @elseif($row->status == 4.5)
+                                         @elseif($row['status'] == 4.5)
                                          <span style="color:green;">Pedido en ruta de entrega</span>
                                          @endif
                                         @include('admin.commaned.action')

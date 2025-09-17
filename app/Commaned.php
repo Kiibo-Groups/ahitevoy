@@ -266,6 +266,7 @@ class Commaned extends Authenticatable
                 'total' => $key->total,
                 'payment_method' => $key->payment_method,
                 'created_at' => $key->created_at,
+                'status' => $key->status
             ];
         }
 
