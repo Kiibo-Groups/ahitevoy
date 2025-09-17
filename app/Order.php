@@ -318,10 +318,18 @@ class Order extends Authenticatable
                $countRate = Rate::where('event_id', $order->id)->where('staff_id', $id)->first();
                $tot_com = $order->total - $order->d_charges;
 
+               $user_dat;
+               if($order->user_id != null)
+               {
+                  $user_dat = AppUser::find($order->user_id);
+               }else {
+                  $user_dat = User::find($order->store_id);
+               }
+
                $data[] = [
                   'type' => 'comanded',
                   'id' => $order->id,
-                  'user' => AppUser::find($order->user_id),
+                  'user' => $user_dat,
                   'date' => date('d-M-Y', strtotime($order->created_at)) . " | " . date('h:i:A', strtotime($order->created_at)),
                   'total' => $order->total,
                   'd_charges' => $order->d_charges,
