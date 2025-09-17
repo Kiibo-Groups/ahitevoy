@@ -108,7 +108,7 @@ class Commaned extends Authenticatable
 
         if(isset($data['store_id']) && $data['store_id'] != null)
         {
-            $us = User::find($add->user_id);
+            $us = User::find($add->store_id);
 
             $return = array(
                 'id' => $add->id,
