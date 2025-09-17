@@ -744,7 +744,7 @@ class Commaned extends Authenticatable
     {
         $req = commaned::where(function ($query) use ($id) {
             $query->where('commaned.store_id', $id);
-            $query->whereIn('commaned.status', [0, 1, 3, 4, 4.5, 5]);
+            $query->whereIn('commaned.status', [0, 1, 3, 4, 4.5]);
         })->orderBy('id', 'DESC')->get();
 
         $data = [];
