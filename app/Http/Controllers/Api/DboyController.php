@@ -517,9 +517,14 @@ class DboyController extends Controller
 
 			// El pedido ha sido aceptado
 			if ($_GET['status'] == 1) {
-				// Notificamos al usuario que el repartidor acepto el pedido
-				$notify->sendPush("Repartidor en camino", "El repartidor ha aceptado el servicio y va en camino a recolectarlo.", $res->user_id);
-
+				if($res->user_id != null)
+				{
+					// Notificamos al usuario que el repartidor acepto el pedido
+					$notify->sendPush("Repartidor en camino", "El repartidor ha aceptado el servicio y va en camino a recolectarlo.", $res->user_id);
+				}else {
+					// Notificamos al Negocio que el repartidor acepto el pedido
+					$notify->sendPushS("Repartidor en camino", "El repartidor ha aceptado el servicio y va en camino a recolectarlo.", $res->store_id);
+				}
 				// Marcamos al repartidor ocupado.
 				$staff = Delivery::find($res->d_boy);
 				$staff->status_send = 0;
@@ -537,8 +542,14 @@ class DboyController extends Controller
 				$order_Ext->save();
 
 			} else if ($_GET['status'] == 4.5) {
-				// Notificamos al usuario que su pedido va en camino.
-				$notify->sendPush("Pedido recolectado", "🎉 Tu Servicio ha sido recolectado y esta en ruta al destino. 😃", $res->user_id);
+				if($res->user_id != null)
+				{
+					// Notificamos al usuario que su pedido va en camino.
+					$notify->sendPush("Pedido recolectado", "🎉 Tu Servicio ha sido recolectado y esta en ruta al destino. 😃", $res->user_id);
+				}else {
+					// Notificamos al Negocio que su pedido va en camino.
+					$notify->sendPushS("Pedido recolectado", "🎉 Tu Servicio ha sido recolectado y esta en ruta al destino. 😃", $res->store_id);
+				}
 				// Registramos el Log
 				$order_Ext = Order_staff::where('event_id', $_GET['id'])->first();
 				$order_Ext->status = 4.5;
@@ -556,8 +567,14 @@ class DboyController extends Controller
 				$staff->Commset_delivery_comm($res->id, $res->d_boy);
 				// Validamos el nivel
 				// $staff->Confidence_level($_GET['d_boy']);
-				// Notificamos al usuario
-				$notify->sendPush("Pedido entregado", "🎉 Entregamos tu Sericio 🎉😃, ayudanos recomendandonos, gracias por usar AhiTeVoy Delivery.", $res->user_id);
+				if($res->user_id != null)
+				{
+					// Notificamos al usuario
+					$notify->sendPush("Pedido entregado", "🎉 Entregamos tu Sericio 🎉😃, ayudanos recomendandonos, gracias por usar AhiTeVoy Delivery.", $res->user_id);
+				}else {
+					// Notificamos al Negocio que su pedido va en camino.
+					$notify->sendPushS("Pedido entregado", "🎉 Entregamos tu Sericio 🎉😃, ayudanos recomendandonos, gracias por usar AhiTeVoy Delivery.", $res->store_id);
+				}
 			}
 
 		} catch (\Exception $th) {
