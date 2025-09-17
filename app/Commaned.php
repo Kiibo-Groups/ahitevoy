@@ -250,9 +250,9 @@ class Commaned extends Authenticatable
             }
 
         })->leftjoin('app_user', 'app_user.id', '=', 'commaned.user_id')
-            ->join('user', 'user.id', '=', 'commaned.store_id')
+            ->join('users', 'users.id', '=', 'commaned.store_id')
             ->select('app_user.name as name_user', 'app_user.*', 'commaned.*')
-            ->select('user.name as name_store', 'user.*', 'commaned.*')
+            ->select('users.name as name_store', 'users.*', 'commaned.*')
             ->orderBy('commaned.id', 'DESC')->get();
     }
 
