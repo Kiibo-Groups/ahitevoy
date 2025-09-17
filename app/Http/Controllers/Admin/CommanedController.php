@@ -30,6 +30,7 @@ class CommanedController extends Controller {
         $admin = new Admin;
         $status = 0;
         $title = 'Listado de Servicios';
+		$type  = 0; // 0 => Usuarios / 1 = Negocios
 		if (isset($_GET['status'])) {
 			$status = $_GET['status'];
 			if($_GET['status'] == 0)
@@ -54,8 +55,14 @@ class CommanedController extends Controller {
 			}	
 		}
 
+		if($res->store_id != null)
+		{
+			$type = 1;
+		}
+
 		if ($admin->hasperm('Gestion de pedidos')) {
             return View($this->folder.'index',[
+				'type'      => $type,
                 'data' 		=> $res->getAll($status),
 				'comm_f'    => new Commaned,
                 'link' 		=> env('admin').'/commaned/',

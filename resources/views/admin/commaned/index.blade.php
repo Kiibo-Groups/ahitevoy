@@ -17,7 +17,13 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Usuario</th>
+                                    <th>
+                                        @if($type == 0)
+                                        Usuario
+                                        @else 
+                                        Negocio
+                                        @endif 
+                                    </th>
                                     <th>Origen</th>
                                     <th>Destino</th>
                                     <th>Repartidor</th>
@@ -32,7 +38,12 @@
                                 @foreach($data as $row)
                                 <tr>
                                     <td width="3%">#{{ $row->id }}</td>
-                                    <td width="12%">{{ $row->name_user }}</td>
+                                    <td width="12%">
+                                        @if($type == 0)
+                                        {{ $row->name_user }}
+                                        @else 
+                                        {{ $row->name_store }}
+                                        @endif</td>
                                     <td width="10%">
                                         <a href="http://maps.google.com/?q={{ $row->address_origin }}" target="_blank">
                                             {{ substr($row->address_origin,0,25) }} ...
