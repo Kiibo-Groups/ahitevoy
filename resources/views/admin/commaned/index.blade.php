@@ -18,11 +18,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>
-                                        @if($type == 0)
-                                        Usuario
-                                        @else 
-                                        Negocio
-                                        @endif 
+                                       Usuario
                                     </th>
                                     <th>Origen</th>
                                     <th>Destino</th>
@@ -39,7 +35,7 @@
                                 <tr>
                                     <td width="3%">#{{ $row->id }}</td>
                                     <td width="12%">
-                                        @if($type == 0)
+                                        @if($row->type == 0)
                                         {{ $row->name_user }}
                                         @else 
                                         {{ $row->name_store }}
