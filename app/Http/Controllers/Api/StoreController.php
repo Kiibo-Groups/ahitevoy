@@ -279,5 +279,15 @@ class StoreController extends Controller
 		}
 	}
 
+	public function chkEvents_comm($id)
+	{
+		try {
+			$req = new Commaned;
+			return response()->json(['data' => $req->chkEvents_commStore($id)]);
+		} catch (\Exception $th) {
+			return response()->json(['data' => "error", 'error' => $th->getMessage()]);
+		}
+	}
+
 
 }

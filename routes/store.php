@@ -26,4 +26,5 @@ Route::get('store/updateCity','StoreController@updateCity');
 
 Route::post('store/OrderComm', 'StoreController@OrderComm');
 Route::post('store/ViewCostShipCommanded', 'StoreController@ViewCostShipCommanded');
+    Route::get('store/chkEvents_comm/{id}', 'StoreController@chkEvents_comm');
 ?>

@@ -722,11 +722,30 @@ class Commaned extends Authenticatable
     function chkEvents_comm($id)
     {
         $req = commaned::where(function ($query) use ($id) {
-
             $query->where('commaned.user_id', $id);
             $query->whereIn('commaned.status', [0, 1, 3, 4, 4.5, 5]);
         })->orderBy('id', 'DESC')
             ->get();
+
+        $data = [];
+
+        foreach ($req as $key) {
+
+            $data[] = [
+                'dboy' => ($key->d_boy != 0) ? Delivery::find($key->d_boy) : [],
+                'event' => $key
+            ];
+        }
+
+        return $data;
+    }
+
+    function chkEvents_commStore($id)
+    {
+        $req = commaned::where(function ($query) use ($id) {
+            $query->where('commaned.store_id', $id);
+            $query->whereIn('commaned.status', [0, 1, 3, 4, 4.5, 5]);
+        })->orderBy('id', 'DESC')->get();
 
         $data = [];
 
