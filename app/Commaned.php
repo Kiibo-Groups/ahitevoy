@@ -42,7 +42,8 @@ class Commaned extends Authenticatable
     public function addNew($data)
     {
         $add = new commaned;
-        $add->user_id = isset($data['user_id']) ? $data['user_id'] : '';
+        $add->user_id = isset($data['user_id']) ? $data['user_id'] : null;
+        $add->store_id = isset($data['store_id']) ? $data['store_id'] : null;
         $add->address_origin = isset($data['address_origin']) ? $data['address_origin'] : '';
         $add->lat_orig = isset($data['lat_orig']) ? $data['lat_orig'] : 0;
         $add->lng_orig = isset($data['lng_orig']) ? $data['lng_orig'] : 0;
@@ -74,33 +75,66 @@ class Commaned extends Authenticatable
 
         /** Agregamos el servicio a Firebase */
 
-        $us = AppUser::find($add->user_id);
+        if(isset($data['user_id']) && $data['user_id'] != null) 
+        {
+            $us = AppUser::find($add->user_id);
 
-        $return = array(
-            'id' => $add->id,
-            'user' => isset($us) ? [
-                'name' => $us->name,
-                'email' => $us->email,
-                'phone' => $us->phone
-            ] : 'Anonimo',
-            'user_id' => isset($us) ? $add->user_id : 0,
-            'origen' => [
-                    'address' => $add->address_origin,
-                    'lat' => $add->lat_orig,
-                    'lng' => $add->lng_orig,
-                    'instr' => $add->first_instr
+            $return = array(
+                'id' => $add->id,
+                'user' => isset($us) ? [
+                    'name' => $us->name,
+                    'email' => $us->email,
+                    'phone' => $us->phone
+                ] : 'Anonimo',
+                'user_id' => isset($us) ? $add->user_id : 0,
+                'origen' => [
+                        'address' => $add->address_origin,
+                        'lat' => $add->lat_orig,
+                        'lng' => $add->lng_orig,
+                        'instr' => $add->first_instr
+                    ],
+                'destino' => [
+                    'address' => $add->address_destin,
+                    'lat' => $add->lat_dest,
+                    'lng' => $add->lng_dest,
+                    'instr' => $add->second_instr
                 ],
-            'destino' => [
-                'address' => $add->address_destin,
-                'lat' => $add->lat_dest,
-                'lng' => $add->lng_dest,
-                'instr' => $add->second_instr
-            ],
-            'propina' => $add->propine,
-            'total' => $add->total,
-            'd_charges' => $add->d_charges,
-            'status' => 0
-        );
+                'propina' => $add->propine,
+                'total' => $add->total,
+                'd_charges' => $add->d_charges,
+                'status' => 0
+            );
+        }
+
+        if(isset($data['store_id']) && $data['store_id'] != null)
+        {
+            $us = User::find($add->user_id);
+
+            $return = array(
+                'id' => $add->id,
+                'store' => isset($us) ? [
+                    'name' => $us->name,
+                    'email' => $us->email,
+                    'phone' => $us->phone
+                ] : 'Anonimo',
+                'store_id' => isset($us) ? $add->user_id : 0,
+                'origen' => [
+                        'address' => $add->address_origin,
+                        'lat' => $add->lat_orig,
+                        'lng' => $add->lng_orig,
+                        'instr' => $add->first_instr
+                    ],
+                'destino' => [
+                    'address' => $add->address_destin,
+                    'lat' => $add->lat_dest,
+                    'lng' => $add->lng_dest,
+                    'instr' => $add->second_instr
+                ],
+                'total' => $add->total,
+                'd_charges' => $add->d_charges,
+                'status' => 0
+            );
+        }
 
         $server_fb = new NodejsServer;
         $addServer = $server_fb->newOrder($return);
