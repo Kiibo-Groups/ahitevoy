@@ -241,7 +241,7 @@ class Commaned extends Authenticatable
     */
     public function getAll($status)
     {
-        return commaned::where(function ($query) use ($status) {
+        $req = commaned::where(function ($query) use ($status) {
 
             if ($status == 1) {
                 $query->whereIn('commaned.status', [1, 4.5]);
@@ -249,11 +249,27 @@ class Commaned extends Authenticatable
                 $query->where('commaned.status', $status);
             }
 
-        })->leftjoin('app_user', 'app_user.id', '=', 'commaned.user_id')
-            ->join('users', 'users.id', '=', 'commaned.store_id')
-            ->select('app_user.name as name_user', 'app_user.*', 'commaned.*')
-            ->select('users.name as name_store', 'users.*', 'commaned.*')
-            ->orderBy('commaned.id', 'DESC')->get();
+        })->orderBy('commaned.id', 'DESC')->get();
+
+        $data = [];
+        
+        foreach ($req as $key) {
+            $data[] = [
+                'id' => $key->id,
+                'type' => ($key->store_id != null) ? 1 : 0,
+                'name_user' => ($key->user_id) ? AppUser::find($key->user_id)->name : 'undefined',
+                'name_store' => ($key->store_id) ? User::find($key->store_id)->name : 'undefined',
+                'address_origin' => $key->address_origin,
+                'address_destin' => $key->address_destin,
+                'd_charges' => $key->d_charges,
+                'iva_charges' => $key->iva_charges,
+                'total' => $key->total,
+                'payment_method' => $key->payment_method,
+                'created_at' => $key->created_at,
+            ];
+        }
+
+        return (object)$data;
     }
 
 
