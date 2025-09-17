@@ -16,7 +16,7 @@ use App\User;
 use App\City;
 use App\Admin;
 use App\Item;
-use App\Order_staff;
+use App\Commaned;
 use DB;
 use Validator;
 use Redirect;
@@ -272,7 +272,6 @@ class StoreController extends Controller
 	public function ViewCostShipCommanded(Request $Request)
 	{
 		try {
-
 			$req = new Commaned;
 			return response()->json(['data' => $req->Costs_shipKM($Request->all())]);
 		} catch (\Exception $th) {
