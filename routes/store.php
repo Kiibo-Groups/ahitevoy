@@ -19,4 +19,11 @@ Route::get('store/getStaffNearby/{id}','StoreController@getStaffNearby');
 Route::get('store/overview','StoreController@overview');
 Route::get('store/city','StoreController@city');
 Route::get('store/updateCity','StoreController@updateCity');
+
+/**
+ * Mandaditos
+ */
+
+Route::post('store/OrderComm', 'StoreController@OrderComm');
+Route::post('store/ViewCostShipCommanded', 'StoreController@ViewCostShipCommanded');
 ?>

@@ -28,27 +28,27 @@ class StoreController extends Controller
 
 	public function homepage()
 	{
-		$res 	 = new Order;
-		$text    = new Text;
-		$l 		 = Language::find($_GET['lid']);
+		$res = new Order;
+		$text = new Text;
+		$l = Language::find($_GET['lid']);
 
 		return response()->json([
-			'data' 		=> $res->storeOrder(),
-			'complete' 	=> $res->storeOrder(5),
-			'text'		=> $text->getAppData($_GET['lid']),
-			'admin'		=> Admin::find(1),
-			'app_type'	=> isset($l->id) ? $l->type : 0,
-			'store'		=> User::find($_GET['id']),
-			'overview'	=> $res->overView(),
-			'dboy'		=> Delivery::where('status', 0)->get()
+			'data' => $res->storeOrder(),
+			'complete' => $res->storeOrder(5),
+			'text' => $text->getAppData($_GET['lid']),
+			'admin' => Admin::find(1),
+			'app_type' => isset($l->id) ? $l->type : 0,
+			'store' => User::find($_GET['id']),
+			'overview' => $res->overView(),
+			'dboy' => Delivery::where('status', 0)->get()
 		]);
 	}
 
 	public function orderProcess()
 	{
 		try {
-			$res 		 = Order::find($_GET['id']);
-			$data_deli   = '';
+			$res = Order::find($_GET['id']);
+			$data_deli = '';
 			$res->status = $_GET['status'];
 			$res->save();
 
@@ -56,9 +56,9 @@ class StoreController extends Controller
 			// Cambiamos el status en FB 
 			$fb_server = new NodejsServer;
 			$dat_s = array(
-				'external_id' 	=> $res->external_id,
-				'status' 		=> $res->status,
-				'change_from'   => 'store_app'
+				'external_id' => $res->external_id,
+				'status' => $res->status,
+				'change_from' => 'store_app'
 			);
 			$fb_server->orderStatus($dat_s);
 
@@ -70,8 +70,8 @@ class StoreController extends Controller
 
 				// Enviamos al servidor
 				$dat_s = array(
-					'order_id'		=> $_GET['id'],
-					'type_staff'    => $type_staff,
+					'order_id' => $_GET['id'],
+					'type_staff' => $type_staff,
 				);
 
 				$data_deli = $fb_server->setStaffDelivery($dat_s);
@@ -110,10 +110,10 @@ class StoreController extends Controller
 
 	public function overview()
 	{
-		$res 	 = new User;
+		$res = new User;
 
 		return response()->json([
-			'data' 		=> $res->overview_app()
+			'data' => $res->overview_app()
 		]);
 	}
 
@@ -131,7 +131,7 @@ class StoreController extends Controller
 
 			$input['name'] = $data['username'];
 			$input['email'] = $data['email'];
-			$input['phone']	=  isset($data['phone']) ? $data['phone'] : null;
+			$input['phone'] = isset($data['phone']) ? $data['phone'] : null;
 			$input['password'] = bcrypt($data['password']);
 			$input['shw_password'] = $data['password'];
 			$input['status'] = 1;
@@ -195,11 +195,11 @@ class StoreController extends Controller
 	public function storeOpen($type)
 	{
 		try {
-			$res 		= User::find($_GET['user_id']);
+			$res = User::find($_GET['user_id']);
 
 			if (isset($res->id)) {
 
-				$res->open 	= $type;
+				$res->open = $type;
 				$res->save();
 			}
 
@@ -211,14 +211,14 @@ class StoreController extends Controller
 
 	public function updateInfo(Request $Request)
 	{
-		$res 				= User::find($Request->get('id'));
+		$res = User::find($Request->get('id'));
 
 		if ($Request->get('password')) {
-			$res->password      = bcrypt($Request->get('password'));
-			$res->shw_password  = $Request->get('password');
+			$res->password = bcrypt($Request->get('password'));
+			$res->shw_password = $Request->get('password');
 		}
 
-		$res->min_cart_value 		 = $Request->get('min_cart_value');
+		$res->min_cart_value = $Request->get('min_cart_value');
 		$res->delivery_charges_value = $Request->get('delivery_charges_value');
 		$res->save();
 
@@ -228,9 +228,9 @@ class StoreController extends Controller
 	public function updateLocation(Request $Request)
 	{
 		if ($Request->get('user_id') > 0) {
-			$add 			= Delivery::find($Request->get('user_id'));
-			$add->lat 		= $Request->get('lat');
-			$add->lng 		= $Request->get('lng');
+			$add = Delivery::find($Request->get('user_id'));
+			$add->lat = $Request->get('lat');
+			$add->lng = $Request->get('lng');
 			$add->save();
 		}
 
@@ -245,10 +245,40 @@ class StoreController extends Controller
 
 	public function changeStatus()
 	{
-		$res 		 = Item::find($_GET['id']);
+		$res = Item::find($_GET['id']);
 		$res->status = $_GET['status'];
 		$res->save();
 
 		return response()->json(['data' => true]);
 	}
+
+
+	/**
+	 * 
+	 * Seccion de mandaditos
+	 *
+	 */
+
+	public function OrderComm(Request $Request)
+	{
+		try {
+			$res = new Commaned;
+			return response()->json($res->addNew($Request->all()));
+		} catch (\Exception $th) {
+			return response()->json(['data' => 'error', 'error' => $th->getMessage()]);
+		}
+	}
+
+	public function ViewCostShipCommanded(Request $Request)
+	{
+		try {
+
+			$req = new Commaned;
+			return response()->json(['data' => $req->Costs_shipKM($Request->all())]);
+		} catch (\Exception $th) {
+			return response()->json(['data' => 'fail', 'error' => $th->getMessage()]);
+		}
+	}
+
+
 }
