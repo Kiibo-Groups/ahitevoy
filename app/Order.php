@@ -290,9 +290,9 @@ class Order extends Authenticatable
             }
          }
 
-      })->join('users', 'orders.store_id', '=', 'users.id')
-         ->leftjoin('delivery_boys', 'orders.d_boy', '=', 'delivery_boys.id')
-         ->select('users.name as store', 'orders.*', 'delivery_boys.name as dboy')
+      })->join('users', 'commaned.store_id', '=', 'users.id')
+         ->leftjoin('delivery_boys', 'commaned.d_boy', '=', 'delivery_boys.id')
+         ->select('users.name as store', 'commaned.*', 'delivery_boys.name as dboy')
          ->orderBy('id', 'DESC')
          ->get();
 
