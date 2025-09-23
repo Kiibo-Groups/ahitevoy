@@ -272,28 +272,14 @@ class Order extends Authenticatable
       /**
        * Servicios
        */
-      $commaned = Commaned::where(function ($query) use ($id) {
-
-         if ($id > 0) {
-            $query->where('commaned.d_boy', $id);
-         }
-
+      $commaned = Commaned::where(function ($query) {
          if (isset($_GET['id'])) {
             $query->where('commaned.d_boy', $_GET['id']);
          }
 
-         if (isset($_GET['status'])) {
-            if ($_GET['status'] == 3) {
-               $query->whereIn('commaned.status', [1.5, 3, 4]);
-            } else {
-               $query->whereIn('commaned.status', [5,6]);
-            }
-         }
+         $query->whereIn('commaned.status', [5,6]);
 
-      })->join('users', 'commaned.store_id', '=', 'users.id')
-         ->leftjoin('delivery_boys', 'commaned.d_boy', '=', 'delivery_boys.id')
-         ->select('users.name as store', 'commaned.*', 'delivery_boys.name as dboy')
-         ->orderBy('id', 'DESC')
+      })->orderBy('id', 'DESC')
          ->get();
 
       foreach ($commaned as $order) { 
