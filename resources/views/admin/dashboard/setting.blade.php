@@ -123,10 +123,10 @@
                                                 <label for="t_type_comm">Tipo de Comision</label>
                                                 <select name="t_type_comm" id="t_type_comm" class="form-control">
                                                     <option value="0"
-                                                        @if ($data->t_type_comm == 0) selected @endif>Valor fijo
+                                                        @if ($data->t_type_comm == 0) selected @endif>Valor por KM
                                                     </option>
                                                     <option value="1"
-                                                        @if ($data->t_type_comm == 1) selected @endif>Order %</option>
+                                                        @if ($data->t_type_comm == 1) selected @endif>Valor Fijo</option>
                                                 </select>
                                             </div>
 
@@ -136,7 +136,24 @@
                                                     value="{{ $data->t_value_comm }}" class="form-control">
                                             </div>
 
-                                            <div class="form-group col-md-6">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="min_distance_comm">Distancia minima de Servicio <small>(Distancia en
+                                                            KM de 0 a )</small> </label>
+                                                    <input type="text" name="min_distance_comm" value="{{ $data->min_distance_comm }}"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="min_value_comm">Cobro por el Minimo de servicio <small>(Valor Fijo en
+                                                            $)</small> </label>
+                                                    <input type="text" name="min_value_comm" value="{{ $data->min_value_comm }}"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                           <!--
+                                         <div class="form-group col-md-6">
                                                 <label for="shipping_insurance">% sobre el valor declarado <small>(Seguro
                                                         de envio)</small></label>
                                                 <input type="text" name="shipping_insurance" id="shipping_insurance"
@@ -147,7 +164,7 @@
                                                 <label for="max_insurance">Valor maximo para el valor declarado</label>
                                                 <input type="text" name="max_insurance" id="max_insurance"
                                                     value="{{ $data->max_insurance }}" class="form-control">
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

@@ -342,10 +342,10 @@ class Commaned extends Authenticatable
         $request = json_decode($output, true);
 
         $max_distance_staff = $admin->max_distance_staff; // Maxima distancia de notificacion para repartidores
-        $min_distance = $charge_delivy->min_distance; // Distancia minima del servicio
-        $type_value = $charge_delivy->c_type; // Tipo del valor KM/Fijo
-        $value = $charge_delivy->c_value; // Valor de la comision
-        $min_value = $charge_delivy->min_value; // Valor por el minimo del servicio
+        $min_distance = $charge_delivy->min_distance_comm; // Distancia minima del servicio
+        $type_value = $charge_delivy->t_type_comm; // Tipo del valor KM/Fijo
+        $value = $charge_delivy->t_value_comm; // Valor de la comision
+        $min_value = $charge_delivy->min_value_comm; // Valor por el minimo del servicio
         $distance = 0; // Distancia de un punto a otro
         $service = 0; // Status del servicio
         $costs_ship = 0; // Costos de envio
