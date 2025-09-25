@@ -135,22 +135,21 @@
                                                 <input type="text" name="t_value_comm" id="t_value_comm"
                                                     value="{{ $data->t_value_comm }}" class="form-control">
                                             </div>
-
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="min_distance_comm">Distancia minima de Servicio <small>(Distancia en
-                                                            KM de 0 a )</small> </label>
-                                                    <input type="text" name="min_distance_comm" value="{{ $data->min_distance_comm }}"
-                                                        class="form-control">
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label for="min_value_comm">Cobro por el Minimo de servicio <small>(Valor Fijo en
-                                                            $)</small> </label>
-                                                    <input type="text" name="min_value_comm" value="{{ $data->min_value_comm }}"
-                                                        class="form-control">
-                                                </div>
+ 
+                                            <div class="form-group col-md-6">
+                                                <label for="min_distance_comm">Distancia minima de Servicio <small>(Distancia en
+                                                        KM de 0 a )</small> </label>
+                                                <input type="text" name="min_distance_comm" value="{{ $data->min_distance_comm }}"
+                                                    class="form-control">
                                             </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="min_value_comm">Cobro por el Minimo de servicio <small>(Valor Fijo en
+                                                        $)</small> </label>
+                                                <input type="text" name="min_value_comm" value="{{ $data->min_value_comm }}"
+                                                    class="form-control">
+                                            </div>
+                                             
 
                                            <!--
                                          <div class="form-group col-md-6">
