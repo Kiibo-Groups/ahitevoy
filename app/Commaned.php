@@ -45,6 +45,19 @@ class Commaned extends Authenticatable
         $add->user_id = isset($data['user_id']) ? $data['user_id'] : null;
         $add->store_id = isset($data['store_id']) ? $data['store_id'] : null;
         $add->address_origin = isset($data['address_origin']) ? $data['address_origin'] : '';
+        
+        $add->name_origin = isset($data['name_client']) ? $data['name_client'] : ''; 
+        $add->phone_origin = isset($data['phone_client']) ? $data['phone_client'] : '';
+        
+        $dtcom = [
+            'name_client' => isset($data['name_client']) ? $data['name_client'] : 'null',
+            'phone_client' => isset($data['phone_client']) ? $data['phone_client'] : 'null',
+            'cost_order' => isset($data['cost_order']) ? $data['cost_order'] : 'null',
+            'pay_client' => isset($data['pay_client']) ? $data['pay_client'] : 'null',
+        ];
+
+        $add->data_comm    = json_encode($dtcom);
+        
         $add->lat_orig = isset($data['lat_orig']) ? $data['lat_orig'] : 0;
         $add->lng_orig = isset($data['lng_orig']) ? $data['lng_orig'] : 0;
         $add->address_destin = isset($data['address_destin']) ? $data['address_destin'] : '';
