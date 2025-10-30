@@ -427,6 +427,7 @@ class Order extends Authenticatable
                $tot_com = $order->total - $order->d_charges;
 
                $data[] = [
+                  'type' => 'delivery',
                   'id' => $order->id,
                   'store' => User::find($order->store_id),
                   'code_order' => $order->code_order,
