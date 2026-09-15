@@ -39,10 +39,20 @@
 				</select>
 			</div> 
 
-			<div class="form-group col-md-6 max_options">
-				<label for="inputEmail6">Maximo de opciones</label>
-				<input type="number" name="max_options" min="0" value="{{$data->max_options}}" placeholder="indique 0 para no poner restricción" class="form-control">
-			</div> 
+			<div class="max_options col-md-12 p-0 m-0 row">
+				<div class="form-group col-md-6">
+					<label for="inputEmail6">Maximo de opciones</label>
+					<input type="number" name="max_options" min="0" value="{{$data->max_options}}" placeholder="indique 0 para no poner restricción" class="form-control">
+				</div> 
+
+				<div class="form-group col-md-6">
+					<label for="inputEmail6">¿Permitir seleccionar cantidades por ítem?</label>
+					<select name="allow_qty" class="form-control">
+						<option value="0" @if($data->allow_qty == 0) selected @endif>No (Solo Checkboxes)</option>
+						<option value="1" @if($data->allow_qty == 1) selected @endif>Sí (Botones de Cantidad)</option>
+					</select>
+				</div> 
+			</div>
 
 			<div class="form-group col-md-6">
 				<label for="inputEmail6">Identificador de elemento <small>(Solo tu lo veras)</small></label>

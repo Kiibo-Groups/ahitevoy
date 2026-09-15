@@ -161,8 +161,13 @@ class DboyController extends Controller
 					} else {
 						$res->d_boy = $_GET['d_boy'];
 						$res->save();
+						// Marcamos al repartidor ocupado.
+				
+						$staff = Delivery::find($res->d_boy);
+						$staff->status_send = 0;
+						$staff->save();
 
-
+						
 						// Notificamos al comercio que el repartidor acepto el pedido
 						app('App\Http\Controllers\Controller')->sendPushS("Repartidor en camino", "El repartidor ha aceptado el pedido, y va en camino.", $res->store_id);
 

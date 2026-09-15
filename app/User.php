@@ -233,7 +233,10 @@ class User extends Authenticatable
         $lon = isset($_GET['lng']) ? $_GET['lng'] : 0;
 
         $res = User::where(function ($query) use ($city_id, $trending) {
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
             if (isset($_GET['banner'])) {
                 $sid = BannerStore::where('banner_id', $_GET['banner'])->pluck('store_id')->toArray();
                 $query->whereIn('users.id', $sid);
@@ -254,7 +257,10 @@ class User extends Authenticatable
         $lon = isset($_GET['lng']) ? $_GET['lng'] : 0;
         $res = User::where(function ($query) use ($city_id) {
 
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
             $query->where('users.trending', 1);
         })->select('users.*', DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
             * cos(radians(users.lat)) 
@@ -276,7 +282,10 @@ class User extends Authenticatable
 
         $res = User::where(function ($query) use ($city_id, $val) {
 
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
 
             if (isset($val)) {
                 $q = $val;
@@ -347,7 +356,10 @@ class User extends Authenticatable
         $init = isset($_GET['init']) ? $_GET['init'] : 0;
 
         $res = User::where(function ($query) use ($city_id) {
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
         })->select('users.*', DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
             * cos(radians(users.lat))
             * cos(radians(users.lng) - radians(" . $lon . "))
@@ -454,7 +466,10 @@ class User extends Authenticatable
 
         $res = User::where(function ($query) use ($city_id) {
 
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
 
             if (isset($_GET['cat'])) {
                 $query->where('type', $_GET['cat']);
@@ -589,7 +604,10 @@ class User extends Authenticatable
 
         $res = User::where(function ($query) use ($city_id) {
 
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
 
         })->select('users.*', DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
         * cos(radians(users.lat)) 
@@ -1212,7 +1230,10 @@ class User extends Authenticatable
         $lon = isset($_GET['lng']) ? $_GET['lng'] : 0;
 
         $res = User::where(function ($query) use ($city_id) {
-            $query->where('status', 0)->where('city_id', $city_id);
+            $query->where('status', 0);
+            if ($city_id > 0) {
+                $query->where('city_id', $city_id);
+            }
         })->orderBy('id', 'DESC')->get();
 
         return $res->count();
@@ -1222,6 +1243,10 @@ class User extends Authenticatable
     {
         $req = null;
         $admin = Admin::find(1);
+
+        if ($lat_orig == 0 && $lng_orig == 0) {
+            return ['costs_ship' => 0, 'duration' => '0'];
+        }
 
         if ($type == 1) {
             // Los cobros son del admin
@@ -1971,6 +1996,9 @@ class User extends Authenticatable
 
     public function GetMax_distance($store_id, $distance_max, $latD, $lngD)
     {
+        if ($latD == 0 && $lngD == 0) {
+            return 1;
+        }
 
         $usr = User::where('id', $store_id)
             ->select('users.*', DB::raw("6371 * acos(cos(radians(" . $latD . "))

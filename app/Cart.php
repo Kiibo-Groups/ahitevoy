@@ -68,20 +68,21 @@ class Cart extends Authenticatable
         {
             $res            = Cart::where('cart_no',$_GET['cart_no'])->where('item_id',$id)->first();
             $qty            = $res->qty;
-            $res->qty       = $qty - 1;
+            $res->qty       = $type == 0 ? $qty - 1 : $qty + 1;
             $res->save();
 
             // Bajamos en Complementos
-            $addons         = CartAddon::where('cart_id',$_GET['cart_no'])->where('item_id',$id)->get();
+            $addons         = CartAddon::where('cart_id',$res->id)->where('item_id',$id)->get();
 
             foreach ($addons as $ads) {
-                $ads->qty    = $type == 0 ? $qty - 1 : $qty + 1;
+                $addon_qty_per_item = $qty > 0 ? ($ads->qty / $qty) : 0;
+                $ads->qty    = $addon_qty_per_item * $res->qty;
                 $ads->save();
             }
 
             if($res->qty <= 0)
             {
-                CartAddon::where('cart_id',$_GET['cart_no'])->where('item_id',$id)->delete();
+                CartAddon::where('cart_id',$res->id)->where('item_id',$id)->delete();
                 $res->delete();
             }
 
@@ -99,16 +100,17 @@ class Cart extends Authenticatable
             $res->save();
             
              // Bajamos en Complementos
-             $addons         = CartAddon::where('cart_id',$id)->where('item_id',$res->item_id)->get();
+             $addons         = CartAddon::where('cart_id',$res->id)->where('item_id',$res->item_id)->get();
 
              foreach ($addons as $ads) {
-                 $ads->qty    = $type == 0 ? $qty - 1 : $qty + 1;
+                 $addon_qty_per_item = $qty > 0 ? ($ads->qty / $qty) : 0;
+                 $ads->qty    = $addon_qty_per_item * $res->qty;
                  $ads->save();
              }
  
              if($res->qty <= 0)
              {
-                CartAddon::where('cart_id',$id)->where('item_id',$res->item_id)->delete();
+                CartAddon::where('cart_id',$res->id)->where('item_id',$res->item_id)->delete();
                 $res->delete();
             }
 

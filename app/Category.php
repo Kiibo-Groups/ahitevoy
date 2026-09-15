@@ -57,6 +57,7 @@ class Category extends Authenticatable
         $add->required      = isset($data['required']) ? $data['required'] : 0;
         $add->single_option = isset($data['single_option']) ? $data['single_option'] : 0;
         $add->max_options   = isset($data['max_options']) ? $data['max_options'] : 0;
+        $add->allow_qty     = isset($data['allow_qty']) ? $data['allow_qty'] : 0;
         $add->id_element    = isset($data['id_element']) ? $data['id_element'] : '';
         $add->sort_no       = isset($data['sort_no']) ? $data['sort_no'] : 0;
         $add->s_data        = serialize($a);
