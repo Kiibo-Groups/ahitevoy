@@ -1494,7 +1494,8 @@ class User extends Authenticatable
                 'name' => $data->name,
                 'required' => $data->required,
                 'single_opcion' => $data->single_option,
-                'max_options' => $data->max_options
+                'max_options' => $data->max_options,
+                'allow_qty' => $data->allow_qty
             ];
         }
 
@@ -1545,6 +1546,7 @@ class User extends Authenticatable
                 'required' => $this->getLangCate($cate->category_id, $_GET['lid'])['required'],
                 'single_opcion' => $this->getLangCate($cate->category_id, $_GET['lid'])['single_opcion'],
                 'max_options' => $this->getLangCate($cate->category_id, $_GET['lid'])['max_options'],
+                'allow_qty' => $this->getLangCate($cate->category_id, $_GET['lid'])['allow_qty'],
                 'items' => $item
             ];
 
