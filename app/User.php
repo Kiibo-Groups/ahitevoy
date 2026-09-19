@@ -284,9 +284,9 @@ class User extends Authenticatable
 
             $query->where('status', 0);
 
-            // if ($city_id > 0) {
-            //     $query->where('city_id', $city_id);
-            // }
+            if ($city_id != null) {
+                $query->where('city_id', $city_id);
+            }
 
             if (isset($val)) {
                 $q = $val;
