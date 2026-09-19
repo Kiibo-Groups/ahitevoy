@@ -463,7 +463,7 @@ class User extends Authenticatable
         $res = User::where(function ($query) use ($city_id) {
 
             $query->where('status', 0);
-            if ($city_id > 0) {
+            if ($city_id != 'null') {
                 $query->where('city_id', $city_id);
             }
 
