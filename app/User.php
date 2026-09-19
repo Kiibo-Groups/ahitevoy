@@ -292,12 +292,7 @@ class User extends Authenticatable
                 $query->whereRaw('lower(name) like "%' . strtolower($q) . '%"');
             }
 
-        })->select('users.*', DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
-                * cos(radians(users.lat)) 
-                * cos(radians(users.lng) - radians(" . $lon . ")) 
-                + sin(radians(" . $lat . ")) 
-                * sin(radians(users.lat))) AS distance"))
-            ->orderBy('id', 'DESC')->get();
+        })->orderBy('id', 'DESC')->get();
 
         return $this->SaveData($res, $lat, $lon);
     }

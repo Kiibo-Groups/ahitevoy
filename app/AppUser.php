@@ -180,7 +180,6 @@ class AppUser extends Authenticatable
 
     public function forgot($data)
     {
-        \Log::info('Iniciando forgot password para: ' . $data['email']);
         try {
             $res = AppUser::where('email', $data['email'])->first();
 
