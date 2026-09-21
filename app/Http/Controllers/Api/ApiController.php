@@ -862,17 +862,17 @@ class ApiController extends Controller
 				case 'user' : 
 					$title .= 'Usuarios';
 					// Notificamos al Usuario
-					app('App\Http\Controllers\Controller')->sendPush($title, $msg, $id);
+					return app('App\Http\Controllers\Controller')->sendPush($title, $msg, $id);
 					break;
 				case 'store' :
 					$title .= 'Negocios';
 					// Notificamos al Negocio
-		            app('App\Http\Controllers\Controller')->sendPushS($title, $msg, $id);
+		            return app('App\Http\Controllers\Controller')->sendPushS($title, $msg, $id);
 					break;
 				case 'staff' :
 					$title .= 'Repartidores';
 					// Notificamos al repartidor
-		            app('App\Http\Controllers\Controller')->sendPushD($title, $msg, $id);
+		            return app('App\Http\Controllers\Controller')->sendPushD($title, $msg, $id);
 					break;
 			}
 
