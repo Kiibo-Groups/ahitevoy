@@ -61,7 +61,7 @@ Route::group(array('namespace' => 'Api'), function () {
     Route::get('lang', 'ApiController@lang');
     Route::get('makeStripePayment', 'ApiController@stripe');
     Route::get('getStatus/{id}', 'ApiController@getStatus');
-    Route::get('sendPushprueba/{id}', 'ApiController@sendPushprueba');
+    Route::get('sendPushprueba/{type}/{id}', 'ApiController@sendPushprueba');
     Route::get('getPolylines', 'ApiController@getPolylines');
     Route::get('getChat/{id}', 'ApiController@getChat');
     Route::get('getEventsDetails/{id}', 'ApiController@getEventsDetails');
