@@ -846,4 +846,35 @@ class ApiController extends Controller
 			return response()->json(['data' => 'error', 'error' => $th->getMessage()]);
 		}
 	}
+
+
+	/**
+	 * 
+	 * prueba de notificaciones
+	 * 
+	 */
+	public function sendPushprueba($type , $id) {
+
+			$title = "Mensaje nuevo ";
+			$msg = "Esta es una notificacion de prueba";
+
+			switch($type) {
+				case 'user' : 
+					$title .= 'Usuarios';
+					// Notificamos al Usuario
+					app('App\Http\Controllers\Controller')->sendPush($title, $msg, $id);
+					break;
+				case 'store' :
+					$title .= 'Negocios';
+					// Notificamos al Negocio
+		            app('App\Http\Controllers\Controller')->sendPushS($title, $msg, $id);
+					break;
+				case 'staff' :
+					$title .= 'Repartidores';
+					// Notificamos al repartidor
+		            app('App\Http\Controllers\Controller')->sendPushD($title, $msg, $id);
+					break;
+			}
+
+	}
 }
