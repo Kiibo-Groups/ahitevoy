@@ -8,7 +8,7 @@ use App\Http\Controllers\OpenpayController;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Validator;
-use Illuminate\Support\Facades\Mail;
+// Resend.com — no se necesita el facade Mail de Laravel
 class AppUser extends Authenticatable
 {
     protected $table = 'app_user';
@@ -185,7 +185,7 @@ class AppUser extends Authenticatable
 
             if (!isset($res->id)) {
                 return [
-                    'msg' => 'error',
+                    'msg'   => 'error',
                     'error' => '¡Lo siento! Este correo electrónico no está registrado con nosotros.'
                 ];
             }
@@ -194,27 +194,55 @@ class AppUser extends Authenticatable
             $res->otp = $otp;
             $res->save();
 
-            Mail::send(
-                'emails.forgot', 
-                array(
-                    'user' => $res,
-                    'otp' => $otp
-                ), 
-                function($message) use ($res) {
-                    $message->from("ahitevoyaltamira@gmail.com", "AhiTeVoy")
-                        ->to($res->email, $res->name)
-                        ->subject('Código de acceso - AhiTeVoy');
-                }
-            );
+            // Renderizamos el template Blade como HTML puro
+            $htmlBody = view('emails.forgot', [
+                'user' => $res,
+                'otp'  => $otp,
+            ])->render();
+
+            // Enviamos via Resend.com HTTP API
+            $resendApiKey = env('RESEND_API_KEY');
+            $payload = json_encode([
+                'from'    => 'AhiTeVoy <noreply@ahitevoy.com>',
+                'to'      => [$res->email],
+                'subject' => 'Código de acceso - AhiTeVoy',
+                'html'    => $htmlBody,
+            ]);
+
+            $ch = curl_init('https://api.resend.com/emails');
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST           => true,
+                CURLOPT_POSTFIELDS     => $payload,
+                CURLOPT_HTTPHEADER     => [
+                    'Authorization: Bearer ' . $resendApiKey,
+                    'Content-Type: application/json',
+                ],
+            ]);
+
+            $response   = curl_exec($ch);
+            $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError  = curl_error($ch);
+            curl_close($ch);
+
+            if ($curlError) {
+                throw new \Exception('cURL error: ' . $curlError);
+            }
+
+            $decoded = json_decode($response, true);
+
+            if ($httpStatus < 200 || $httpStatus >= 300) {
+                throw new \Exception('Resend API error (' . $httpStatus . '): ' . $response);
+            }
 
             return ['msg' => 'done', 'user_id' => $res->id];
 
         } catch (\Exception $e) {
             \Log::error('Error en forgot password: ' . $e->getMessage());
             return [
-                'msg' => 'error',
+                'msg'   => 'error',
                 'error' => 'Error al enviar el correo. Por favor contacta al administrador.',
-                'eq' => $e->getMessage()
+                'eq'    => $e->getMessage()
             ];
         }
 
