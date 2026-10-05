@@ -102,7 +102,7 @@ class AddonController extends Controller {
 		$cate = new Category;	
 		return View($this->folder.'edit',[
 			'data' => Addon::find($id),
-			'cates' 	=> $cate->getAll(),
+			'cates' 	=>  Category::where('store_id',Auth::user()->id)->where('type',1)->get(),
 			'form_url' => env('user').'/addon/'.$id]);
 	}
 	
